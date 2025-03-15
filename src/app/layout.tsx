@@ -33,8 +33,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="max-w-screen-md min-w-[320px] mx-auto transition-colors ease-in-out duration-200 dark:bg-black">
-        <main className="flex flex-col w-full h-full">{children}</main>
+      <body className="layout-body">
+        <main className="layout-main">{children}</main>
       </body>
     </html>
   );

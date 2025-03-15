@@ -1,6 +1,9 @@
 function HomeContent() {
+  // 헤더 - home, about me, blog, theme changer,
+  // 푸터 - copyright ~~~
+
   return (
-    <section className="w-full flex flex-col items-center justify-center text-center max-w-screen-md min-h-[calc(100vh)] bg-blue-500">
+    <section className="home-section border-2 border-blue-500">
       <div>HELLO, my space🛸</div>
     </section>
   );
