@@ -36,3 +36,7 @@ body {
 .home-section {
   @apply w-full flex flex-col items-center justify-center text-center max-w-screen-md min-h-[calc(100vh)];
 }
+
+.page-layout {
+  @apply pt-10 pb-14 px-3 sm:pt-24 border-2 border-green-500;
+}
