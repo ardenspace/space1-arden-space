@@ -7,8 +7,6 @@ export default function Header() {
   // 헤더에 들어갈 것: HOME / ARDEN? / BLOG
 
   const NAVLiNK = ({ title, href }: { title: string; href: string }) => {
-    console.log(title, href, "eeeee");
-
     return (
       <Link href={href}>
         <span>{title}</span>

@@ -38,5 +38,5 @@ body {
 }
 
 .page-layout {
-  @apply pt-10 pb-14 px-3 sm:pt-24 border-2 border-green-500;
+  @apply pt-10 pb-14 px-3 sm:pt-24;
 }

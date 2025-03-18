@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Diameter, Circle, Cat, Heart } from "lucide-react";
+import { allPosts } from "@/contentlayer/generated";
 
 export default function BlogPage() {
   return (
