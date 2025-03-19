@@ -6,6 +6,7 @@ import { Diameter, Circle, Cat, Heart } from "lucide-react";
 import { allPosts } from "@/contentlayer/generated";
 
 export default function BlogPage() {
+  console.log(allPosts, "allPosts");
   return (
     <section className="flex flex-col gap-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-x-4 gap-y-8">
