@@ -1,0 +1,26 @@
+:root {
+  --bgMain: #eeeeee;
+  --bgSecond: #aaaaaa;
+  --bgHello: #01027a;
+  --bgWhite: #fefefe;
+}
+
+.bg-bgMain {
+  background-color: var(--bgMain);
+}
+.bg-bgSecond {
+  background-color: var(--bgSecond);
+}
+.bg-bgHello {
+  background-color: var(--bgHello);
+}
+.bg-bgWhite {
+  background-color: var(--bgWhite);
+}
+.border-bgSecond {
+  border: 3px solid var(--bgSecond);
+}
+.border-bgWhite {
+  border: 3px solid var(--bgWhite);
+  border-bottom: none;
+}

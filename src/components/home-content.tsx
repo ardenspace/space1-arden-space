@@ -4,27 +4,26 @@ function HomeContent() {
   // 헤더 - home, about me, blog, theme changer,
   // 푸터 - copyright ~~~
 
-  const icons = [1, 2, 3];
-
   return (
-    <section className="home-section">
-      <div className="w-full flex items-center justify-between px-4 bg-[#01027A] h-8">
-        <span className="text-white font-bold text-md">hello, space!</span>
-        <div className="flex">
-          {icons.map((icon, index) => (
-            <div
-              key={index}
-              className={`flex items-center justify-center h-6 w-6 bg-[#EBEBEB] ${
-                icon === 3 ? "ml-1" : ""
-              }`}
-            >
-              <Cat size={21} />
-            </div>
-          ))}
-        </div>
+    <section>
+      <div className="border">
+        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
       </div>
-      <div>여기에 헤더</div>
-      <div>여기에 내용</div>
+      <div className="border">
+        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
+      </div>
+      <div className="border">
+        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
+      </div>
+      <div className="border">
+        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
+      </div>
+      <div className="border">
+        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
+      </div>
+      <div className="border">
+        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
+      </div>
     </section>
   );
 }
