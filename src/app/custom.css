@@ -1,8 +1,15 @@
+/*
+border 추천 
+#8A8A8A
+#aaaaaa
+ */
+
 :root {
   --bgMain: #eeeeee;
   --bgSecond: #aaaaaa;
   --bgHello: #01027a;
   --bgWhite: #fefefe;
+  --ttBlack: #1c1c1c;
 }
 
 .bg-bgMain {
@@ -22,5 +29,4 @@
 }
 .border-bgWhite {
   border: 3px solid var(--bgWhite);
-  border-bottom: none;
 }

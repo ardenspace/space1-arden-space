@@ -15,12 +15,12 @@ body {
 }
 
 .home-section {
-  @apply w-full flex flex-col justify-center items-center text-center max-w-screen-md min-h-[calc(100vh-50px)];
+  @apply w-full flex flex-col justify-center items-center text-center max-w-screen-md min-h-[calc(100vh-30px)];
   border: solid 3px var(--bgWhite);
 }
 
 .page-layout {
-  @apply pt-10 pb-14 px-3 sm:pt-40 min-h-[calc(100vh-50px)];
+  @apply pt-35 min-h-[calc(100vh)];
   border: solid 3px var(--bgWhite);
   background-color: var(--bgMain);
 }
@@ -30,5 +30,5 @@ body {
   border-top-right-radius: 15px;
   border: solid 3px var(--bgSecond);
   border-bottom: none;
-  padding: 5px 25px;
+  padding: 7px 25px;
 }
