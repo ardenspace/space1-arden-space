@@ -18,8 +18,8 @@ export default function Header() {
         <span
           className={`tab-item-layout ${
             isActive
-              ? "bg-bgMain text-[#AAAAAA] font-bold"
-              : "bg-bgSecond text-[#FEFEFE] font-light"
+              ? "bg-bgMain text-[var(--bgSecond)] font-bold"
+              : "bg-bgSecond text-[var(--bgWhite)] font-light"
           }`}
         >
           {title}
@@ -29,8 +29,8 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed w-full flex max-w-screen-md z-9 bg-bgMain border-3 border-t-[#FEFEFE] border-r-[#FEFEFE] border-l-[#FEFEFE] border-b-3 border-b-[#AAAAAA]">
-      <nav className="w-full">
+    <header className="fixed w-full flex max-w-screen-md z-50 bg-bgMain border-3 border-t-[var(--bgWhite)] border-r-[var(--bgWhite)] border-l-[var(--bgWhite)] border-b-0">
+      <nav className="w-full border-b-3 border-b-[var(--bgSecond)]">
         <div className="w-full flex items-center justify-between px-5 bg-bgHello h-10 border-bgSecond">
           <span className="text-white font-bold text-sm">
             Hello, arden'space!
@@ -39,7 +39,7 @@ export default function Header() {
             {icons.map((_, index) => (
               <div
                 key={index}
-                className="flex items-center justify-center h-6 w-6 bg-bgWhite ml-1 rounded-[2px]"
+                className="flex items-center justify-center h-6 w-6 bg-bgWhite ml-1 rounded-2"
               >
                 <Cat size={19} />
               </div>
@@ -47,12 +47,12 @@ export default function Header() {
           </div>
         </div>
 
-        <ul className="flex justify-between mt-15 px-4">
-          <div className="">
+        <ul className="flex justify-between mt-13 px-4">
+          <div>
             <NAVLiNK title="Home" href="/" />
             <NAVLiNK title="Blog" href="/blog" />
           </div>
-          <div className="ml-auto">
+          <div>
             <NAVLiNK title="Arden" href="/about" />
           </div>
         </ul>
