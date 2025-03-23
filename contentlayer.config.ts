@@ -23,15 +23,15 @@ export const Post = defineDocumentType(() => ({
       type: "string",
       required: false,
     },
-    createdAt: {
+    date: {
       type: "string",
       required: true,
     },
   },
   computedFields: {
-    slug: {
+    url: {
       type: "string",
-      resolve: (post) => post._raw.sourceFileName.replace(".mdx", ""),
+      resolve: (post) => `/posts/${post._raw.flattenedPath}`,
     },
   },
 }));
@@ -43,7 +43,7 @@ const rehypePrettyCodeOptions = {
 
 const contentSource = makeSource({
   // 마크다운 파일이 저장되어 있는 루트 폴더
-  contentDirPath: "posts",
+  contentDirPath: "src/app/posts",
   documentTypes: [Post],
   mdx: {
     rehypePlugins: [
