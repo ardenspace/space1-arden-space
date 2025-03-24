@@ -37,7 +37,7 @@ export default function BlogPage() {
   }, [allPosts]);
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col overflow-visible">
       <CategoryMenu
         categories={Object.keys(categorizedPosts)}
         selectedCategory={selectedCategory}
