@@ -21,7 +21,7 @@ export const Post = defineDocumentType(() => ({
     },
     thumbnail: {
       type: "string",
-      required: false,
+      required: true,
     },
     date: {
       type: "string",

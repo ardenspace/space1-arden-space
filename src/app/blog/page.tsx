@@ -11,6 +11,7 @@ export interface CategoryPost {
   description: string;
   category: string;
   date: string;
+  thumbnail: string;
 }
 interface PostsCategory {
   [category: string]: CategoryPost[];
