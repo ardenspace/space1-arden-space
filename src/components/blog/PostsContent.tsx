@@ -22,7 +22,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
               </div>
             </div>
             <div className="flex flex-col bg-[#fdecf7] pt-4 px-3 pb-4">
-              <div className="h-[200px] border-t border-l border-3 border-[rgba(35,196,175,0.7)]">
+              <div className="h-[200px] border-t border-l border-3 border-[#fefefe]">
                 <Image
                   unoptimized
                   width={300}
@@ -41,7 +41,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
               >
                 {post.description}
               </div>
-              <div className="w-full flex items-center justify-center border-b border-r border-1 border-[rgba(0,0,0,0.4)] h-8 shadow-[3px_3px_2px_rgba(35,196,175,0.7)] mt-3 rounded-xs">
+              <div className="w-full flex items-center justify-center border-b border-r border-3 border-[#fefefe] h-8 shadow-[3px_3px_1px_rgba(35,196,175,0.7)] mt-3 rounded-xs">
                 play now!
               </div>
             </div>
