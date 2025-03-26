@@ -5,25 +5,8 @@ function HomeContent() {
   // 푸터 - copyright ~~~
 
   return (
-    <section>
-      <div className="border">
-        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
-      </div>
-      <div className="border">
-        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
-      </div>
-      <div className="border">
-        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
-      </div>
-      <div className="border">
-        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
-      </div>
-      <div className="border">
-        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
-      </div>
-      <div className="border">
-        여기는 홈입니다 여기에 밀면 애니메이션 넘겨지는 거 할 거임 ㅎㅎ
-      </div>
+    <section className="w-full flex flex-col justify-center items-center">
+      <div className="w-[90%] md:w-[80%] min-h-[28vh] bg-red-200"></div>
     </section>
   );
 }
