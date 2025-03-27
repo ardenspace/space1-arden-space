@@ -32,3 +32,25 @@ body {
   border-bottom: none;
   padding: 7px 25px;
 }
+
+/* x-scroll custom */
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background: var(--bgWhite);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #c3b3ff;
+    border: solid 2px var(--bgWhite);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
+}

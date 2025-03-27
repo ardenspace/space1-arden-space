@@ -22,7 +22,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
               </div>
             </div>
             <div className="flex flex-col bg-[#fdecf7] pt-4 px-3 pb-4">
-              <div className="h-[200px] border-t border-l border-3 border-[#fefefe]">
+              <div className="h-[200px] border-t border-l border-3 border-[#fefefe] shadow-[-2px_-2px_1px_rgba(35,196,175,0.7)]">
                 <Image
                   unoptimized
                   width={300}
