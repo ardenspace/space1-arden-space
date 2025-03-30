@@ -36,21 +36,24 @@ body {
 /* x-scroll custom */
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
-    width: 20px;
+    box-shadow: -2px -2px 1px rgba(0, 0, 0, 2);
     height: 20px;
   }
 
   .scrollbar::-webkit-scrollbar-track {
+    box-shadow: -2px -2px 1px rgba(0, 0, 0, 2);
     border-radius: 2px;
-    background: var(--bgWhite);
+    background: #abacac;
+    border: solid 2px var(--bgWhite);
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
-    background: #c3b3ff;
+    background: #6948d6;
+    /* #c3b3ff */
     border: solid 2px var(--bgWhite);
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #c0a0b9;
+    background: #c3b3ff;
   }
 }
