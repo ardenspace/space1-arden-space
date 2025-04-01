@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { allPosts, Post } from "@/contentlayer/generated";
 import PostsContent from "@/components/blog/PostsContent";
-import { Folder, FolderClosed } from "lucide-react";
 import CategoryMenu from "@/components/blog/CategroyMenu";
+import Test from "../posts/test.mdx";
 
 export interface CategoryPost {
   title: string;
@@ -39,13 +39,14 @@ export default function BlogPage() {
 
   return (
     <section className="flex flex-col overflow-visible">
-      <CategoryMenu
+      <Test />
+      {/* <CategoryMenu
         categories={Object.keys(categorizedPosts)}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
 
-      <PostsContent posts={categorizedPosts[selectedCategory] || []} />
+      <PostsContent posts={categorizedPosts[selectedCategory] || []} /> */}
     </section>
   );
 }

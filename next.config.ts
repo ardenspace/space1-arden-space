@@ -1,8 +1,11 @@
-import type { NextConfig } from "next";
-import { withContentlayer } from "next-contentlayer";
+import createMDX from "@next/mdx";
 
-const nextConfig: NextConfig = {
-  reactStrictMode: true,
+const nextConfig = {
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
-export default withContentlayer(nextConfig);
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+});
+
+export default withMDX(nextConfig);
