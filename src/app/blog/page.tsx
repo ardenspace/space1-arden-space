@@ -1,52 +1,54 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { allPosts, Post } from "@/contentlayer/generated";
+import { getCategories } from "@/lib/categories";
+import { getPosts, Post } from "@/lib/posts";
 import PostsContent from "@/components/blog/PostsContent";
 import CategoryMenu from "@/components/blog/CategroyMenu";
-import Test from "../posts/test.mdx";
 
-export interface CategoryPost {
-  title: string;
-  description: string;
-  category: string;
-  date: string;
-  thumbnail: string;
-}
 interface PostsCategory {
-  [category: string]: CategoryPost[];
+  [category: string]: Post[];
 }
 
 export default function BlogPage() {
+  const [categories, setCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [categorizedPosts, setCategorizedPosts] = useState<PostsCategory>({});
-  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
-    if (allPosts.length === 0) return;
+    async function fetchData() {
+      const fetchedCategories = await getCategories();
+      const fetchedPosts = await getPosts();
 
-    const categorized = allPosts.reduce((acc: PostsCategory, post: Post) => {
-      const { category } = post;
-      if (!acc[category]) acc[category] = [];
-      acc[category].push(post);
-      return acc;
-    }, {});
+      setCategories(fetchedCategories);
+      setSelectedCategory(fetchedCategories[0] || "");
 
-    // 카테고리 별로 정리
-    setCategorizedPosts(categorized);
-    // 첫번째 카테고리로 초기값 지정
-    setSelectedCategory(Object.keys(categorized)[0] || "");
-  }, [allPosts]);
+      // 카테고리별로 포스트 정리
+      const categorized = fetchedPosts.reduce(
+        (acc: PostsCategory, post: Post) => {
+          const { category } = post;
+          if (!acc[category]) acc[category] = [];
+          acc[category].push(post);
+          return acc;
+        },
+        {}
+      );
+
+      setCategorizedPosts(categorized);
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <section className="flex flex-col overflow-visible">
-      <Test />
-      {/* <CategoryMenu
-        categories={Object.keys(categorizedPosts)}
+      <CategoryMenu
+        categories={categories}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
 
-      <PostsContent posts={categorizedPosts[selectedCategory] || []} /> */}
+      <PostsContent posts={categorizedPosts[selectedCategory] || []} />
     </section>
   );
 }
