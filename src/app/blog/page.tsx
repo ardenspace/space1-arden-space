@@ -1,49 +1,45 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getCategories } from "@/lib/categories";
-import { getPosts, Post } from "@/lib/posts";
+import { allPosts, Post } from "@/contentlayer/generated";
 import PostsContent from "@/components/blog/PostsContent";
 import CategoryMenu from "@/components/blog/CategroyMenu";
 
+export interface CategoryPost {
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  thumbnail: string;
+}
 interface PostsCategory {
-  [category: string]: Post[];
+  [category: string]: CategoryPost[];
 }
 
 export default function BlogPage() {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [categorizedPosts, setCategorizedPosts] = useState<PostsCategory>({});
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
-    async function fetchData() {
-      const fetchedCategories = await getCategories();
-      const fetchedPosts = await getPosts();
+    if (allPosts.length === 0) return;
 
-      setCategories(fetchedCategories);
-      setSelectedCategory(fetchedCategories[0] || "");
+    const categorized = allPosts.reduce((acc: PostsCategory, post: Post) => {
+      const { category } = post;
+      if (!acc[category]) acc[category] = [];
+      acc[category].push(post);
+      return acc;
+    }, {});
 
-      // 카테고리별로 포스트 정리
-      const categorized = fetchedPosts.reduce(
-        (acc: PostsCategory, post: Post) => {
-          const { category } = post;
-          if (!acc[category]) acc[category] = [];
-          acc[category].push(post);
-          return acc;
-        },
-        {}
-      );
-
-      setCategorizedPosts(categorized);
-    }
-
-    fetchData();
-  }, []);
+    // 카테고리 별로 정리
+    setCategorizedPosts(categorized);
+    // 첫번째 카테고리로 초기값 지정
+    setSelectedCategory(Object.keys(categorized)[0] || "");
+  }, [allPosts]);
 
   return (
     <section className="flex flex-col overflow-visible">
       <CategoryMenu
-        categories={categories}
+        categories={Object.keys(categorizedPosts)}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
