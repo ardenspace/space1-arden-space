@@ -1,50 +1,23 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { allPosts, Post } from "@/contentlayer/generated";
-import PostsContent from "@/components/blog/PostsContent";
-import CategoryMenu from "@/components/blog/CategroyMenu";
-
-export interface CategoryPost {
-  title: string;
-  description: string;
-  category: string;
-  date: string;
-  thumbnail: string;
-}
-interface PostsCategory {
-  [category: string]: CategoryPost[];
-}
+import { getMetaData } from "@/lib/posts";
+import ClientBlogPage from "./ClientBlogPage";
 
 export default function BlogPage() {
-  const [categorizedPosts, setCategorizedPosts] = useState<PostsCategory>({});
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const postsMetaData = getMetaData();
 
-  useEffect(() => {
-    if (allPosts.length === 0) return;
+  const categorized = postsMetaData.reduce((acc, post) => {
+    if (!acc[post.category]) acc[post.category] = [];
+    acc[post.category].push(post);
+    return acc;
+  }, {} as Record<string, typeof postsMetaData>);
 
-    const categorized = allPosts.reduce((acc: PostsCategory, post: Post) => {
-      const { category } = post;
-      if (!acc[category]) acc[category] = [];
-      acc[category].push(post);
-      return acc;
-    }, {});
-
-    // 카테고리 별로 정리
-    setCategorizedPosts(categorized);
-    // 첫번째 카테고리로 초기값 지정
-    setSelectedCategory(Object.keys(categorized)[0] || "");
-  }, [allPosts]);
+  const categories = Object.keys(categorized);
+  const selectedCategory = categories[0] || "";
 
   return (
-    <section className="flex flex-col overflow-visible">
-      <CategoryMenu
-        categories={Object.keys(categorizedPosts)}
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      />
-
-      <PostsContent posts={categorizedPosts[selectedCategory] || []} />
-    </section>
+    <ClientBlogPage
+      categories={categories}
+      categorizedPosts={categorized}
+      initialCategory={selectedCategory}
+    />
   );
 }

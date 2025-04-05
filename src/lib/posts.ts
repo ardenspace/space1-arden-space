@@ -1,53 +1,55 @@
-import fs from "fs/promises";
+import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
 
-const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
-
-export interface Post {
+export type PostMeta = {
   title: string;
   description: string;
-  category: string;
   date: string;
-  thumbnail: string;
+  category: string;
   slug: string;
+  thumbnail: string;
+};
+
+const contentDir = path.join(process.cwd(), "src/contents");
+
+// 메타데이터 가져오는 함수
+export function getMetaData(): PostMeta[] {
+  const categories = fs.readdirSync(contentDir);
+
+  return categories.flatMap((category) => {
+    const categoryDir = path.join(contentDir, category);
+    const files = fs
+      .readdirSync(categoryDir)
+      .filter((file) => file.endsWith(".mdx"));
+
+    return files.map((file) => {
+      const slug = file.replace(/\.mdx$/, "");
+      const filePath = path.join(categoryDir, file);
+      const source = fs.readFileSync(filePath, "utf8");
+      const { data } = matter(source);
+
+      return {
+        ...(data as Omit<PostMeta, "category" | "slug">),
+        category,
+        slug,
+      };
+    });
+  });
 }
 
-export async function getPosts(): Promise<Post[]> {
-  try {
-    const categories = await fs.readdir(BLOG_DIR);
-    let posts: Post[] = [];
+// 본문 내용까지 가져오는 함수
+// export function getPostBySlug(category: string, slug: string) {
+//   const filePath = path.join(contentDir, category, `${slug}.mdx`);
+//   const source = fs.readFileSync(filePath, "utf8");
+//   const { data, content } = matter(source);
 
-    for (const category of categories) {
-      const categoryPath = path.join(BLOG_DIR, category);
-      const files = await fs.readdir(categoryPath);
-
-      for (const file of files) {
-        if (!file.endsWith(".mdx")) continue;
-
-        const slug = file.replace(".mdx", "");
-        const filePath = path.join(categoryPath, file);
-        const fileContent = await fs.readFile(filePath, "utf-8");
-
-        // 메타데이터 추출 (MDX 파일의 frontmatter 부분에서 가져옴)
-        const metadataMatch = fileContent.match(
-          /export const metadata = ({[\s\S]*?})/
-        );
-        const metadata = metadataMatch ? eval(`(${metadataMatch[1]})`) : {}; // ⚠️ eval 사용 (보안 주의)
-
-        posts.push({
-          title: metadata.title || slug,
-          description: metadata.description || "",
-          category,
-          date: metadata.date || "",
-          thumbnail: metadata.thumbnail || "",
-          slug,
-        });
-      }
-    }
-
-    return posts;
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    return [];
-  }
-}
+//   return {
+//     meta: {
+//       ...(data as Omit<PostMeta, "category" | "slug">),
+//       category,
+//       slug,
+//     },
+//     content,
+//   };
+// }

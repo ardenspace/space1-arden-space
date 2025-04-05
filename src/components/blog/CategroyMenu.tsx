@@ -1,6 +1,8 @@
+"use client";
+
 import { Folder, FolderClosed } from "lucide-react";
 
-interface CategoryMenuProps {
+interface Props {
   categories: string[];
   selectedCategory: string;
   onSelectCategory: (category: string) => void;
@@ -10,7 +12,7 @@ export default function CategoryMenu({
   categories,
   selectedCategory,
   onSelectCategory,
-}: CategoryMenuProps) {
+}: Props) {
   return (
     <div className="sticky top-30 z-10 bg-[var(--bgMain)]">
       <div className="w-full grid grid-cols-4 justify-center max-w-screen-md border-t-3 border-b-3 border-[var(--bgSecond)]">
