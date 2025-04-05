@@ -14,7 +14,7 @@ export default function CategoryMenu({
   onSelectCategory,
 }: Props) {
   return (
-    <div className="sticky top-30 z-10 bg-[var(--bgMain)]">
+    <div className="sticky-div">
       <div className="w-full grid grid-cols-4 justify-center max-w-screen-md border-t-3 border-b-3 border-[var(--bgSecond)]">
         {categories.map((category) => (
           <div
