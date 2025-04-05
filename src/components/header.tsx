@@ -1,23 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import path from "path";
 import { Cat } from "lucide-react";
 
 export default function Header() {
   const icons = [1, 2, 3];
   const pathname = usePathname();
+
   const styles: { [key: string]: { bg: string; text: string } } = {
     "/": { bg: "bg-[#BFFEB8]", text: "text-[#7448ff]" },
     "/blog": { bg: "bg-[#fdcef7]", text: "text-[#23C4AF]" },
     "/about": { bg: "bg-[#aa9ced]", text: "text-[#ECE7D4]" },
   };
-  const currentStyle = styles[pathname] || {
-    bg: "bg-[#bcfe4a]",
+
+  let currentStyle = styles[pathname] || {
+    // bg: "bg-[#bcfe4a]",
+    bg: "bg-[pink]",
     text: "text-[#7448FF]",
   };
+
+  if (pathname === "/") {
+    currentStyle = styles["/"];
+  } else if (pathname.startsWith("/blog")) {
+    currentStyle = styles["/blog"];
+  } else if (pathname.startsWith("/about")) {
+    currentStyle = styles["/about"];
+  }
 
   const NAVLiNK = ({ title, href }: { title: string; href: string }) => {
     const isActive = pathname === href;
