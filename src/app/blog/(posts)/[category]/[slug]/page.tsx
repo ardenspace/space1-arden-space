@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import fs from "fs";
 import path from "path";
+import SlugDetailPage from "@/app/blog/SlugDetailPage";
 
 type Props = {
   params: { category: string; slug: string };
@@ -13,11 +14,7 @@ export default async function PostPage({ params }: Props) {
 
   try {
     const Post = (await import(`@/contents/${category}/${slug}.mdx`)).default;
-    return (
-      <article className="border">
-        <Post />
-      </article>
-    );
+    return <SlugDetailPage Post={Post} />;
   } catch (error) {
     return notFound();
   }
