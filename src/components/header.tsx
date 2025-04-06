@@ -1,50 +1,65 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Cat } from "lucide-react";
 
-export default function Header() {
-  const icons = [1, 2, 3];
+const navItems = [
+  { title: "Home", href: "/" },
+  { title: "Blog", href: "/blog" },
+  { title: "Arden", href: "/arden" },
+];
+
+const stylesMap: Record<string, { bg: string; text: string }> = {
+  "/": { bg: "bg-[#BFFEB8]", text: "text-[#7448ff]" },
+  "/blog": { bg: "bg-[#fdcef7]", text: "text-[#23C4AF]" },
+  "/arden": { bg: "bg-[#aa9ced]", text: "text-[#ECE7D4]" },
+};
+
+function NavLink({ title, href }: { title: string; href: string }) {
   const pathname = usePathname();
 
-  const styles: { [key: string]: { bg: string; text: string } } = {
-    "/": { bg: "bg-[#BFFEB8]", text: "text-[#7448ff]" },
-    "/blog": { bg: "bg-[#fdcef7]", text: "text-[#23C4AF]" },
-    "/about": { bg: "bg-[#aa9ced]", text: "text-[#ECE7D4]" },
-  };
+  const isActive =
+    href === "/blog" ? pathname.startsWith("/blog") : pathname === href;
 
-  let currentStyle = styles[pathname] || {
-    // bg: "bg-[#bcfe4a]",
-    bg: "bg-[pink]",
-    text: "text-[#7448FF]",
-  };
+  return (
+    <Link href={href}>
+      <span
+        className={`tab-item-layout ${
+          isActive
+            ? "bg-bgMain text-[var(--bgSecond)] font-bold"
+            : "bg-bgSecond text-[var(--bgWhite)] font-light"
+        }`}
+      >
+        {title}
+      </span>
+    </Link>
+  );
+}
 
-  if (pathname === "/") {
-    currentStyle = styles["/"];
-  } else if (pathname.startsWith("/blog")) {
-    currentStyle = styles["/blog"];
-  } else if (pathname.startsWith("/about")) {
-    currentStyle = styles["/about"];
-  }
+export default function Header() {
+  const pathname = usePathname();
 
-  const NAVLiNK = ({ title, href }: { title: string; href: string }) => {
-    const isActive = pathname === href;
+  // pathname 바뀔 때마다 scrollToTop
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [pathname]);
+
+  // pathname 바뀔 때마다 header bg 바꾸기
+  function getCurrentStyle(pathname: string) {
+    const match = Object.keys(stylesMap)
+      .sort((a, b) => b.length - a.length)
+      .find((key) => pathname.startsWith(key));
 
     return (
-      <Link href={href}>
-        <span
-          className={`tab-item-layout ${
-            isActive
-              ? "bg-bgMain text-[var(--bgSecond)] font-bold"
-              : "bg-bgSecond text-[var(--bgWhite)] font-light"
-          }`}
-        >
-          {title}
-        </span>
-      </Link>
+      stylesMap[match ?? "/"] || {
+        bg: "bg-[#bcfe4a]",
+        text: "text-[#7448FF]",
+      }
     );
-  };
+  }
+  const currentStyle = getCurrentStyle(pathname);
 
   return (
     <header className="fixed w-full flex max-w-screen-md z-50 bg-bgMain border-3 border-t-[var(--bgWhite)] border-r-[var(--bgWhite)] border-l-[var(--bgWhite)] border-b-0">
@@ -56,7 +71,7 @@ export default function Header() {
             Hello, arden'space!
           </span>
           <div className="flex">
-            {icons.map((_, index) => (
+            {Array.from({ length: 3 }).map((_, index) => (
               <div
                 key={index}
                 className={`flex items-center justify-center h-6 w-6 ml-1 rounded-2 border-2 ${currentStyle.text}`}
@@ -67,13 +82,14 @@ export default function Header() {
           </div>
         </div>
 
-        <ul className="flex justify-between mt-13 px-4">
+        <ul className="flex justify-between mt-13 px-2">
           <div>
-            <NAVLiNK title="Home" href="/" />
-            <NAVLiNK title="Blog" href="/blog" />
+            {navItems.slice(0, 2).map(({ title, href }) => (
+              <NavLink key={href} title={title} href={href} />
+            ))}
           </div>
           <div>
-            <NAVLiNK title="Arden" href="/about" />
+            <NavLink title="Arden" href="/arden" />
           </div>
         </ul>
       </nav>
