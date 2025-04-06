@@ -1,27 +1,42 @@
-import { FC } from "react";
-import { Redo2, Reply } from "lucide-react";
+"use client";
+
+import React from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Reply } from "lucide-react";
 
 type Props = {
-  Post: FC;
+  children: React.ReactNode;
 };
 
-export default function SlugDetailPage({ Post }: Props) {
+export default function SlugDetailPage({ children }: Props) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const fromCategory = searchParams.get("fc");
+
   const onHandleBack = () => {
-    console.log("뒤로 가기기");
+    if (fromCategory) {
+      router.push(`/blog?fc=${fromCategory}`);
+    } else {
+      router.back();
+    }
   };
+
   return (
     <article>
       <div className="sticky-div">
         <div className="flex items-center border-t-3 border-b-3 border-[var(--bgSecond)] h-10">
-          <Reply
-            size={24}
-            color="var(--ttBlack)"
-            style={{ width: 80, cursor: "pointer" }}
+          <div
+            className="flex items-center cursor-pointer px-5"
             onClick={onHandleBack}
-          />
+          >
+            <Reply size={24} color="var(--ttBlack)" />
+            <span className="ml-2 text-xs font-bold mt-1">
+              C:\Blog\{fromCategory ? fromCategory : ""}
+            </span>
+          </div>
         </div>
       </div>
-      <Post />
+      {children}
     </article>
   );
 }

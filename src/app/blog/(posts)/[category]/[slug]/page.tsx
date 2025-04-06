@@ -13,8 +13,14 @@ export default async function PostPage({ params }: Props) {
   const { category, slug } = awaitedParams;
 
   try {
-    const Post = (await import(`@/contents/${category}/${slug}.mdx`)).default;
-    return <SlugDetailPage Post={Post} />;
+    const { default: MDXContent } = await import(
+      `@/contents/${category}/${slug}.mdx`
+    );
+    return (
+      <SlugDetailPage>
+        <MDXContent />
+      </SlugDetailPage>
+    );
   } catch (error) {
     return notFound();
   }

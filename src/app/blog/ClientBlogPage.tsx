@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import CategoryMenu from "@/components/blog/CategroyMenu";
 import PostsContent from "@/components/blog/PostsContent";
-import { useState } from "react";
 
 export interface Post {
   title: string;
@@ -24,14 +25,15 @@ const ClientBlogPage = ({
   categorizedPosts,
   initialCategory,
 }: PostProps) => {
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const searchParams = useSearchParams();
+  const fromCategory = searchParams.get("fc");
+  const [selectedCategory, setSelectedCategory] = useState(
+    fromCategory || initialCategory
+  );
 
   const onSelectCategory = (categroyVal: string) => {
     setSelectedCategory(categroyVal);
   };
-
-  console.log("categories---", categories);
-  console.log("selectedCategory---", selectedCategory);
 
   return (
     <section className="flex flex-col">
