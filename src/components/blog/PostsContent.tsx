@@ -1,3 +1,5 @@
+"use client";
+
 import type { Post } from "@/app/blog/ClientBlogPage";
 import Image from "next/image";
 import { Dog } from "lucide-react";
@@ -7,7 +9,6 @@ interface PostContentProps {
   posts?: Post[];
 }
 const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
-  console.log(posts, "posts");
   return (
     <section className="flex flex-col pt-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-x-4 gap-8 px-1 sm:px-4">
@@ -16,7 +17,9 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
             key={post.title}
             className="shadow-[3px_3px_3px_rgba(0,0,0,0.2)] p-[2px] hover:scale-102 rounded-sm hover:cursor-pointer"
           >
-            <Link href={`/blog/${post.category}/${post.slug}`}>
+            <Link
+              href={`/blog/${post.category}/${post.slug}?fc=${post.category}`}
+            >
               <div className="flex items-center justify-between px-2 pr-1 bg-[#01027a] h-6">
                 <span className="text-white font-bold text-sm">
                   {post.date}
