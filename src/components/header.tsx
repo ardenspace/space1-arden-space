@@ -4,6 +4,12 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Cat } from "lucide-react";
+import { Silkscreen } from "next/font/google";
+
+const titleFont = Silkscreen({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 const navItems = [
   { title: "Home", href: "/" },
@@ -67,7 +73,9 @@ export default function Header() {
         <div
           className={`w-full flex items-center justify-between px-5 h-10 border-bgSecond ${currentStyle.bg}`}
         >
-          <span className={`font-bold text-md ${currentStyle.text}`}>
+          <span
+            className={`${titleFont.className} font-bold text-md ${currentStyle.text}`}
+          >
             Hello, arden'space!
           </span>
           <div className="flex">
