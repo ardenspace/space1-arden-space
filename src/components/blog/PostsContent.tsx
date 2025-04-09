@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "@/app/blog/ClientBlogPage";
+import type { Post } from "@/app/[locale]/blog/ClientBlogPage";
 import Image from "next/image";
 import { Dog } from "lucide-react";
 import Link from "next/link";
