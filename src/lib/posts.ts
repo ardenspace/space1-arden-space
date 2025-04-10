@@ -6,34 +6,41 @@ export type PostMeta = {
   title: string;
   description: string;
   date: string;
+  thumbnail: string;
   category: string;
   slug: string;
-  thumbnail: string;
+  locale: string;
 };
 
 const contentDir = path.join(process.cwd(), "src/contents");
 
 // 메타데이터 가져오는 함수
 export function getMetaData(): PostMeta[] {
-  const categories = fs.readdirSync(contentDir);
+  const locales = fs.readdirSync(contentDir);
 
-  return categories.flatMap((category) => {
-    const categoryDir = path.join(contentDir, category);
-    const files = fs
-      .readdirSync(categoryDir)
-      .filter((file) => file.endsWith(".mdx"));
+  return locales.flatMap((locale) => {
+    const localeDir = path.join(contentDir, locale);
+    const categories = fs.readdirSync(localeDir);
 
-    return files.map((file) => {
-      const slug = file.replace(/\.mdx$/, "");
-      const filePath = path.join(categoryDir, file);
-      const source = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(source);
+    return categories.flatMap((category) => {
+      const categoryDir = path.join(localeDir, category);
+      const files = fs
+        .readdirSync(categoryDir)
+        .filter((file) => file.endsWith(".mdx"));
 
-      return {
-        ...(data as Omit<PostMeta, "category" | "slug">),
-        category,
-        slug,
-      };
+      return files.map((file) => {
+        const slug = file.replace(/\.mdx$/, "");
+        const filePath = path.join(categoryDir, file);
+        const source = fs.readFileSync(filePath, "utf8");
+        const { data } = matter(source);
+
+        return {
+          ...(data as Omit<PostMeta, "category" | "slug">),
+          locales,
+          category,
+          slug,
+        };
+      });
     });
   });
 }
