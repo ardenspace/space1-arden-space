@@ -2,15 +2,10 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { useLocale } from "@/context/locale-context";
 import Link from "next/link";
 import { Cat } from "lucide-react";
 import { silkscreen } from "@/lib/fonts";
-
-const navItems = [
-  { title: "Home", href: "/" },
-  { title: "Blog", href: "/blog" },
-  { title: "Arden", href: "/arden" },
-];
 
 const stylesMap: Record<string, { bg: string; text: string }> = {
   "/": { bg: "bg-[#BFFEB8]", text: "text-[#7448ff]" },
@@ -41,6 +36,12 @@ function NavLink({ title, href }: { title: string; href: string }) {
 
 export default function Header() {
   const pathname = usePathname();
+  const { locale } = useLocale();
+  const navItems = [
+    { title: "Home", href: `/` },
+    { title: "Blog", href: `/${locale}/blog` },
+    { title: "Arden", href: `/${locale}/arden` },
+  ];
 
   // pathname 바뀔 때마다 scrollToTop
   useEffect(() => {
@@ -92,7 +93,7 @@ export default function Header() {
             ))}
           </div>
           <div>
-            <NavLink title="Arden" href="/arden" />
+            <NavLink title={navItems[2].title} href={navItems[2].href} />
           </div>
         </ul>
       </nav>

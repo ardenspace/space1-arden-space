@@ -84,14 +84,14 @@ function HomeContent() {
               key={`${el.id}_${idx}`}
               className="min-w-[300px] h-[250px] bg-bgWhite"
             >
-              <Image
+              {/* <Image
                 unoptimized
                 width={300}
                 height={200}
                 src={el.route}
                 alt={`home animation`}
                 className="child-image"
-              />
+              /> */}
             </div>
           ))}
         </div>
