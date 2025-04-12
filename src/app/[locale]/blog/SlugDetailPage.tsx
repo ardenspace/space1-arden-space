@@ -3,7 +3,7 @@
 import React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Reply } from "lucide-react";
-import { useLocale } from "@/context/locale-context";
+import { useLocale } from "@/hooks/use-locale";
 
 type Props = {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ type Props = {
 
 export default function SlugDetailPage({ children }: Props) {
   const router = useRouter();
-  const { locale } = useLocale();
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const fromCategory = searchParams.get("fc");
 

@@ -1,16 +1,16 @@
 "use client";
 
 import type { Post } from "@/app/[locale]/blog/ClientBlogPage";
-import { useLocale } from "@/context/locale-context";
+import Link from "next/link";
+import { useLocale } from "@/hooks/use-locale";
 import Image from "next/image";
 import { Dog } from "lucide-react";
-import Link from "next/link";
 
 interface PostContentProps {
   posts?: Post[];
 }
 const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
-  const { locale } = useLocale();
+  const locale = useLocale();
 
   return (
     <section className="flex flex-col pt-8">
