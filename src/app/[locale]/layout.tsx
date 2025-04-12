@@ -1,14 +1,16 @@
+import { use } from "react";
 import { LocalProvider } from "@/context/locale-context";
 
-export default async function AppLayout({
+export default function AppLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = use(params);
   return (
-    <LocalProvider locale={params.locale}>
+    <LocalProvider locale={locale}>
       <section className="page-layout">{children}</section>
     </LocalProvider>
   );

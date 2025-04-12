@@ -3,6 +3,7 @@
 import React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Reply } from "lucide-react";
+import { useLocale } from "@/context/locale-context";
 
 type Props = {
   children: React.ReactNode;
@@ -10,12 +11,13 @@ type Props = {
 
 export default function SlugDetailPage({ children }: Props) {
   const router = useRouter();
+  const { locale } = useLocale();
   const searchParams = useSearchParams();
   const fromCategory = searchParams.get("fc");
 
   const onHandleBack = () => {
     if (fromCategory) {
-      router.push(`/blog?fc=${fromCategory}`);
+      router.push(`/${locale}/blog?fc=${fromCategory}`);
     } else {
       router.back();
     }

@@ -1,8 +1,13 @@
 import { getMetaData } from "@/lib/posts";
 import ClientBlogPage from "./ClientBlogPage";
 
-export default function BlogPage() {
-  const postsMetaData = getMetaData();
+export default async function BlogPage({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const { locale } = await params;
+  const postsMetaData = getMetaData(locale);
 
   const categorized = postsMetaData.reduce((acc, post) => {
     if (!acc[post.category]) acc[post.category] = [];
