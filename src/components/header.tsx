@@ -15,9 +15,12 @@ const stylesMap: Record<string, { bg: string; text: string }> = {
 
 function NavLink({ title, href }: { title: string; href: string }) {
   const pathname = usePathname();
+  const { locale } = useLocale();
 
   const isActive =
-    href === "/blog" ? pathname.startsWith("/blog") : pathname === href;
+    href === `/${locale}/blog`
+      ? pathname.startsWith(`/${locale}/blog`)
+      : pathname === href;
 
   return (
     <Link href={href}>
@@ -50,9 +53,11 @@ export default function Header() {
 
   // pathname 바뀔 때마다 header bg 바꾸기
   function getCurrentStyle(pathname: string) {
+    const controlPathname = pathname.replace(`/${locale}`, "");
+
     const match = Object.keys(stylesMap)
       .sort((a, b) => b.length - a.length)
-      .find((key) => pathname.startsWith(key));
+      .find((key) => controlPathname.startsWith(key));
 
     return (
       stylesMap[match ?? "/"] || {
