@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLocale } from "@/hooks/use-locale";
 import Link from "next/link";
 import { Cat, Languages } from "lucide-react";
@@ -38,11 +38,12 @@ function NavLink({ title, href }: { title: string; href: string }) {
 }
 
 export default function Header() {
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
   const locale = useLocale();
   const navItems = [
-    { title: "Home", href: `/` },
+    { title: "Home", href: `/${locale}` },
     { title: "Blog", href: `/${locale}/blog` },
     { title: "Arden", href: `/${locale}/arden` },
   ];
@@ -71,15 +72,17 @@ export default function Header() {
 
   // 한<->영 함수
   const onSwitchLanguages = () => {
+    const fromCategory = searchParams.get("fc");
     const newLocale = locale === "ko" ? "en" : "ko";
     const segments = pathname.split("/");
     segments[1] = newLocale;
+    let newPath = segments.join("/");
 
-    const newPath = segments.join("/");
+    if (fromCategory) {
+      newPath += `?fc=${fromCategory}`;
+    }
     router.push(newPath);
   };
-
-  console.log("locale----", locale);
 
   return (
     <header className="fixed w-full flex max-w-screen-md z-50 bg-bgMain border-3 border-t-[var(--bgWhite)] border-r-[var(--bgWhite)] border-l-[var(--bgWhite)] border-b-0">
