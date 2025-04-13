@@ -1,5 +1,16 @@
-import { use } from "react";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
-  return <section className="page-layout">{children}</section>;
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <main className="layout-main">
+      <Header />
+      {children}
+      <Footer />
+    </main>
+  );
 }

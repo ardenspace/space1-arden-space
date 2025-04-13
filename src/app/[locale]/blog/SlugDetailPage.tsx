@@ -4,6 +4,7 @@ import React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Reply } from "lucide-react";
 import { useLocale } from "@/hooks/use-locale";
+import PageLayout from "@/components/page-layout";
 
 type Props = {
   children: React.ReactNode;
@@ -24,7 +25,7 @@ export default function SlugDetailPage({ children }: Props) {
   };
 
   return (
-    <article>
+    <PageLayout>
       <div className="sticky-div">
         <div className="flex items-center border-t-3 border-b-3 border-[var(--bgSecond)] h-10">
           <div
@@ -39,6 +40,6 @@ export default function SlugDetailPage({ children }: Props) {
         </div>
       </div>
       {children}
-    </article>
+    </PageLayout>
   );
 }

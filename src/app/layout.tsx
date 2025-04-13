@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import { play } from "@/lib/fonts";
 
 export const metadata: Metadata = {
@@ -24,14 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${play.className} layout-body`}>
-        <main className="layout-main">
-          <Header />
-          {children}
-          <Footer />
-        </main>
-      </body>
+    <html lang="ko">
+      <body className={`${play.className} layout-body`}>{children}</body>
     </html>
   );
 }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import CategoryMenu from "@/components/blog/CategroyMenu";
 import PostsContent from "@/components/blog/PostsContent";
+import PageLayout from "@/components/page-layout";
 
 export interface Post {
   title: string;
@@ -37,14 +38,16 @@ const ClientBlogPage = ({
   };
 
   return (
-    <section className="flex flex-col">
-      <CategoryMenu
-        categories={categories}
-        selectedCategory={selectedCategory}
-        onSelectCategory={onSelectCategory}
-      />
-      <PostsContent posts={categorizedPosts[selectedCategory] || []} />
-    </section>
+    <PageLayout>
+      <section className="flex flex-col">
+        <CategoryMenu
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onSelectCategory={onSelectCategory}
+        />
+        <PostsContent posts={categorizedPosts[selectedCategory] || []} />
+      </section>
+    </PageLayout>
   );
 };
 
