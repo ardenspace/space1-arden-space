@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!-- GitHub Profile README: arden'space -->
 
-## Getting Started
+<h1 align="center">🛸 arden'space 👾</h1>
+<p align="center">
+  a digital playground where I think, break and build — at my own pace.
+</p>
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌱 About Me
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Hi, I'm **Arden** — a developer who treats code as both a craft and a curiosity.  
+I love exploring bugs like puzzles, building little things for fun, and reflecting as I go.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This is my space.  
+This is my pace.  
+Welcome in.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🧠 What I'm into these days
 
-To learn more about Next.js, take a look at the following resources:
+- 🛠️ **Side quests**: mini projects, experiments, and creative ideas
+- 🐞 **Break & Fix**: logs from strange bugs and how I fixed them
+- 💭 **Thoughts**: dev musings, perspectives, and philosophy
+- 🧩 **Bite-size**: tiny learnings I collect along the way
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<!-- ## 📌 Featured Posts
 
-## Deploy on Vercel
+- [Side quest: My 3am design-to-code sprint](https://ardenspace.dev/side-quests/3am-design-to-code)
+- [Why breaking things is part of the plan](https://ardenspace.dev/break-and-fix/breaking-is-learning)
+- [My dev life, at my pace](https://ardenspace.dev/thoughts/my-pace) -->
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Tech Stack
+
+<img src="https://skillicons.dev/icons?i=ts,react,nextjs,mdx,tailwind,git,github&theme=light" alt="Tech stack icons" />
+
+---
+
+## 🌐 Connect with me
+
+- 📝 Blog: [arden.space](https://arden.space)
+- 🐦 Twitter: [@ardenspace](https://twitter.com/ardenspace)
+- 📫 Email: [ardensdevspace@gmail.com](mailto:ardensdevspace@gmail.com)
+
+---
+
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&duration=2500&pause=500&center=true&width=435&lines=building+at+my+own+pace...;debugging+quietly...;documenting+the+ride+🌌" alt="Typing SVG" />
+</p>
