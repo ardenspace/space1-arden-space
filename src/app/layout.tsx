@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { play } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "arden'space",
@@ -23,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${play.className} layout-body`}>{children}</body>
+      <body className="layout-body">{children}</body>
     </html>
   );
 }

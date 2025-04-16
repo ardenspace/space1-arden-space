@@ -6,7 +6,7 @@ import HomeContent from "../../components/home-content";
 export default function Home() {
   return (
     <MDXProvider>
-      <section className="home-section pt-30">
+      <section className="home-section">
         <HomeContent />
       </section>
     </MDXProvider>

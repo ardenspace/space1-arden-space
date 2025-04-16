@@ -15,7 +15,7 @@ body {
 }
 
 .home-section {
-  @apply w-full flex flex-col justify-center items-center text-center max-w-screen-md min-h-[calc(100vh-30px)];
+  @apply w-full flex flex-col justify-center items-center max-w-screen-md min-h-[calc(100vh-30px)];
   border: solid 3px var(--bgWhite);
 }
 
