@@ -8,9 +8,9 @@ import { Cat, Languages } from "lucide-react";
 import { silkscreen } from "@/lib/fonts";
 
 const stylesMap: Record<string, { bg: string; text: string }> = {
-  "/": { bg: "bg-[#BFFEB8]", text: "text-[#7448ff]" },
-  "/blog": { bg: "bg-[#fdcef7]", text: "text-[#23C4AF]" },
-  "/arden": { bg: "bg-[#aa9ced]", text: "text-[#ECE7D4]" },
+  "/": { bg: "bg-[var(--homeBg)]", text: "text-[var(--homeTt)]" },
+  "/blog": { bg: "bg-[var(--blogBg)]", text: "text-[var(--blogTt)]" },
+  "/arden": { bg: "bg-[var(--portBg)]", text: "text-[var(--portTt)]" },
 };
 
 function NavLink({ title, href }: { title: string; href: string }) {
@@ -63,8 +63,8 @@ export default function Header() {
 
     return (
       stylesMap[match ?? "/"] || {
-        bg: "bg-[#bcfe4a]",
-        text: "text-[#7448FF]",
+        bg: "bg-[var(--homeBg)]",
+        text: "text-[var(--homeTt)]",
       }
     );
   }

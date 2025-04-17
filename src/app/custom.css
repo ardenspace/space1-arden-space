@@ -11,6 +11,7 @@ br/bg 추천
 #FC3027 - 쨍분홍
 #23C4AF - 옛그린
 #7448ff - 밝보라 
+#bcfe4a - 쨍연두
  */
 
 :root {
@@ -18,8 +19,12 @@ br/bg 추천
   --bgSecond: #aaaaaa;
   --bgWhite: #fefefe;
   --ttBlack: #1c1c1c;
-  --bgHello: #bcfe4a;
-  --purple: #7448ff;
+  --homeBg: #bffeb8;
+  --homeTt: #7448ff;
+  --blogBg: #fdcef7;
+  --blogTt: #23c4af;
+  --portBg: #aa9ced;
+  --portTt: #ece7d4;
 }
 
 .bg-bgMain {
