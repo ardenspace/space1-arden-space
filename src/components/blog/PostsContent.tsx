@@ -12,6 +12,8 @@ interface PostContentProps {
 const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
   const locale = useLocale();
 
+  console.log(posts, "postsss");
+
   return (
     <section className="flex flex-col pt-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-x-4 gap-8 px-1 sm:px-4">

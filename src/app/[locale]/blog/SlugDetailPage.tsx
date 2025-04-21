@@ -39,7 +39,8 @@ export default function SlugDetailPage({ children }: Props) {
           </div>
         </div>
       </div>
-      {children}
+
+      <div className="border-2 border-[red] p-5">{children}</div>
     </PageLayout>
   );
 }
