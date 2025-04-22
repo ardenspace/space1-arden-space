@@ -8,9 +8,14 @@ import PageLayout from "@/components/page-layout";
 
 type Props = {
   children: React.ReactNode;
+  frontmatter: {
+    title: string;
+    description: string;
+    date: string;
+  };
 };
 
-export default function SlugDetailPage({ children }: Props) {
+export default function SlugDetailPage({ children, frontmatter }: Props) {
   const router = useRouter();
   const locale = useLocale();
   const searchParams = useSearchParams();
@@ -23,6 +28,8 @@ export default function SlugDetailPage({ children }: Props) {
       router.back();
     }
   };
+
+  console.log("frontmatter", frontmatter);
 
   return (
     <PageLayout>
@@ -40,7 +47,16 @@ export default function SlugDetailPage({ children }: Props) {
         </div>
       </div>
 
-      <div className="border-2 border-[red] p-5">{children}</div>
+      <div className="detail-page-layout">
+        <div className="title-box">
+          <p className="title">{frontmatter.title}</p>
+          <p className="description">{frontmatter.description}</p>
+          <div className="date">
+            <div>{frontmatter.date}</div>
+          </div>
+        </div>
+        {children}
+      </div>
     </PageLayout>
   );
 }

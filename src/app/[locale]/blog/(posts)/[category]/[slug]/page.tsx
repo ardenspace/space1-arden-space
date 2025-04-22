@@ -2,26 +2,44 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import SlugDetailPage from "@/app/[locale]/blog/SlugDetailPage";
 
 type Props = {
   params: { locale: string; category: string; slug: string };
 };
+interface Frontmatter {
+  title: string;
+  description: string;
+  date: string;
+}
 
 export default async function PostPage({ params }: Props) {
   const awaitedParams = await params;
   const { locale, category, slug } = awaitedParams;
 
   try {
-    const { default: MDXContent } = await import(
-      `@/contents/${locale}/${category}/${slug}.mdx`
+    const filePath = path.join(
+      process.cwd(),
+      "src/contents",
+      locale,
+      category,
+      `${slug}.mdx`
     );
+
+    const raw = fs.readFileSync(filePath, "utf8");
+    const { content, data } = matter(raw);
+    const frontmatter = data as Frontmatter;
+
     return (
-      <SlugDetailPage>
-        <MDXContent />
+      <SlugDetailPage frontmatter={frontmatter}>
+        <MDXRemote source={content} />
       </SlugDetailPage>
     );
-  } catch (error) {
+  } catch (err) {
+    console.error("MDX 처리 중 오류:", err);
     return notFound();
   }
 }
