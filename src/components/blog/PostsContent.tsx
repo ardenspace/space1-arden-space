@@ -25,7 +25,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
             <Link
               href={`/${locale}/blog/${post.category}/${post.slug}?fc=${post.category}`}
             >
-              <div className="flex items-center justify-between px-2 pr-1 bg-[#01027a] h-6">
+              <div className="flex items-center justify-between px-2 pr-1 bg-[var(--postHd)] h-6">
                 <span className="text-white font-bold text-sm">
                   {post.date}
                 </span>

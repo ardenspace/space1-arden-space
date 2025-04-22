@@ -45,27 +45,36 @@ body {
   @apply flex items-center justify-center h-6 w-6 ml-1 rounded-[2px] border-2;
 }
 
-/* x-scroll custom */
-@layer utilities {
-  .scrollbar::-webkit-scrollbar {
-    box-shadow: -2px -2px 1px rgba(0, 0, 0, 2);
-    height: 20px;
+.detail-page-layout {
+  @apply text-base;
+
+  .title-box {
+    padding: 30px 20px 20px 20px;
   }
 
-  .scrollbar::-webkit-scrollbar-track {
-    box-shadow: -2px -2px 1px rgba(0, 0, 0, 2);
-    border-radius: 2px;
-    background: #abacac;
-    border: solid 2px var(--bgWhite);
+  .title {
+    color: var(--ttBlack);
+    font-size: 27px;
+    font-weight: bold;
   }
 
-  .scrollbar::-webkit-scrollbar-thumb {
-    background: #6948d6;
-    /* #c3b3ff */
-    border: solid 2px var(--bgWhite);
+  .description {
+    color: var(--ttBlack);
+    font-size: 18px;
   }
 
-  .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #c3b3ff;
+  .date {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    color: var(--bgSecond);
+  }
+
+  h2 {
+    color: var(--ttBlack);
+    font-size: 20px;
+    font-weight: bold;
+    margin: 30px 0px 20px 0px;
+    padding: 0px 10px;
   }
 }
