@@ -51,11 +51,12 @@ export default function SlugDetailPage({ children, frontmatter }: Props) {
         <div className="title-box">
           <p className="title">{frontmatter.title}</p>
           <p className="description">{frontmatter.description}</p>
-          <div className="date">
-            <div>{frontmatter.date}</div>
-          </div>
+          <p className="date">
+            <span>{frontmatter.date}</span>
+          </p>
         </div>
-        {children}
+
+        <div className="content">{children}</div>
       </div>
     </PageLayout>
   );
