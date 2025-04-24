@@ -7,8 +7,11 @@ export default function AboutPage() {
   // title: arden?
   return (
     <PageLayout>
-      <section className="flex flex-col gap-8">
+      <section>
         <div>arden? page 입니다</div>
+        <div>내 기술</div>
+        <div>내 장점</div>
+        <div>컴포넌트화 / 재사용성 고려</div>
       </section>
     </PageLayout>
   );

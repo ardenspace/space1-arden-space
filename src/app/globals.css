@@ -11,11 +11,14 @@ body {
 }
 
 .layout-main {
-  @apply flex flex-col w-full h-full min-h-[calc(100vh)];
+  /* @apply flex flex-col w-full h-full min-h-[calc(100vh)]; */
+  @apply flex flex-col w-full h-full min-h-[calc(50vh)];
 }
 
 .home-section {
-  @apply w-full flex flex-col justify-center items-center max-w-screen-md min-h-[calc(100vh-30px)];
+  /* @apply w-full flex flex-col justify-center items-center max-w-screen-md min-h-[calc(100vh-30px)];
+  border: solid 3px var(--bgWhite); */
+  @apply w-full flex flex-col justify-center items-center max-w-screen-md min-h-[calc(80vh-30px)];
   border: solid 3px var(--bgWhite);
 }
 
