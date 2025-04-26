@@ -3,7 +3,7 @@ import { Github, LinkedinIcon, Twitter } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="w-full mt-auto h-[30px] border-bgWhite bg-bgWhite">
+    <footer className="w-full mt-auto h-[40px] border-bgWhite bg-bgWhite">
       <div className="w-full h-full flex items-center justify-between px-4">
         <div className="flex px-2 gap-1">
           <Link href="https://github.com/ardensgarden" target="_blank">
@@ -11,6 +11,9 @@ export default function Footer() {
           </Link>
           <Link href="https://www.linkedin.com/in/ardenspace/" target="_blank">
             <LinkedinIcon size={20} />
+          </Link>
+          <Link href="https://twitter.com/ardenspace" target="_blank">
+            <Twitter size={20} />
           </Link>
         </div>
         <span className="text-xs">
