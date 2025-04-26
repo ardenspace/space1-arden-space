@@ -1,5 +1,4 @@
 import { play } from "@/lib/fonts";
-import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 export default async function RootLayout({
@@ -9,8 +8,7 @@ export default async function RootLayout({
 }>) {
   return (
     <main className={`${play.className} layout-main`}>
-      <Header />
-      {children}
+      <div className="flex-1 overflow-auto scrollbar-hide">{children}</div>
       <Footer />
     </main>
   );

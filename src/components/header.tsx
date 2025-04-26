@@ -84,6 +84,10 @@ export default function Header() {
     router.push(newPath);
   };
 
+  // 홈페이지 여부 판단
+  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`;
+  if (isHome) return null;
+
   return (
     <header className="fixed w-full flex max-w-screen-md z-50 bg-bgMain border-3 border-t-[var(--bgWhite)] border-r-[var(--bgWhite)] border-l-[var(--bgWhite)] border-b-0">
       <nav className="w-full border-b-3 border-b-[var(--bgSecond)]">

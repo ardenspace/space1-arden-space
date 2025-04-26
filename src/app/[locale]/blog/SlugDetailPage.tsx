@@ -4,7 +4,7 @@ import React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Reply } from "lucide-react";
 import { useLocale } from "@/hooks/use-locale";
-import PageLayout from "@/components/page-layout";
+import PageLayout from "@/app/[locale]/page-layout";
 
 type Props = {
   children: React.ReactNode;

@@ -1,6 +1,6 @@
 "use client";
 
-import PageLayout from "@/components/page-layout";
+import PageLayout from "@/app/[locale]/page-layout";
 import { useEffect, useState } from "react";
 
 export default function AboutPage() {

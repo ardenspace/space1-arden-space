@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import CategoryMenu from "@/components/blog/CategroyMenu";
 import PostsContent from "@/components/blog/PostsContent";
-import PageLayout from "@/components/page-layout";
+import PageLayout from "@/app/[locale]/page-layout";
 
 export interface Post {
   title: string;
@@ -39,7 +39,7 @@ const ClientBlogPage = ({
 
   return (
     <PageLayout>
-      <section className="flex flex-col">
+      <section>
         <CategoryMenu
           categories={categories}
           selectedCategory={selectedCategory}
