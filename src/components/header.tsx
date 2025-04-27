@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLocale } from "@/hooks/use-locale";
 import Link from "next/link";
-import { Cat, Languages } from "lucide-react";
+import { Cat, Languages, X } from "lucide-react";
 import { silkscreen } from "@/lib/fonts";
 
 const stylesMap: Record<string, { bg: string; text: string }> = {
@@ -43,7 +43,7 @@ export default function Header() {
   const router = useRouter();
   const locale = useLocale();
   const navItems = [
-    { title: "Home", href: `/${locale}` },
+    // { title: "Home", href: `/${locale}` },
     { title: "Blog", href: `/${locale}/blog` },
     { title: "Arden", href: `/${locale}/arden` },
   ];
@@ -84,10 +84,6 @@ export default function Header() {
     router.push(newPath);
   };
 
-  // 홈페이지 여부 판단
-  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`;
-  if (isHome) return null;
-
   return (
     <header className="fixed w-full flex max-w-screen-md z-50 bg-bgMain border-3 border-t-[var(--bgWhite)] border-r-[var(--bgWhite)] border-l-[var(--bgWhite)] border-b-0">
       <nav className="w-full border-b-3 border-b-[var(--bgSecond)]">
@@ -100,32 +96,30 @@ export default function Header() {
             Hello, arden'space!
           </span>
           <div className="flex">
-            {/* {Array.from({ length: 3 }).map((_, index) => ( */}
+            <div className={`icon-div ${currentStyle.text}`}>
+              <Cat size={19} className={`${currentStyle.text}`} />
+            </div>
             <div
-              className={`icon-div ${currentStyle.text} cursor-pointer`}
+              className={`icon-div ${currentStyle.text} cursor-pointer bg-[var(--bgWhite)]`}
               onClick={onSwitchLanguages}
             >
               <Languages size={19} className={`${currentStyle.text}`} />
             </div>
-            <div className={`icon-div ${currentStyle.text}`}>
-              <Cat size={19} className={`${currentStyle.text}`} />
+            <div
+              className={`icon-div ${currentStyle.text} cursor-pointer bg-[var(--bgWhite)]`}
+              onClick={() => {
+                router.push("/");
+              }}
+            >
+              <X size={19} className={`${currentStyle.text}`} />
             </div>
-            <div className={`icon-div ${currentStyle.text}`}>
-              <Cat size={19} className={`${currentStyle.text}`} />
-            </div>
-            {/* ))} */}
           </div>
         </div>
 
         <ul className="flex justify-between mt-13 px-2">
-          <div>
-            {navItems.slice(0, 2).map(({ title, href }) => (
-              <NavLink key={href} title={title} href={href} />
-            ))}
-          </div>
-          <div>
-            <NavLink title={navItems[2].title} href={navItems[2].href} />
-          </div>
+          {navItems.map(({ title, href }) => (
+            <NavLink key={href} title={title} href={href} />
+          ))}
         </ul>
       </nav>
     </header>

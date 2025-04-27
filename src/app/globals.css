@@ -13,6 +13,7 @@ body {
 .layout-main {
   /* @apply flex flex-col w-full h-full min-h-[calc(100vh)]; */
   @apply flex flex-col w-full h-screen;
+  background-color: var(--blogBg);
 }
 
 .page-layout {
@@ -33,8 +34,15 @@ body {
 
 .home-section {
   @apply w-full flex flex-col justify-center items-center min-h-[calc(100vh-40px)];
-  border: solid 3px var(--bgWhite);
-  border: solid 3px lavender;
+  /* border: solid 3px var(--bgWhite); */
+}
+
+.shadow-in-button {
+  @apply flex items-center justify-center px-2 h-8 mt-1 border-t border-l border-3 border-[var(--bgWhite)] shadow-[-2px_-2px_1px_var(--bgSecond)];
+}
+
+.shadow-out-button {
+  @apply flex items-center justify-center px-2 h-8 border-b border-r border-2 border-[var(--bgWhite)] shadow-[2px_2px_1px_var(--bgSecond)] cursor-pointer;
 }
 
 .tab-item-layout {
