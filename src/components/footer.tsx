@@ -45,44 +45,39 @@ export default function Footer() {
           isHome ? "max-w-screen-lg" : "max-w-screen-md"
         }`}
       >
-        <div className="w-full h-full flex items-center justify-between px-3">
-          {/* <div className="flex px-2 gap-1">
-            <Link href="https://github.com/ardensgarden" target="_blank">
-              <Github size={20} />
-            </Link>
-            <Link
-              href="https://www.linkedin.com/in/ardenspace/"
-              target="_blank"
-            >
-              <LinkedinIcon size={20} />
-            </Link>
-            <Link href="https://twitter.com/ardenspace" target="_blank">
-              <Twitter size={20} />
-            </Link>
-          </div> */}
-
+        <div
+          className={`w-full h-full flex items-center justify-between ${
+            windowWidth !== null && windowWidth > 400 ? "px-3" : "px-1"
+          }`}
+        >
           <div className="flex items-center text-[var(--ttBlack)] text-sm">
-            <span className="shadow-out-button mr-3">
+            <span className="shadow-out-button px-1 mr-2">
               <Link href="https://github.com/ardenspace" target="_blank">
-                <Github size={21} />
+                <Github size={21} color={`var(--ttBlack)`} />
               </Link>
             </span>
-            <span className="shadow-in-button">arden's blog</span>
-            <span className="shadow-out-button">who's arden?</span>
+            <span className="shadow-in-button min-w-[100px]">arden's blog</span>
+            <span className="shadow-out-button min-w-[105px] px-2">
+              who's arden?
+            </span>
           </div>
 
           <div className="flex items-center text-[var(--ttBlack)] text-lg">
-            <div onClick={onSwitchLanguages} className="shadow-out-button mr-2">
+            <div onClick={onSwitchLanguages} className="shadow-out-button px-2">
               {locale === "en" ? "가" : "A"}
             </div>
-            <div className={`flex flex-col items-end min-w-[70px]`}>
-              <span className="text-xs">
-                {windowWidth !== null && windowWidth > 450
-                  ? `Copyright © ${new Date().getFullYear()}`
-                  : `Copyright ©`}
-              </span>
-              <span className="text-xs">Arden Lee</span>
-            </div>
+            {windowWidth !== null && windowWidth > 370 ? (
+              <div className={`flex flex-col items-end min-w-[70px] ml-2`}>
+                <span className="text-xs">
+                  {windowWidth !== null && windowWidth > 450
+                    ? `Copyright © ${new Date().getFullYear()}`
+                    : `Copyright ©`}
+                </span>
+                <span className="text-xs">Arden Lee</span>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </section>
