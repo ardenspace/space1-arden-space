@@ -14,13 +14,13 @@ export default function HomeIcon({
   tolink,
 }: IconProps) {
   return (
-    <div
-      className={`flex flex-col absolute items-center min-w-[80px] ${design}`}
-    >
-      <Link href={`${tolink}`} target="_blank">
+    <Link href={`${tolink}`} target="_blank">
+      <div
+        className={`flex flex-col absolute items-center min-w-[80px] ${design} "cursor-pointer z-9 border`}
+      >
         <ICON className="w-8 h-9" />
-      </Link>
-      <div className="text-[var(--ttBlack)]">{filename}</div>
-    </div>
+        <div className="text-[var(--ttBlack)]">{filename}</div>
+      </div>
+    </Link>
   );
 }

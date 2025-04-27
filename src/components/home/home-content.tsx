@@ -1,25 +1,18 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import {
-  Diameter,
-  Circle,
-  Cat,
-  Heart,
-  Github,
-  LinkedinIcon,
-  Twitter,
-  FolderClosed,
-} from "lucide-react";
+import { useLocale } from "@/hooks/use-locale";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { homeIcons } from "./home-icons";
 import HomeIcon from "./HomeIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function HomeContent() {
   // 헤더 - theme changer,
+  const myLocale = useLocale();
 
   const testList = [
     {
@@ -34,37 +27,24 @@ function HomeContent() {
       id: 3,
       route: "/thumbnails/test-image3.jpg",
     },
-    {
-      id: 4,
-      route: "/thumbnails/test-image4.jpg",
-    },
-    {
-      id: 5,
-      route: "/thumbnails/test-image5.jpg",
-    },
   ];
 
   return (
     <section className="w-full h-full relative">
       {/* icons */}
-      <HomeIcon
-        ICON={Github}
-        design={`bottom-[30px] right-[20px] text-[var(--ttBlack)]`}
-        filename={"GitHub"}
-        tolink="https://github.com/ardensgarden"
-      />
-      <HomeIcon
-        ICON={LinkedinIcon}
-        design={`bottom-[100px] right-[20px]`}
-        filename={"linkedIn"}
-        tolink="https://www.linkedin.com/in/ardenspace/"
-      />
-      <HomeIcon
-        ICON={Twitter}
-        design={`bottom-[200px] right-[20px]`}
-        filename={"Twitter"}
-        tolink="https://twitter.com/ardenspace"
-      />
+      {homeIcons.map((item, idx) => (
+        <HomeIcon
+          key={idx}
+          ICON={item.ICON}
+          design={item.design}
+          filename={item.filename}
+          tolink={
+            item.tolink.startsWith("https")
+              ? item.tolink
+              : `http://localhost:3000/${myLocale}${item.tolink}`
+          }
+        />
+      ))}
 
       {/* contents */}
       <div className="flex flex-col h-full justify-center items-center relative">

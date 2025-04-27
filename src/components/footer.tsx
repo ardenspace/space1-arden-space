@@ -2,16 +2,17 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Github, LinkedinIcon, Twitter } from "lucide-react";
+import { Github } from "lucide-react";
 import useIsHome from "@/hooks/use-is-home";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useLocale } from "@/hooks/use-locale";
 
 export default function Footer() {
   const [windowWidth, setWindowWidth] = useState<number | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const locale = pathname.split("/")[1];
+  const locale = useLocale();
   const isHome = useIsHome();
 
   useEffect(() => {
