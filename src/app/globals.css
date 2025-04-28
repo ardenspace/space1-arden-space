@@ -13,7 +13,9 @@ body {
 .layout-main {
   /* @apply flex flex-col w-full h-full min-h-[calc(100vh)]; */
   @apply flex flex-col w-full h-screen;
-  background-color: var(--blogBg);
+  /* background-color: var(--blogBg); */
+  background-color: #b6cbfc;
+  background: linear-gradient(to right, #b6cbfc, #fecef8);
 }
 
 .page-layout {
