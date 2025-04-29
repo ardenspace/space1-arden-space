@@ -13,6 +13,8 @@ br/bg 추천
 #23C4AF - 옛그린
 #7448ff - 밝보라 
 #bcfe4a - 쨍연두
+#d7e73c - 노랑연두
+#e0f23f - 위 노랑연두보다 조금 밝은
  */
 
 :root {
@@ -28,6 +30,7 @@ br/bg 추천
   --portTt: #ece7d4;
   --postHd: #01027a;
   --footerBg: #e2e2e0;
+  --pfColor: #abff5f;
 }
 
 .bg-bgMain {

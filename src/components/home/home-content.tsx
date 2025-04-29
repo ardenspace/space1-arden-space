@@ -48,11 +48,24 @@ function HomeContent() {
 
       {/* contents */}
       <div className="flex flex-col h-full justify-center items-center relative">
-        <div className="h-[45vh] min-h-[280px] w-[70vw] min-w-[300px] max-w-[550px] bg-red-300 z-99">
-          1
+        <div className="h-[45vh] min-h-[300px] w-[70vw] min-w-[300px] max-w-[570px] border-2 border-[#fff] bg-[var(--bgMain)]">
+          1 blog
         </div>
-        <div className="absolute top-[15vh] left-[100px] h-[30vh] min-h-[230px] w-[40vw] min-w-[300px] max-w-[350px] bg-blue-300">
-          2<div>여기에!!!</div>
+
+        {/* portfolio */}
+        <div className="absolute top-[15vh] left-[100px] h-[25vh] min-h-[200px] w-[40vw] min-w-[320px] max-w-[360px] border-2 border-[#fff]">
+          <div className="h-[10%] bg-[var(--ttBlack)] text-[var(--pfColor)] flex items-center px-2">
+            WHO IS THIS?
+          </div>
+          <div className="checkerboard">
+            <div className="w-[85%] h-[85%] bg-white relative overflow-hidden">
+              <img
+                src="/home/test.jpg"
+                alt="for-home-portfolio"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
