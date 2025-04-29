@@ -8,34 +8,37 @@ import {
 } from "lucide-react";
 
 export const homeIcons = [
-  {
-    ICON: Telescope,
-    design: "top-[20px] left-[10px]",
-    filename: "BLOG",
-    tolink: `/blog`,
-  },
-  {
-    ICON: Satellite,
-    design: "top-[20px] left-[90px]",
-    filename: "ARDEN?",
-    tolink: `/arden`,
-  },
+  // {
+  //   ICON: Telescope,
+  //   design: "top-[20px] left-[10px]",
+  //   filename: "BLOG",
+  //   tolink: `/blog`,
+  // },
+  // {
+  //   ICON: Satellite,
+  //   design: "top-[20px] left-[90px]",
+  //   filename: "ARDEN?",
+  //   tolink: `/arden`,
+  // },
   {
     ICON: Twitter,
-    design: "bottom-[200px] right-[20px]",
+    design: "bottom-[1vh] right-[50px]",
     filename: "Twitter",
+    size: "w-6 h-7",
     tolink: "https://twitter.com/ardenspace",
   },
   {
     ICON: Github,
-    design: "bottom-[30px] right-[20px]",
+    design: "bottom-[1vh] right-[0px]",
     filename: "GitHub",
+    size: "w-6 h-7",
     tolink: "https://github.com/ardensgarden",
   },
   {
     ICON: LinkedinIcon,
-    design: "bottom-[100px] right-[20px]",
-    filename: "linkedIn",
+    design: "top-[9vh] text-[var(--postHd)]",
+    filename: "LinkedIn",
+    size: "w-7 h-8",
     tolink: "https://www.linkedin.com/in/ardenspace/",
   },
 ];
