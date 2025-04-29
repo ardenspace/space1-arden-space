@@ -6,24 +6,17 @@ import { Github } from "lucide-react";
 import useIsHome from "@/hooks/use-is-home";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useLocale } from "@/hooks/use-locale";
+import { useWindowSize } from "@/hooks/use-size";
 
 export default function Footer() {
-  const [windowWidth, setWindowWidth] = useState<number | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
   const isHome = useIsHome();
+  const size = useWindowSize();
 
-  useEffect(() => {
-    function handleResize() {
-      setWindowWidth(window.innerWidth);
-    }
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  if (!size) return null;
 
   // 한<->영 함수
   const onSwitchLanguages = () => {
@@ -48,7 +41,7 @@ export default function Footer() {
       >
         <div
           className={`w-full h-full flex items-center justify-between ${
-            windowWidth !== null && windowWidth > 400 ? "px-3" : "px-1"
+            size.width > 400 ? "px-3" : "px-1"
           }`}
         >
           <div className="flex items-center text-[var(--ttBlack)] text-sm">
@@ -57,9 +50,9 @@ export default function Footer() {
                 <Github size={21} color={`var(--ttBlack)`} />
               </Link>
             </span>
-            <span className="shadow-in-button min-w-[100px]">arden's blog</span>
+            <span className="shadow-in-button min-w-[100px]">who's arden?</span>
             <span className="shadow-out-button min-w-[105px] px-2">
-              who's arden?
+              arden's blog
             </span>
           </div>
 
@@ -67,10 +60,10 @@ export default function Footer() {
             <div onClick={onSwitchLanguages} className="shadow-out-button px-2">
               {locale === "en" ? "가" : "A"}
             </div>
-            {windowWidth !== null && windowWidth > 370 ? (
+            {size.width > 370 ? (
               <div className={`flex flex-col items-end min-w-[70px] ml-2`}>
                 <span className="text-xs">
-                  {windowWidth !== null && windowWidth > 450
+                  {size.width > 450
                     ? `Copyright © ${new Date().getFullYear()}`
                     : `Copyright ©`}
                 </span>

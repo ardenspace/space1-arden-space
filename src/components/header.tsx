@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLocale } from "@/hooks/use-locale";
 import Link from "next/link";
 import { Cat, Languages, X } from "lucide-react";
 import { silkscreen } from "@/lib/fonts";
+import { useWindowSize } from "@/hooks/use-size";
 
 const stylesMap: Record<string, { bg: string; text: string }> = {
   "/": { bg: "bg-[var(--homeBg)]", text: "text-[var(--homeTt)]" },
@@ -53,6 +54,9 @@ export default function Header() {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [pathname]);
 
+  const size = useWindowSize();
+  if (!size) return null;
+
   // pathname 바뀔 때마다 header bg 바꾸기
   function getCurrentStyle(pathname: string) {
     const controlPathname = pathname.replace(`/${locale}`, "");
@@ -88,10 +92,14 @@ export default function Header() {
     <header className="fixed w-full flex max-w-screen-md z-50 bg-bgMain border-3 border-t-[var(--bgWhite)] border-r-[var(--bgWhite)] border-l-[var(--bgWhite)] border-b-0">
       <nav className="w-full border-b-3 border-b-[var(--bgSecond)]">
         <div
-          className={`w-full flex items-center justify-between px-5 h-10 border-bgSecond ${currentStyle.bg}`}
+          className={`w-full flex items-center justify-between h-10 border-bgSecond ${
+            currentStyle.bg
+          } ${size.width > 450 ? "px-5" : size.width > 400 ? "px-3" : "px-2"}`}
         >
           <span
-            className={`${silkscreen.className} font-bold text-md ${currentStyle.text}`}
+            className={`${silkscreen.className} ${currentStyle.text} ${
+              size.width > 400 ? "text-md" : "text-sm"
+            } font-bold`}
           >
             Hello, arden'space!
           </span>
