@@ -14,9 +14,9 @@ export default function HomeIcon({
   tolink,
 }: IconProps) {
   return (
-    <Link href={`${tolink}`} target="_blank">
+    <Link href={`${tolink}`}>
       <div
-        className={`flex flex-col absolute items-center min-w-[80px] ${design} "cursor-pointer z-9 border`}
+        className={`flex flex-col absolute items-center min-w-[80px] ${design} "cursor-pointer z-9`}
       >
         <ICON className="w-8 h-9" />
         <div className="text-[var(--ttBlack)]">{filename}</div>
