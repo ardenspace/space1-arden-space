@@ -13,7 +13,6 @@ body {
 .layout-main {
   /* @apply flex flex-col w-full h-full min-h-[calc(100vh)]; */
   @apply flex flex-col w-full h-screen;
-  background-color: var(--blogBg);
   /* background-color: #bffeb8; */
   background-color: #d3ccfa;
   /* background: linear-gradient(to right, #b6cbfc, #fecef8); */
@@ -25,7 +24,7 @@ body {
   background-color: var(--bgMain);
 }
 
-/* 스크롤 숨김 처리리 */
+/* 스크롤 숨김 처리 */
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* 크롬, 사파리용 */
 }
@@ -61,6 +60,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.mini-main {
+  @apply h-[45vh] min-h-[300px] w-[60%] min-w-[320px] max-w-[600px] mt-[10vh] z-9 flex flex-col items-center;
+  box-shadow: 2px 2px 2px rgba(254, 76, 64, 0.2);
+  border-radius: 3px;
+  background-color: var(--footerBg);
+  color: #fe4c40;
+  font-weight: bold;
+}
+
+.mini-header {
+  @apply h-[6%] w-[99%] flex items-center justify-center text-sm;
+  background-color: solid 1px #fe4c40;
+  border: solid 2px #fe4c40;
+  /* background: linear-gradient(to right, #e0f23f, #fe4c40, #bcfe4a); */
 }
 
 /* 헤더 탭 */

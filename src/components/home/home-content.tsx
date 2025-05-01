@@ -19,6 +19,14 @@ function HomeContent() {
 
   return (
     <section className="w-full h-full relative">
+      {/* <div className="absolute top-[30px] left-[90px] w-[100px] h-[100px]">
+        <img
+          src="/home/attie.png"
+          alt="display-for-home"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      </div> */}
+
       {/* icons */}
       {homeIcons.map((item, idx) => (
         <HomeIcon
@@ -37,14 +45,21 @@ function HomeContent() {
 
       {/* blog contents */}
       <div className="flex flex-col h-full justify-center items-center relative">
-        <div className="h-[45vh] min-h-[300px] w-[60%] min-w-[320px] max-w-[600px] border-2 border-[var(--bgWhite)] bg-[var(--footerBg)] mt-[10vh] z-9 flex flex-col items-center">
-          <div className="h-[6%] w-[99%] border flex items-center justify-center text-sm">
-            HELLO, ARDEN'SPACE!
+        <div className="mini-main relative">
+          <div className="mini-header">HELLO, ARDEN'SPACE!</div>
+          <div className="h-[88%] w-[99%]">
+            <div>
+              이건 내용
+              <div className="absolute top-[30px] left-[90px] w-[100px] h-[100px]">
+                <img
+                  src="/home/attie.png"
+                  alt="display-for-home"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </div>
+            </div>
           </div>
-          <div className="border h-[88%] w-[99%]">
-            <div>이건 내용</div>
-          </div>
-          <div className="h-[6%] w-[99%] border"></div>
+          <div className="h-[6%] w-[99%]"></div>
           {/* <div>HELLO, ARDEN'SPACE!</div>
           <div>
             <div>welcome to arden'space</div>
@@ -52,7 +67,6 @@ function HomeContent() {
             <div>현재 진행 중인 프로젝트 + 프로그래스 바</div>
           </div> */}
         </div>
-
         {/* portfolio */}
         <div className="absolute top-[15vh] left-[100px] h-[25vh] min-h-[200px] w-[40vw] min-w-[320px] max-w-[360px] border-2 border-[#fff] transition-transform duration-200 hover:scale-103">
           <div className="h-[10%] bg-[var(--ttBlack)] text-[var(--pfColor)] flex items-center px-2 border-b-2 border-[#fff]">
