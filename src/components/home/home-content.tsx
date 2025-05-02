@@ -48,18 +48,19 @@ function HomeContent() {
         <div className="mini-main relative">
           <div className="mini-header">HELLO, ARDEN'SPACE!</div>
           <div className="h-[88%] w-[99%]">
-            <div>
-              이건 내용
-              <div className="absolute top-[30px] left-[90px] w-[100px] h-[100px]">
-                <img
-                  src="/home/attie.png"
-                  alt="display-for-home"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
+            <div className="absolute bottom-[0px] right-[10px] w-[100px] h-[100px]">
+              <img
+                src="/home/attie.png"
+                alt="display-for-home"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+            <div className="w-full h-full flex border flex-wrap">
+              <div className="border w-[50%] min-w-[200px]">What I've done</div>
+              <div className="border w-[50%] min-w-[200px]">What's next?</div>
             </div>
           </div>
-          <div className="h-[6%] w-[99%]"></div>
+          <div className="h-[6%] w-[99%] border"></div>
           {/* <div>HELLO, ARDEN'SPACE!</div>
           <div>
             <div>welcome to arden'space</div>

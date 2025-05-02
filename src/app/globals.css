@@ -74,7 +74,7 @@ body {
 .mini-header {
   @apply h-[6%] w-[99%] flex items-center justify-center text-sm;
   background-color: solid 1px #fe4c40;
-  border: solid 2px #fe4c40;
+  border: solid 1px #fe4c40;
   /* background: linear-gradient(to right, #e0f23f, #fe4c40, #bcfe4a); */
 }
 
