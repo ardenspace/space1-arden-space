@@ -64,18 +64,31 @@ body {
 
 .mini-main {
   @apply h-[45vh] min-h-[300px] w-[60%] min-w-[320px] max-w-[600px] mt-[10vh] z-9 flex flex-col items-center;
-  box-shadow: 2px 2px 2px rgba(254, 76, 64, 0.2);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   background-color: var(--footerBg);
-  color: #fe4c40;
-  font-weight: bold;
+  border: solid 1px black;
+  padding: 2px;
+  /* color: #cdfb7c; */
 }
-
-.mini-header {
-  @apply h-[6%] w-[99%] flex items-center justify-center text-sm;
-  background-color: solid 1px #fe4c40;
-  border: solid 1px #fe4c40;
-  /* background: linear-gradient(to right, #e0f23f, #fe4c40, #bcfe4a); */
+.stripe-background {
+  font-weight: 600;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--ttBlack),
+    var(--ttBlack) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+.header {
+  @apply h-[5%] w-full flex justify-center items-center text-xs mb-[2px];
+}
+.bottom {
+  @apply h-[3.5%] w-full;
+}
+.mini-body {
+  @apply min-w-[250px] flex-1 px-2;
 }
 
 /* 헤더 탭 */
