@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ZIndexProvider } from "@/contexts/ZIndexContext";
 
 export const metadata: Metadata = {
   title: "arden'space",
@@ -22,7 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="layout-body">{children}</body>
+      <body className="layout-body">
+        <ZIndexProvider>{children}</ZIndexProvider>
+      </body>
     </html>
   );
 }

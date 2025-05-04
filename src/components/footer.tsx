@@ -6,8 +6,10 @@ import useIsHome from "@/hooks/use-is-home";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useLocale } from "@/hooks/use-locale";
 import { useWindowSize } from "@/hooks/use-size";
+import { useZIndex } from "@/contexts/ZIndexContext";
 
 export default function Footer() {
+  const { isBlogOnTop, setIsBlogOnTop } = useZIndex();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -49,8 +51,20 @@ export default function Footer() {
                 <Github size={21} color={`var(--ttBlack)`} />
               </Link>
             </span>
-            <span className="shadow-in-button min-w-[100px]">who's arden?</span>
-            <span className="shadow-out-button min-w-[105px] px-2">
+            <span
+              className={`${
+                isBlogOnTop ? "shadow-out-button" : "shadow-in-button"
+              } min-w-[100px]`}
+              onClick={() => setIsBlogOnTop(false)}
+            >
+              who's arden?
+            </span>
+            <span
+              className={`${
+                isBlogOnTop ? "shadow-in-button" : "shadow-out-button"
+              } min-w-[105px] px-2`}
+              onClick={() => setIsBlogOnTop(true)}
+            >
               arden's blog
             </span>
           </div>
