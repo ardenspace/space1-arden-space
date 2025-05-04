@@ -34,7 +34,11 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full flex justify-center">
+    <footer
+      className={`w-full flex justify-center ${
+        isHome ? "" : "bg-[var(--bgMain)]"
+      }`}
+    >
       <section
         className={`w-full h-[40px] bg-[var(--footerBg)] border-2 border-[var(--bgWhite)] ${
           isHome ? "max-w-screen-lg" : "max-w-screen-md"

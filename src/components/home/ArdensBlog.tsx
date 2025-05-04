@@ -27,11 +27,11 @@ export default function ArdensBlog() {
             <span className="font-bold text-base">What I've done?</span>
             <div className="flex mt-[5px] h-[70%] [@container(min-width:500px)]:flex-col border-2 border-dotted border-[var(--ttBlack)]">
               <div className="flex-[1.8] relative">
-                <img
+                {/* <img
                   src="/thumbnails/test1.jpg"
                   alt="attie-on-the-home"
                   className="saturate-50 absolute inset-0 w-full h-full object-cover"
-                />
+                /> */}
               </div>
               <div
                 className="

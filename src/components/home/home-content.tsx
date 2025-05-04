@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useLocale } from "@/hooks/use-locale";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { homeIcons } from "./home-icons";
+import { homeIcons } from "../../lib/home-icons";
 import HomeIcon from "./HomeIcon";
 import { useWindowSize } from "@/hooks/use-size";
 import ProgressBar from "./ProgressBar";

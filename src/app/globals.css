@@ -13,8 +13,7 @@ body {
 .layout-main {
   /* @apply flex flex-col w-full h-full min-h-[calc(100vh)]; */
   @apply flex flex-col w-full h-screen;
-  /* background-color: #bffeb8; */
-  background-color: #d3ccfa;
+  background-color: var(--overallBg);
   /* background: linear-gradient(to right, #b6cbfc, #fecef8); */
 }
 
