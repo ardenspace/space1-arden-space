@@ -41,7 +41,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
                     height={200}
                     src={post.thumbnail}
                     alt={post.title}
-                    className="child-image"
+                    className="object-cover w-full h-full"
                   />
                 </div>
                 <div className="pt-5 font-bold text-lg leading-6 line-clamp-1 break-keep">

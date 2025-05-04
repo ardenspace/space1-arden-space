@@ -28,7 +28,6 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* 크롬, 사파리용 */
 }
-
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE, Edge용 */
   scrollbar-width: none; /* 파이어폭스용 */
@@ -63,32 +62,60 @@ body {
 }
 
 .mini-main {
-  @apply h-[45vh] min-h-[300px] w-[60%] min-w-[320px] max-w-[600px] mt-[10vh] z-9 flex flex-col items-center;
+  @apply h-[45vh] min-h-[350px] w-[60%] min-w-[320px] max-w-[600px] mt-[10vh] flex flex-col items-center;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   background-color: var(--footerBg);
   border: solid 1px black;
   padding: 2px;
-  /* color: #cdfb7c; */
 }
 .stripe-background {
-  font-weight: 600;
   background: repeating-linear-gradient(
     to bottom,
-    var(--ttBlack),
-    var(--ttBlack) 1px,
+    var(--mainTt2),
+    var(--mainTt2) 1px,
     transparent 1px,
     transparent 4px
   );
 }
-.header {
-  @apply h-[5%] w-full flex justify-center items-center text-xs mb-[2px];
+@keyframes bounceUp {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
 }
-.bottom {
-  @apply h-[3.5%] w-full;
+.bounce-up {
+  display: inline-block;
+  animation: bounceUp 1s ease-in-out infinite;
 }
-.mini-body {
-  @apply min-w-[250px] flex-1 px-2;
+@keyframes bounceRight {
+  0%,
+  100% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+}
+.bounce-right {
+  display: inline-block;
+  animation: bounceRight 1s ease-in-out infinite;
+}
+
+.blink {
+  animation: blink 1.3s infinite;
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* 헤더 탭 */
@@ -98,10 +125,6 @@ body {
   border: solid 3px var(--bgSecond);
   border-bottom: none;
   padding: 0.45rem 1.55rem;
-}
-
-.child-image {
-  @apply object-cover w-full h-full;
 }
 
 .sticky-div {

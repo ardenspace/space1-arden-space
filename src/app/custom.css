@@ -31,8 +31,9 @@ br/bg 추천
   --portTt: #ece7d4;
   --postHd: #01027a;
   --footerBg: #e2e2e0;
-  --pfColor: #abff5f;
-  --testColor: #b6cbfc;
+  --mainTt1: #abff5f;
+  --mainTt2: #5f7988;
+  --mainTt3: #fc3027;
 }
 
 .bg-bgMain {
