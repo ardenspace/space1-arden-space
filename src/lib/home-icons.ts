@@ -36,9 +36,9 @@ export const homeIcons = [
   },
   {
     ICON: LinkedinIcon,
-    design: "top-[9vh] text-[var(--postHd)]",
+    design: "top-[12vh] text-[var(--postHd)]",
     filename: "LinkedIn",
-    size: "w-7 h-8",
+    size: "w-6 h-7",
     tolink: "https://www.linkedin.com/in/ardenspace/",
   },
 ];
