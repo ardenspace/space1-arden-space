@@ -2,7 +2,7 @@ import { useZIndex } from "@/contexts/ZIndexContext";
 import ProgressBar from "./ProgressBar";
 
 export default function ArdensBlog() {
-  const { isBlogOnTop, setIsBlogOnTop } = useZIndex();
+  const { currentPosition, setCurrentPosition } = useZIndex();
 
   const onClickTakeAPeek = () => {
     console.log("가장 최근에 완성된 프로젝트로 ㄱㄱㄱ");
@@ -13,11 +13,11 @@ export default function ArdensBlog() {
 
   return (
     <div
-      className={`mini-main ${isBlogOnTop ? "z-9" : ""}`}
-      onClick={() => setIsBlogOnTop(true)}
+      className={`mini-main ${currentPosition === "blog" ? "z-9" : ""}`}
+      onClick={() => setCurrentPosition("blog")}
     >
-      <div className="stripe-background h-[5%] w-full flex justify-center items-center text-xs mb-[2px]">
-        <span className="bg-[var(--footerBg)] px-2 text-[var(--ttBlack)] font-extrabold">
+      <div className="stripe-background h-[5%] w-full flex justify-center items-center mb-[2px]">
+        <span className="bg-[var(--footerBg)] px-2 text-[var(--ttBlack)] font-bold text-xs">
           HELLO, ARDEN'SPACE!
         </span>
       </div>

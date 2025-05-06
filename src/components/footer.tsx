@@ -9,10 +9,11 @@ import { useWindowSize } from "@/hooks/use-size";
 import { useZIndex } from "@/contexts/ZIndexContext";
 
 export default function Footer() {
-  const { isBlogOnTop, setIsBlogOnTop } = useZIndex();
+  const { currentPosition, setCurrentPosition } = useZIndex();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const segments = pathname.split("/");
   const locale = useLocale();
   const isHome = useIsHome();
   const size = useWindowSize();
@@ -23,7 +24,6 @@ export default function Footer() {
   const onSwitchLanguages = () => {
     const fromCategory = searchParams.get("fc");
     const newLocale = locale === "ko" ? "en" : "ko";
-    const segments = pathname.split("/");
     segments[1] = newLocale;
     let newPath = segments.join("/");
 
@@ -31,6 +31,17 @@ export default function Footer() {
       newPath += `?fc=${fromCategory}`;
     }
     router.push(newPath);
+  };
+
+  // url 함수
+  const onClickSendUrl = (type: "blog" | "port") => {
+    setCurrentPosition(type);
+
+    if (segments.length > 2) {
+      const targetPath =
+        type === "blog" ? `/${locale}/blog` : `/${locale}/arden`;
+      router.push(targetPath);
+    }
   };
 
   return (
@@ -57,17 +68,21 @@ export default function Footer() {
             </span>
             <span
               className={`${
-                isBlogOnTop ? "shadow-out-button" : "shadow-in-button"
+                currentPosition === "port"
+                  ? "shadow-in-button"
+                  : "shadow-out-button"
               } min-w-[100px]`}
-              onClick={() => setIsBlogOnTop(false)}
+              onClick={() => onClickSendUrl("port")}
             >
               who's arden?
             </span>
             <span
               className={`${
-                isBlogOnTop ? "shadow-in-button" : "shadow-out-button"
+                currentPosition === "blog"
+                  ? "shadow-in-button"
+                  : "shadow-out-button"
               } min-w-[105px] px-2`}
-              onClick={() => setIsBlogOnTop(true)}
+              onClick={() => onClickSendUrl("blog")}
             >
               arden's blog
             </span>
