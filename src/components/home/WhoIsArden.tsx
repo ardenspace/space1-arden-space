@@ -12,7 +12,7 @@ export default function WhoIsArden({ locale }: { locale: string }) {
       } absolute top-[15vh] left-[100px] h-[25vh] min-h-[220px] w-[40vw] min-w-[320px] max-w-[360px] border-2 border-[#fff] transition-transform duration-200 hover:scale-103`}
     >
       <div className="h-[10%] bg-[var(--ttBlack)] text-[var(--mainTt1)] flex items-center px-2 border-b-2 border-[#fff] font-bold text-xs">
-        WHO IS THIS?
+        WHO IS ARDEN?
       </div>
       <div className="checkerboard">
         <div className="w-[85%] h-[85%] bg-white relative overflow-hidden rotate-[8deg] cursor-pointer">

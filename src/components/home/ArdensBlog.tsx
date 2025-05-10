@@ -48,7 +48,7 @@ export default function ArdensBlog() {
           </div>
 
           <div className="min-w-[250px] flex-1 px-2 relative border-[var(--ttBlack)] [@container(min-width:500px)]:border-l [@container(max-width:500px)]:border-t">
-            <div className="absolute bottom-0 right-0 w-[30%] h-[30%] min-h-[100px]">
+            <div className="absolute bottom-0 right-0 w-[30%] h-[auto] min-h-[100px]">
               <img
                 src="/home/attie.png"
                 alt="attie-on-the-home"

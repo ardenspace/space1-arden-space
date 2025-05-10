@@ -66,16 +66,7 @@ export default function Footer() {
                 <Github size={21} color={`var(--ttBlack)`} />
               </Link>
             </span>
-            <span
-              className={`${
-                currentPosition === "port"
-                  ? "shadow-in-button"
-                  : "shadow-out-button"
-              } min-w-[100px]`}
-              onClick={() => onClickSendUrl("port")}
-            >
-              who's arden?
-            </span>
+
             <span
               className={`${
                 currentPosition === "blog"
@@ -85,6 +76,17 @@ export default function Footer() {
               onClick={() => onClickSendUrl("blog")}
             >
               arden's blog
+            </span>
+
+            <span
+              className={`${
+                currentPosition === "port"
+                  ? "shadow-in-button"
+                  : "shadow-out-button"
+              } min-w-[100px]`}
+              onClick={() => onClickSendUrl("port")}
+            >
+              who's arden?
             </span>
           </div>
 
