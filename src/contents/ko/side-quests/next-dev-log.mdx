@@ -1,8 +1,213 @@
 ---
 title: Next.js 정적 블로그 개발기
-description: 취향이 듬뿍 담긴 나만의 블로그를 생성합니다.
+description: 취향이 듬뿍 담긴 나만의 블로그를 만듭니다.
 thumbnail: /thumbnails/thumb-nextjs-logo.png
 date: "2025-05-20"
 ---
 
-## Next.js 정적 블로그 개발기
+## Next.js 정적 블로그
+
+처음부터 고려했던 것
+
+1. next.js + typescript + markdown 조합
+2. 한<->영 전환
+3. 디자인에 개인 취향을 듬뿍 담을 것
+
+타입스크립트는 취준 때 프로젝트 할 때에만 써보고 실무에서는 써본 적이 거의 없다. 다시 감각을 익힐 겸 타입스크립트를 써보고 싶었고 해외 취업을 염두에 두고 있기에 꼭 영어 버전도 만들고 싶었다. 마지막으로 이 블로그를 포트폴리오로도 활용할 생각이라 오래오래 함께하고 싶으므로 내 취향에 가장 가깝게 구현하기로 했다.
+
+개발 시작!
+
+### 1. next.js + typescript + markdown 조합
+
+#### 프로젝트 생성
+
+```
+npx create-next-app --typescript 프로젝트명
+```
+
+프로젝트가 생성되기 전에 여러 질문을 물어보는데
+
+1. typescript 사용할 거냐? yes
+2. tailwind 사용할 거냐? yes
+3. src 폴더 안에 넣을 거냐? yes
+
+그러면 일단 next.js + typescript 여기까지는 성공이다.
+
+#### 마크다운 연결하기
+
+참 많은 우여곡절이 있었다. 처음에는 많이 사용하는 `contentlayer` 패키지를 개발을 끝냈는데 이것저것 찾아보다 보니 이미 커뮤니티 지원이 끊긴 패키지였다. 게다가 next.js에 기본적으로 포함된 mdx 솔루션이 이미 있었다! 바로 `@next/mdx`. 옳다구나, 가보자!
+
+a. 패키지 다운로드
+
+```
+pnpm install @next/mdx @mdx-js/loader @mdx-js/mdx @mdx-js/react @types/mdx next-mdx-remote
+```
+
+b. next.config.ts 수정 (없으면 src 폴더에 생성)
+
+```
+import createMDX from "@next/mdx";
+
+const nextConfig = {
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  transpilePackages: ["next-mdx-remote"],
+};
+
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+});
+
+export default withMDX(nextConfig);
+```
+
+c. mdx-components.tsx 수정 (없으면 src 폴더에 생성)
+
+```
+import type { MDXComponents } from "mdx/types";
+
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...components,
+  };
+}
+```
+
+d. 메타데이터 가져오기
+폴더 구조: src\lib\posts.ts
+
+```
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+
+// 포스트 데이터 타입
+export type PostMeta = {
+  title: string;
+  description: string;
+  date: string;
+  thumbnail: string;
+  category: string;
+  slug: string;
+  locale: string;
+};
+
+// 메타데이터 가져올 파일 경로
+const contentDir = path.join(process.cwd(), "src/contents");
+
+// 메타데이터 가져오는 함수
+export function getMetaData(locale: string): PostMeta[] {
+    // 한영 전환을 위해 포스트 폴더를 en, ko로 나누었다.
+    // getMetaData 인자로 언어를 건네 언어에 맞는 포스트를 가져온다.
+  const localeDir = path.join(contentDir, locale);
+
+  if (!fs.existsSync(localeDir)) return [];
+
+    // 카테고리도 나름 블로그에서 중요한 역할을 맡고 있기에 초장부터 나누어 주었다.
+  const categories = fs.readdirSync(localeDir);
+
+  return categories.flatMap((category) => {
+    const categoryDir = path.join(localeDir, category);
+    const files = fs
+      .readdirSync(categoryDir)
+      .filter((file) => file.endsWith(".mdx"));
+
+    return files.map((file) => {
+      const slug = file.replace(/\.mdx$/, "");
+      const filePath = path.join(categoryDir, file);
+      const source = fs.readFileSync(filePath, "utf8");
+      const { data } = matter(source);
+
+      return {
+        ...(data as Omit<PostMeta, "category" | "slug" | "locale">),
+        locale,
+        category,
+        slug,
+      };
+    });
+  });
+}
+```
+
+e. 메타데이터 가져오기
+
+받은 데이터를 가져와 클라이언트에 띄워 줘야 한다.
+폴더 구조: src\app\[locale]\blog\page.tsx
+
+```
+import { getMetaData } from "@/lib/posts";
+import ClientBlogPage from "./ClientBlogPage"; // 화면에 뿌려줄 클라이언트 페이지 컴포넌트
+
+export default async function BlogPage({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const { locale } = await params;
+  const postsMetaData = getMetaData(locale);
+
+    // 카테고리별로 포스트를 나누기 위함
+  const categorized = postsMetaData.reduce((acc, post) => {
+    if (!acc[post.category]) acc[post.category] = [];
+    acc[post.category].push(post);
+    return acc;
+  }, {} as Record<string, typeof postsMetaData>);
+
+  const categories = Object.keys(categorized);
+  const selectedCategory = categories[0] || "";
+
+  return (
+    <ClientBlogPage
+      categories={categories}
+      categorizedPosts={categorized}
+      initialCategory={selectedCategory}
+    />
+  );
+}
+```
+
+f. 클라이언트 페이지 타입 연결
+
+```
+export interface Post {
+  title: string;
+  description: string;
+  category: string;
+  slug: string;
+  date: string;
+  thumbnail: string;
+  locale: string;
+}
+
+export interface PostProps {
+  categories: string[];
+  categorizedPosts: Record<string, Post[]>;
+  initialCategory: string;
+}
+
+const ClientBlogPage = ({
+  categories,
+  categorizedPosts,
+  initialCategory,
+}: PostProps) => {
+    ....
+}
+```
+
+g. 포스트 쓰기
+
+```
+---
+title: Next.js 정적 블로그 개발기
+description: 취향이 듬뿍 담긴 나만의 블로그를 만듭니다.
+thumbnail: /thumbnails/thumb-nextjs-logo.png
+date: "2025-05-27"
+---
+
+...블라 블라...
+```
+
+markdown 연결 끝!
+
+구상만 했을 때에는 금방 할 거라고 예상했는데 생각보다 오래 걸리는 작업이었다. 하지만 해냈죠? ㅎ ㅎ ㅎ 정말 뿌듯했다!
+
+`2. 한<->영 전환`은 다음 편에 계속!
