@@ -1,25 +1,33 @@
 ---
 title: Next.js 정적 블로그 개발기
-description: 취향이 듬뿍 담긴 나만의 블로그를 만듭니다.
+description: 취향이 듬뿍 담긴 나만의 블로그 만들기 프로젝트
 thumbnail: /thumbnails/thumb-nextjs-logo.png
 date: "2025-05-20"
 ---
 
-## Next.js 정적 블로그
+## 프로젝트 목적
 
-처음부터 고려했던 것
+개발자 된 지 2년이 넘어가자 조금씩 이해의 밀도가 높아졌다. 여기서 표현까지 할 수 있다면 더 깊이 이해할 수 있지 않을까? 성장하기 위해 개인 블로그를 개발해보기로 했다.
 
-1. next.js + typescript + markdown 조합
-2. 한<->영 전환
-3. 디자인에 개인 취향을 듬뿍 담을 것
+## 처음부터 고려했던 것
 
-타입스크립트는 취준 때 프로젝트 할 때에만 써보고 실무에서는 써본 적이 거의 없다. 다시 감각을 익힐 겸 타입스크립트를 써보고 싶었고 해외 취업을 염두에 두고 있기에 꼭 영어 버전도 만들고 싶었다. 마지막으로 이 블로그를 포트폴리오로도 활용할 생각이라 오래오래 함께하고 싶으므로 내 취향에 가장 가깝게 구현하기로 했다.
+- next.js + typescript + markdown 조합
+- 한영 전환
+- 디자인에 개인 취향을 듬뿍 담을 것
 
-개발 시작!
+- next.js + typescript + mdx 조합
+  블로그에 서버까지 구축하면 낯선 게 많아 손이 안 갈까봐 mdx를 사용하기로 했다. 잘한 결정이었다. mdx 연결이 많은 공부가 됐다.
+  타입스크립트는 개인 프로젝트 제외 실무에서는 써본 적이 없어 감각 익힐 겸 적용했다. 실용적이면서 코드에 깔끔함도 더해줘서 어려워도 계속 찾게 된다.
 
-### 1. next.js + typescript + markdown 조합
+- 한영 전환
+  해외에서 일하고 싶다는 꿈도 있지만, 영어 문서에 더 친숙해지기 위해 도전했다.
 
-#### 프로젝트 생성
+- 디자인에 개인 취향을 듬뿍 담을 것
+  이 블로그를 포트폴리오로도 활용할 예정이라 프론트엔드 개발자로서의 보는 재미도 한 방울 첨가하고 싶었다. 개인적인 취향을 가득 담았다.
+
+### next.js + typescript + markdown 조합
+
+- 프로젝트 생성
 
 ```
 npx create-next-app --typescript 프로젝트명
@@ -31,11 +39,11 @@ npx create-next-app --typescript 프로젝트명
 2. tailwind 사용할 거냐? yes
 3. src 폴더 안에 넣을 거냐? yes
 
-그러면 일단 next.js + typescript 여기까지는 성공이다.
+그러면 일단 next.js + typescript 까지는 성공이다.
 
-#### 마크다운 연결하기
+- 마크다운 연결하기
 
-참 많은 우여곡절이 있었다. 처음에는 많이 사용하는 `contentlayer` 패키지를 개발을 끝냈는데 이것저것 찾아보다 보니 이미 커뮤니티 지원이 끊긴 패키지였다. 게다가 next.js에 기본적으로 포함된 mdx 솔루션이 이미 있었다! 바로 `@next/mdx`. 옳다구나, 가보자!
+우여곡절이 있었다. 처음에는 많이 사용하는 `contentlayer`로 개발을 끝냈는데 디자인을 하려고 보니 이미 커뮤니티 지원이 끊긴 패키지였다. 게다가 next.js에 기본적으로 포함된 mdx 솔루션이 있었다. 바로 `@next/mdx`. 옳다구나, 가보자!
 
 a. 패키지 다운로드
 
@@ -97,12 +105,12 @@ const contentDir = path.join(process.cwd(), "src/contents");
 // 메타데이터 가져오는 함수
 export function getMetaData(locale: string): PostMeta[] {
     // 한영 전환을 위해 포스트 폴더를 en, ko로 나누었다.
-    // getMetaData 인자로 언어를 건네 언어에 맞는 포스트를 가져온다.
+    // getMetaData 인자로 언어를 건네 그에 맞는 포스트를 가져온다.
   const localeDir = path.join(contentDir, locale);
 
   if (!fs.existsSync(localeDir)) return [];
 
-    // 카테고리도 나름 블로그에서 중요한 역할을 맡고 있기에 초장부터 나누어 주었다.
+    // 카테고리도 블로그에서 나름 중요한 역할을 맡고 있기에 클라이언트에 넘겨 주기 전부터 나누었다.
   const categories = fs.readdirSync(localeDir);
 
   return categories.flatMap((category) => {
@@ -128,9 +136,7 @@ export function getMetaData(locale: string): PostMeta[] {
 }
 ```
 
-e. 메타데이터 가져오기
-
-받은 데이터를 가져와 클라이언트에 띄워 줘야 한다.
+e. 메타데이터 띄우기
 폴더 구조: src\app\[locale]\blog\page.tsx
 
 ```
@@ -145,7 +151,7 @@ export default async function BlogPage({
   const { locale } = await params;
   const postsMetaData = getMetaData(locale);
 
-    // 카테고리별로 포스트를 나누기 위함
+    // 카테고리별로 포스트 나누기
   const categorized = postsMetaData.reduce((acc, post) => {
     if (!acc[post.category]) acc[post.category] = [];
     acc[post.category].push(post);
@@ -189,11 +195,11 @@ const ClientBlogPage = ({
   categorizedPosts,
   initialCategory,
 }: PostProps) => {
-    ....
+    ...
 }
 ```
 
-g. 포스트 쓰기
+g. 포스트.mdx 파일은?
 
 ```
 ---
@@ -206,8 +212,8 @@ date: "2025-05-27"
 ...블라 블라...
 ```
 
-markdown 연결 끝!
+mdx 연결 끝!
 
-구상만 했을 때에는 금방 할 거라고 예상했는데 생각보다 오래 걸리는 작업이었다. 하지만 해냈죠? ㅎ ㅎ ㅎ 정말 뿌듯했다!
+구상만 했을 때에는 금방 할 거라고 예상했는데 생각보다 오래 걸리는 작업이었다. 하지만 해냈죠? ㅎ ㅎ ㅎ 정말 뿌듯했다.
 
-`2. 한<->영 전환`은 다음 편에 계속!
+`2. 한영 전환`은 다음 편에 계속!
