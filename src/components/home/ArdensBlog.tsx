@@ -33,9 +33,10 @@ export default function ArdensBlog() {
                   className="saturate-50 absolute inset-0 w-full h-full object-cover"
                 /> */}
               </div>
+              {/* #BFBFBF */}
               <div
                 className="
-            flex-[0.2] flex items-center text-base font-bold text-[var(--mainTt2)] p-2 bg-[#c9c9c7] cursor-pointer 
+            flex-[0.2] flex items-center text-base font-bold text-[var(--mainTt2)] p-2 bg-[var(--footerBr)] cursor-pointer 
             border-dotted border-[var(--ttBlack)]
             [@container(min-width:500px)]:border-t-2 
             [@container(max-width:500px)]:border-l-2

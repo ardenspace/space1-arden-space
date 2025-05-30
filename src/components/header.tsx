@@ -9,7 +9,7 @@ import { silkscreen } from "@/lib/fonts";
 import { useWindowSize } from "@/hooks/use-size";
 
 const stylesMap: Record<string, { bg: string; text: string }> = {
-  "/": { bg: "bg-[var(--homeBg)]", text: "text-[var(--homeTt)]" },
+  "/": { bg: "bg-[var(--portTt)]", text: "text-[var(--homeTt)]" },
   "/blog": { bg: "bg-[var(--blogBg)]", text: "text-[var(--blogTt)]" },
   "/arden": { bg: "bg-[var(--portBg)]", text: "text-[var(--portTt)]" },
 };
@@ -67,7 +67,7 @@ export default function Header() {
 
     return (
       stylesMap[match ?? "/"] || {
-        bg: "bg-[var(--homeBg)]",
+        bg: "bg-[var(--portTt)]",
         text: "text-[var(--homeTt)]",
       }
     );

@@ -18,7 +18,7 @@ export default function HomeIcon({
   return (
     <Link href={`${tolink}`}>
       <div
-        className={`flex flex-col absolute items-center min-w-[80px] ${design} "cursor-pointer z-9`}
+        className={`flex flex-col absolute items-center min-w-[70px] ${design} "cursor-pointer z-9`}
       >
         <ICON className={size} />
         <div

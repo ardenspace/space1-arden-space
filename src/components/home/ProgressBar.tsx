@@ -43,8 +43,8 @@ const ProgressBar = () => {
             className={`${
               size.width > 500 && size.width < 849 ? "w-14" : "w-8"
             } h-2 mx-0.5 ${
-              // idx < activeIndex ? "bg-[#545454]" : "bg-[var(--footerBg)]"
-              idx < activeIndex ? "bg-[var(--mainTt2)]" : "bg-[var(--footerBg)]"
+              // idx < activeIndex ? "bg-[#545454]" : "bg-[var(--footerBg #f0f0ed)]"
+              idx < activeIndex ? "bg-[var(--mainTt2)]" : "bg-[var(--footerBr)]"
             } transition-all`}
           />
         ))}

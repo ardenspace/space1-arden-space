@@ -22,7 +22,7 @@ export const homeIcons = [
   // },
   {
     ICON: Twitter,
-    design: "bottom-[1vh] right-[60px]",
+    design: "bottom-[1vh] right-[55px]",
     filename: "Twitter",
     size: "w-6 h-7",
     tolink: "https://twitter.com/ardenspace",
