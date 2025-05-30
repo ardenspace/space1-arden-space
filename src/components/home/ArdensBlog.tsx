@@ -36,7 +36,7 @@ export default function ArdensBlog() {
               {/* #BFBFBF */}
               <div
                 className="
-            flex-[0.2] flex items-center text-base font-bold text-[var(--mainTt2)] p-2 bg-[var(--footerBr)] cursor-pointer 
+            flex-[0.2] flex items-center text-base font-bold text-[var(--mainTt3)] p-2 bg-[var(--footerBr)] cursor-pointer 
             border-dotted border-[var(--ttBlack)]
             [@container(min-width:500px)]:border-t-2 
             [@container(max-width:500px)]:border-l-2
