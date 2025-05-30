@@ -14,13 +14,8 @@ body {
   /* @apply flex flex-col w-full h-full min-h-[calc(100vh)]; */
   @apply flex flex-col w-full h-screen;
   /* background: linear-gradient(to right, #b6cbfc, #fecef8); */
-  background: linear-gradient(to bottom, var(--overallBg), #cdfae3);
+  background: linear-gradient(to right, var(--overallBg), #cdfae3);
 }
-/* @media (max-width: 769px) {
-  .layout-main {
-    background: linear-gradient(to bottom, var(--overallBg), #cdfae3);
-  }
-} */
 
 .page-layout {
   @apply pt-35 pb-15 max-w-screen-md w-full min-h-[calc(100vh)];
@@ -73,6 +68,11 @@ body {
   /* background-color: #d3d3d3; */
   border: solid 1px #c9c9c7;
   padding: 2px;
+}
+@media (max-width: 785px) {
+  .custom-box {
+    height: 80%;
+  }
 }
 .stripe-background {
   background: repeating-linear-gradient(

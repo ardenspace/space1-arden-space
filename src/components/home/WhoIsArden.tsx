@@ -9,7 +9,7 @@ export default function WhoIsArden({ locale }: { locale: string }) {
       onClick={() => setCurrentPosition("port")}
       className={`${
         currentPosition === "blog" ? "" : "z-9"
-      } absolute top-[15vh] left-[100px] h-[25vh] min-h-[220px] w-[40vw] min-w-[320px] max-w-[360px] border-2 border-[#fff] transition-transform duration-200 hover:scale-103 `}
+      } absolute top-[14vh] left-[100px] h-[25vh] min-h-[220px] w-[40vw] min-w-[320px] max-w-[360px] border-2 border-[#fff] transition-transform duration-200 hover:scale-103 `}
       style={{
         boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.5)",
       }}
@@ -21,7 +21,7 @@ export default function WhoIsArden({ locale }: { locale: string }) {
         <div className="w-[85%] h-[85%] bg-white relative overflow-hidden rotate-[8deg] cursor-pointer">
           <Link href={`http://localhost:3000/${locale}/arden`}>
             <img
-              src="/home/wemadeit.jpg"
+              src="/home/profile2.jpeg"
               alt="for-home-portfolio"
               className="absolute inset-0 w-full h-full object-cover"
             />
