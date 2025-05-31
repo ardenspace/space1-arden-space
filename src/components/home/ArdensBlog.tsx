@@ -45,7 +45,7 @@ export default function ArdensBlog() {
           "
                 onClick={onClickTakeAPeek}
               >
-                <span className="text-xl bounce-up">
+                <span className="left-text bounce-up">
                   {">>"} Enter the vault
                 </span>
               </div>

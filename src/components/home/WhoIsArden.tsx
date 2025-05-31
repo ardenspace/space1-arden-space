@@ -21,7 +21,8 @@ export default function WhoIsArden({ locale }: { locale: string }) {
         <div className="w-[85%] h-[85%] bg-white relative overflow-hidden rotate-[8deg] cursor-pointer">
           <Link href={`http://localhost:3000/${locale}/arden`}>
             <img
-              src="/home/profile2.jpeg"
+              // src="/home/profile2.jpeg"
+              src="/home/wemadeit.jpg"
               alt="for-home-portfolio"
               className="absolute inset-0 w-full h-full object-cover"
             />

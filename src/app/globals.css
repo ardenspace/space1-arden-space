@@ -69,9 +69,15 @@ body {
   border: solid 1px #c9c9c7;
   padding: 2px;
 }
+.left-text {
+  @apply text-xl;
+}
 @media (max-width: 785px) {
   .custom-box {
     height: 80%;
+  }
+  .left-text {
+    @apply text-lg;
   }
 }
 .stripe-background {
