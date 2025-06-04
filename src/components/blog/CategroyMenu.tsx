@@ -25,12 +25,16 @@ export default function CategoryMenu({
               className="w-[90%] flex items-center justify-center py-1 text-sm text-[var(--ttBlack)] truncate overflow-hidden"
               onClick={() => onSelectCategory(category)}
             >
-              {selectedCategory === category ? (
-                <FolderClosed size={15} className="mr-1" />
-              ) : (
-                <Folder size={15} className="mr-1" />
-              )}
-              {category}
+              <span className="mr-1 shrink-0">
+                {selectedCategory === category ? (
+                  <FolderClosed size={15} />
+                ) : (
+                  <Folder size={15} />
+                )}
+              </span>
+              <span className="truncate overflow-hidden whitespace-nowrap">
+                {category}
+              </span>
             </div>
           </div>
         ))}

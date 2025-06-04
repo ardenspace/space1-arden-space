@@ -40,7 +40,7 @@ export default function SlugDetailPage({ children, frontmatter }: Props) {
             onClick={onHandleBack}
           >
             <Reply size={24} color="var(--ttBlack)" />
-            <span className="ml-2 text-xs font-bold mt-1">
+            <span className="ml-2 text-sm font-bold mt-1">
               C:\Blog\{fromCategory ? fromCategory : ""}
             </span>
           </div>

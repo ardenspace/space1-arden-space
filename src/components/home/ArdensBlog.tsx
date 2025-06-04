@@ -38,7 +38,7 @@ export default function ArdensBlog() {
               {/* #BFBFBF */}
               <div
                 className="
-            flex-[0.3] flex items-center text-base font-bold text-[var(--mainTt2)] p-2 bg-[var(--footerBg)] cursor-pointer 
+            flex-[0.3] flex items-center justify-center text-base font-bold text-[var(--mainTt2)] p-2 bg-[var(--footerBg)] cursor-pointer 
             border-dotted border-[var(--ttBlack)]
             [@container(min-width:500px)]:border-t-2 
             [@container(max-width:500px)]:border-l-2
@@ -46,7 +46,7 @@ export default function ArdensBlog() {
                 onClick={onClickTakeAPeek}
               >
                 <span className="left-text bounce-up">
-                  {">>"} Enter the vault
+                  {"> > "} Enter the vault
                 </span>
               </div>
             </div>

@@ -104,22 +104,22 @@ export default function Header() {
             Hello, arden'space!
           </span>
           <div className="flex">
-            <div className={`icon-div ${currentStyle.text}`}>
+            {/* <div className={`icon-div ${currentStyle.text}`}>
               <Cat size={19} className={`${currentStyle.text}`} />
-            </div>
+            </div> */}
             <div
-              className={`icon-div ${currentStyle.text} cursor-pointer bg-[var(--bgWhite)]`}
+              className={`icon-div ${currentStyle.text} cursor-pointer`}
               onClick={onSwitchLanguages}
             >
               <Languages size={19} className={`${currentStyle.text}`} />
             </div>
             <div
-              className={`icon-div ${currentStyle.text} cursor-pointer bg-[var(--bgWhite)]`}
+              className={`icon-div ${currentStyle.text} cursor-pointer`}
               onClick={() => {
                 router.push("/");
               }}
             >
-              <X size={19} className={`${currentStyle.text}`} />
+              <X size={20} className={`${currentStyle.text}`} />
             </div>
           </div>
         </div>

@@ -54,7 +54,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
                 >
                   {post.description}
                 </div>
-                <div className="w-full flex items-center justify-center border-b border-r border-3 border-[var(--bgWhite)] h-8 shadow-[3px_3px_1px_rgba(35,196,175,0.7)] mt-3 rounded-xs">
+                <div className="w-full flex items-center justify-center border-b border-r border-3 border-[var(--bgWhite)] h-8 shadow-[3px_3px_1px_rgba(35,196,175,0.7)] mt-3 rounded-xs tracking-[0.5em]">
                   play now!
                 </div>
               </div>
