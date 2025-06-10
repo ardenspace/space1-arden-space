@@ -17,9 +17,9 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
   return (
     <section className="flex flex-col pt-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-x-4 gap-8 px-1 sm:px-4">
-        {posts.map((post) => (
+        {posts.map((post, idx) => (
           <div
-            key={post.title}
+            key={idx}
             className="shadow-[3px_3px_3px_rgba(0,0,0,0.2)] p-[2px] hover:scale-102 rounded-sm hover:cursor-pointer"
           >
             <Link
