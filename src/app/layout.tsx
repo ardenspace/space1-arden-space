@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { ZIndexProvider } from "@/contexts/ZIndexContext";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "arden'space",

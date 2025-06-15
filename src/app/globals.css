@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./custom.css";
+@import "./mdx-styles.css";
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -144,40 +145,4 @@ body {
 
 .icon-div {
   @apply flex items-center justify-center h-6 w-6 ml-1 rounded-[2px] border-2;
-}
-
-/* 블로그 상세 페이지 레이아웃 */
-.detail-page-layout {
-  @apply text-base;
-
-  .title-box {
-    padding: 2rem 1.2rem 1.2rem 1.2rem;
-  }
-
-  .title {
-    color: var(--ttBlack);
-    font-size: 1.7rem;
-    font-weight: bold;
-  }
-  .description {
-    color: var(--ttBlack);
-    font-size: 1rem;
-  }
-  .date {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    color: var(--bgSecond);
-  }
-
-  .content {
-    padding: 0rem 0.3rem 1.8rem 0.7rem;
-  }
-  h2 {
-    color: var(--ttBlack);
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 2.5rem 0rem 1.3rem 0rem;
-    padding: 0rem 0.3rem;
-  }
 }

@@ -1,4 +1,4 @@
-import { Play, Silkscreen, Orbit } from "next/font/google";
+import { Play, Silkscreen, Montserrat } from "next/font/google";
 
 // header - title
 export const silkscreen = Silkscreen({
@@ -12,8 +12,10 @@ export const play = Play({
   weight: ["400"],
 });
 
-// body - korean
-export const orbit = Orbit({
+// mdx - code block font
+export const montserrate = Montserrat({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-montserrate",
 });
