@@ -147,6 +147,7 @@ const contentDir = path.join(process.cwd(), "src/contents");
 
 // Function to fetch metadata
 export function getMetaData(locale: string): PostMeta[] {
+
 // To support Korean and English, the posts folder is divided into `en` and `ko`.
 // The language is passed as an argument to `getMetaData` to fetch posts accordingly.
 const localeDir = path.join(contentDir, locale);

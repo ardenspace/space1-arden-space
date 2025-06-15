@@ -140,6 +140,7 @@ const contentDir = path.join(process.cwd(), "src/contents");
 
 // 메타데이터 가져오는 함수
 export function getMetaData(locale: string): PostMeta[] {
+
 // 한영 전환을 위해 포스트 폴더를 en, ko로 나누었다.
 // getMetaData 인자로 언어를 건네서 그에 맞는 포스트를 가져온다.
 const localeDir = path.join(contentDir, locale);
