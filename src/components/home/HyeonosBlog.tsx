@@ -18,7 +18,7 @@ export default function ArdensBlog() {
     >
       <div className="stripe-background h-[5%] w-full flex justify-center items-center mb-[2px]">
         <span className="bg-[var(--footerBg)] px-2 text-[var(--ttBlack)] font-bold text-xs">
-          HELLO, ARDEN'SPACE!
+          WELCOME TO HYEONO'SPACE!
         </span>
       </div>
       <div className="h-[91.5%] w-full">

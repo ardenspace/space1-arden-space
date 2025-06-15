@@ -1,7 +1,7 @@
-<!-- GitHub Profile README: arden'space -->
+<!-- GitHub Profile README: hyeono'space -->
 
 <br />
-<h2 align="center">⚡This is arden'space⚡</h2>
+<h2 align="center">⚡This is hyeono'space⚡</h2>
 
 <p align="center">
   <strong>🖐Hi There!🤗</strong>
@@ -11,7 +11,6 @@
 </p>
 
 <br />
-
 
 #### 🌱 About Me
 
@@ -42,7 +41,7 @@ I love exploring bugs like puzzles, building little things for fun, and reflecti
 
 #### 🌐 Connect with me
 
-- 📝 Blog: [arden.space](https://arden.space)
+- 📝 Blog: [hyeono.space](https://hyeono.space)
 - 🐦 Twitter: [@ardenspace](https://twitter.com/ardenspace)
 - 📫 Email: [ardensdevspace@gmail.com](mailto:ardensdevspace@gmail.com)
 

@@ -39,7 +39,7 @@ export default function Footer() {
 
     if (segments.length > 2) {
       const targetPath =
-        type === "blog" ? `/${locale}/blog` : `/${locale}/arden`;
+        type === "blog" ? `/${locale}/blog` : `/${locale}/hyeono`;
       router.push(targetPath);
     }
   };
@@ -72,10 +72,10 @@ export default function Footer() {
                 currentPosition === "blog"
                   ? "shadow-in-button"
                   : "shadow-out-button"
-              } min-w-[105px] px-2`}
+              } min-w-[90px] px-2`}
               onClick={() => onClickSendUrl("blog")}
             >
-              arden's blog
+              hyeono's
             </span>
 
             <span
@@ -83,10 +83,10 @@ export default function Footer() {
                 currentPosition === "port"
                   ? "shadow-in-button"
                   : "shadow-out-button"
-              } min-w-[100px]`}
+              } min-w-[80px]`}
               onClick={() => onClickSendUrl("port")}
             >
-              who's arden?
+              who is?
             </span>
           </div>
 
@@ -101,7 +101,7 @@ export default function Footer() {
                     ? `Copyright © ${new Date().getFullYear()}`
                     : `Copyright ©`}
                 </span>
-                <span className="text-xs">Arden Lee</span>
+                <span className="text-xs">Hyeono Lee</span>
               </div>
             ) : (
               <></>
