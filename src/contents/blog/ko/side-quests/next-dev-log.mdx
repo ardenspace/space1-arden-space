@@ -1,0 +1,277 @@
+---
+title: Next.js 정적 블로그 개발기
+description: 취향이 듬뿍 담긴 나만의 블로그 만들기 프로젝트
+thumbnail: /thumbnails/nextjs-logo.png
+date: "2025-05-20"
+---
+
+## 프로젝트 목적
+
+개발자 된 지 2년이 넘어가자 조금씩 이해의 밀도가 높아졌다. 여기서 표현까지 할 수 있다면 더 깊이 이해할 수 있지 않을까? 성장하기 위해 개인 블로그를 개발해보기로 했다.
+
+<div className="bar" />
+
+## 기술 스택
+
+**Frontend**: React, Next.js, TypeScript, Tailwind CSS, MDX <br />
+**Version Control**: Git, GitHub
+
+<div className="bar" />
+
+## 고려한 점
+
+<ol>
+  <li>1. next.js + typescript + markdown 조합</li>
+  <li>2. 한영 전환</li>
+  <li>3. 디자인에 개인 취향을 듬뿍 담을 것</li>
+</ol>
+
+- next.js + typescript + mdx 조합
+
+<div>
+  블로그에 서버까지 구축하면 낯선 게 많아 손이 안 갈까봐 mdx를 사용하기로 했다.
+  잘한 결정이었다. mdx를 연결하면서 next.js가 이전보다 친숙해졌다.
+  타입스크립트는 개인 프로젝트 제외 실무에서는 써본 적이 없어 감각 익힐 겸
+  적용했다. 실용적이면서 코드에 깔끔함도 더해줘서 어려워도 계속 찾게 된다.
+</div>
+
+- 한영 전환
+
+<div>
+  해외에서 일하고 싶다는 꿈도 있지만, 영문이 다반사인 공식 문서에 더 친숙해지기
+  위해 도전했다.
+</div>
+
+- 디자인에 개인 취향을 듬뿍 담을 것
+
+<div>
+  이 블로그를 포트폴리오로도 활용할 예정이라 프론트엔드 개발자로서의 보는 재미도
+  한 방울 첨가하고 싶었다. 개인적인 취향을 가득 담았다. 취향이 바뀌거나 도전하고
+  싶은 디자인이 생기면 그때마다 적용해볼 예정이다.
+</div>
+
+<div className="bar" />
+
+### next.js + typescript + markdown 조합
+
+- 프로젝트 생성
+
+<div></div>
+<div className="mdx-code-box">npx create-next-app --typescript 프로젝트명</div>
+
+프로젝트가 생성되기 전에 여러가지 질문을 하는데
+
+<br />
+<div>1. typescript 사용할 거냐? yes</div>
+<div>2. tailwind 사용할 거냐? yes</div>
+<div>3. src 폴더 안에 넣을 거냐? yes</div>
+<br />
+그러면 일단 next.js + typescript 까지는 성공이다.
+
+- 마크다운 연결하기
+
+우여곡절이 있었다. 처음에는 많이 사용하는 _contentlayer_ 로 개발을 끝냈는데 디자인을 하려고 보니 이미 커뮤니티 지원이 끊긴 패키지였다. 게다가 next.js에 기본적으로 포함된 mdx 솔루션이 있었다.
+바로 **_@next/mdx_**. 옳다구나, 가보자!
+
+<br />
+<br />
+a. 패키지 다운로드
+
+<div className="mdx-code-box">
+  pnpm install @next/mdx @mdx-js/loader @mdx-js/mdx @mdx-js/react @types/mdx
+  next-mdx-remote
+</div>
+
+b. next.config.ts 수정 (없으면 src 폴더에 생성)
+
+<div className="mdx-code-box">
+```
+import createMDX from "@next/mdx";
+
+const nextConfig = {
+pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+transpilePackages: ["next-mdx-remote"],
+};
+
+const withMDX = createMDX({
+// Add markdown plugins here, as desired
+});
+
+export default withMDX(nextConfig);
+```
+</div>
+
+c. mdx-components.tsx 수정 (없으면 src 폴더에 생성)
+
+<div className="mdx-code-box">
+```
+import type { MDXComponents } from "mdx/types";
+
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...components,
+  };
+}
+```
+</div>
+
+d. 메타데이터 가져오기 <br />
+폴더 구조: src\lib\posts.ts
+
+<div className="mdx-code-box">
+```
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+
+// 포스트 데이터 타입
+export type PostMeta = {
+title: string;
+description: string;
+date: string;
+thumbnail: string;
+category: string;
+slug: string;
+locale: string;
+};
+
+// 메타데이터 가져올 파일 경로
+const contentDir = path.join(process.cwd(), "src/contents");
+
+// 메타데이터 가져오는 함수
+export function getMetaData(locale: string): PostMeta[] {
+// 한영 전환을 위해 포스트 폴더를 en, ko로 나누었다.
+// getMetaData 인자로 언어를 건네서 그에 맞는 포스트를 가져온다.
+const localeDir = path.join(contentDir, locale);
+
+if (!fs.existsSync(localeDir)) return [];
+
+// 카테고리도 블로그에서 나름 중요한 역할을 맡고 있기에 클라이언트에 넘겨 주기 전부터 나누었다.
+const categories = fs.readdirSync(localeDir);
+
+return categories.flatMap((category) => {
+const categoryDir = path.join(localeDir, category);
+const files = fs
+.readdirSync(categoryDir)
+.filter((file) => file.endsWith(".mdx"));
+
+return files.map((file) => {
+const slug = file.replace(/\.mdx$/, "");
+const filePath = path.join(categoryDir, file);
+const source = fs.readFileSync(filePath, "utf8");
+const { data } = matter(source);
+
+      return {
+        ...(data as Omit<PostMeta, "category" | "slug" | "locale">),
+        locale,
+        category,
+        slug,
+      };
+    });
+
+});
+}
+
+```
+</div>
+
+e. 메타데이터 띄우기 <br />
+폴더 구조: src\app\[locale]\blog\page.tsx
+
+<div className="mdx-code-box">
+```
+
+import { getMetaData } from "@/lib/posts";
+import ClientBlogPage from "./ClientBlogPage"; // 화면에 뿌려줄 클라이언트 페이지 컴포넌트
+
+export default async function BlogPage({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const { locale } = await params;
+  const postsMetaData = getMetaData(locale);
+
+// 카테고리별로 포스트 나누기
+const categorized = postsMetaData.reduce((acc, post) => {
+if (!acc[post.category]) acc[post.category] = [];
+acc[post.category].push(post);
+return acc;
+}, {} as Record<string, typeof postsMetaData>);
+
+const categories = Object.keys(categorized);
+const selectedCategory = categories[0] || "";
+
+return (
+
+<ClientBlogPage
+  categories={categories}
+  categorizedPosts={categorized}
+  initialCategory={selectedCategory}
+/>
+); }
+
+```
+</div>
+
+f. 클라이언트 페이지 타입 연결
+
+<div className="mdx-code-box">
+```
+
+export interface Post {
+  title: string;
+  description: string;
+  category: string;
+  slug: string;
+  date: string;
+  thumbnail: string;
+  locale: string;
+}
+
+export interface PostProps {
+  categories: string[];
+  categorizedPosts: Record<string, Post[]>;
+  initialCategory: string;
+}
+
+const ClientBlogPage = ({
+categories,
+categorizedPosts,
+initialCategory,
+}: PostProps) => {
+...
+}
+
+```
+</div>
+
+g. blah-blah.mdx 파일은?
+
+<div className="mdx-code-box">
+```
+
+---
+
+title: Next.js 정적 블로그 개발기
+description: 취향이 듬뿍 담긴 나만의 블로그를 만듭니다.
+thumbnail: /thumbnails/thumb-nextjs-logo.png
+date: "2025-05-27"
+
+---
+
+...blah blah...
+
+```
+</div>
+
+mdx 연결 끝!
+
+<br />
+<br />
+
+구상만 했을 때에는 금방 할 거라고 예상했는데 생각보다 오래 걸리는 작업이었다. 하지만 해냈죠? ㅎ ㅎ ㅎ 정말 뿌듯했다.
+
+<br />
+한영 전환은 다음에 계속!
+```
