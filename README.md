@@ -2,24 +2,29 @@
 
 <br />
 <h2 align="center">👾 This is HYEONO'SPACE 👾</h2>
-
+<br />
 <p align="center">
-  <strong>Hi There, I'm Hyeono Lee. 👋</strong>
+  <strong>Hi There, I'm Hyeono Lee!</strong>
 </p>
 <p align="center">
-  <strong>Welcome in this space where I think, break and build — at my own ⚡pace⚡.</strong>
+  <strong>Welcome in this space✨ where I think, break and build — at my own pace⚡</strong>
 </p>
 
 <br />
 
-#### 👀 About Me
+#### 👀 About This space
 
-Hi, I'm **HYEONO** — a curious maker who sees code as part craft, part playground.
-I love poking at bugs, spinning up small ideas, and reflecting in little notes along the way.
+This is a digital shed for half-built ideas and dev puzzles —  
+a quiet corner where I collect thoughts, fixes, and fragments.
+
+Sometimes it’s a bug log, sometimes a notebook, sometimes a sketch of who I am.  
+
+I made this space to slow down, reflect, and document the messy, curious parts of being a developer.  
+If you enjoy small details and half-finished thoughts, you might feel right at home.
 
 <br />
 
-#### 🖥️ What I'm into these days
+#### 🧩 In This Corner
 
 - **Side quests**: mini projects, experiments, and creative ideas
 - **Break & Fix**: logs from strange bugs and how I fixed them
@@ -34,9 +39,9 @@ I love poking at bugs, spinning up small ideas, and reflecting in little notes a
 - [Why breaking things is part of the plan](https://ardenspace.dev/break-and-fix/breaking-is-learning)
 - [My dev life, at my pace](https://ardenspace.dev/thoughts/my-pace) -->
 
-#### 🔩 Tech Stack
+#### 🧱 Tech Stack
 
-<img src="https://skillicons.dev/icons?i=ts,react,nextjs,tailwind,pnpm,github&theme=light" alt="Tech stack icons" />
+<img src="https://skillicons.dev/icons?i=react,nextjs,ts,pnpm,tailwind,github&theme=light" alt="Tech stack icons" />
 <br />
 
 #### 📬 Let's Connect
