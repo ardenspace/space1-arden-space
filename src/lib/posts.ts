@@ -12,7 +12,7 @@ export type PostMeta = {
   locale: string;
 };
 
-const contentDir = path.join(process.cwd(), "src/contents");
+const contentDir = path.join(process.cwd(), "src/contents/blog");
 
 // 메타데이터 가져오는 함수
 export function getMetaData(locale: string): PostMeta[] {

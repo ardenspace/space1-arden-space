@@ -22,7 +22,7 @@ export default async function PostPage({ params }: Props) {
   try {
     const filePath = path.join(
       process.cwd(),
-      "src/contents",
+      "src/contents/blog",
       locale,
       category,
       `${slug}.mdx`
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const contentRoot = path.join(process.cwd(), `src/contents`);
+  const contentRoot = path.join(process.cwd(), `src/contents/blog`);
   const locales = fs.readdirSync(contentRoot);
 
   const params = locales.flatMap((locale) => {
