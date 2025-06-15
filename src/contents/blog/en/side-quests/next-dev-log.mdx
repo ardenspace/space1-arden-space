@@ -1,0 +1,285 @@
+---
+title: Building a Static Blog with Next.js
+description: A project to build a blog that reflects my own style and vibe
+thumbnail: /thumbnails/nextjs-logo.png
+date: "2025-06-15"
+---
+
+## Project Purpose
+
+After two years as a developer, I’ve started to understand things more deeply. I figured that if I can express what I’ve learned, I might be able to understand it even better. So, I decided to build a personal blog to help me grow.
+
+<div className="bar" />
+
+## Tech Stack
+
+**Frontend**: React, Next.js, TypeScript, Tailwind CSS, MDX <br />
+**Version Control**: Git, GitHub
+
+<div className="bar" />
+
+## Considerations
+
+<ol>
+  <li>1. Using a combination of Next.js, TypeScript, and Markdown</li>
+  <li>2. Supporting both Korean and English</li>
+  <li>3. Adding plenty of personal flair to the design</li>
+</ol>
+
+- Using a combination of Next.js, TypeScript, and Markdown
+
+<div>
+  I was worried that setting up a server for the blog might be too overwhelming
+  and make me lose motivation, so I decided to go with MDX instead. It turned
+  out to be a great call — using MDX actually made Next.js feel much more
+  familiar. I hadn’t really worked with TypeScript much outside of personal
+  projects, so I applied it here to get a better feel for it. It’s practical and
+  helps keep the code clean, so even though it can be challenging, I find myself
+  coming back to it again and again.
+</div>
+
+- Supporting both Korean and English
+
+<div>
+  While I hope to work overseas one day, I also took on this challenge to become
+  more familiar with official documentation, which is mostly in English.
+</div>
+
+- Adding plenty of personal flair to the design
+
+<div>
+  I plan to use this blog as part of my portfolio, so I wanted to add a touch of
+  fun from a frontend developer’s perspective. It’s packed with my personal
+  style, and whenever my taste changes or I want to try new designs, I’ll update
+  it accordingly.
+</div>
+
+<div className="bar" />
+
+### Using a combination of Next.js, TypeScript, and Markdown
+
+- Start a project
+
+<div></div>
+<div className="mdx-code-box">
+  npx create-next-app --typescript Your Project Name
+</div>
+
+Before the project is created, it asks a few questions:
+
+<br />
+<div>1. Would you like to use TypeScript? Yes</div>
+<div>2. Would you like to use Tailwind CSS? Yes</div>
+<div>3. Would you like your code inside a `src/` directory? Yes</div>
+<br />
+With that, getting Next.js + TypeScript set up is already a success.
+
+- Connecting Markdown
+
+There were some twists and turns. At first, I finished development using the popular _Contentlayer_, but when I started working on the design, I found out that the package was no longer supported by the community.
+On top of that, Next.js actually has a built-in MDX solution — **@next/mdx**.
+Let’s go for it!
+
+<br />
+<br />
+a. Download the package
+
+<div className="mdx-code-box">
+  pnpm install @next/mdx @mdx-js/loader @mdx-js/mdx @mdx-js/react @types/mdx
+  next-mdx-remote
+</div>
+
+b. Modify _next.config.ts_ (create it in the src folder if it doesn’t exist)
+
+<div className="mdx-code-box">
+```
+import createMDX from "@next/mdx";
+
+const nextConfig = {
+pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+transpilePackages: ["next-mdx-remote"],
+};
+
+const withMDX = createMDX({
+// Add markdown plugins here, as desired
+});
+
+export default withMDX(nextConfig);
+```
+</div>
+
+c. Modify _mdx-components.tsx_ (create it in the src folder if it doesn’t exist)
+
+<div className="mdx-code-box">
+```
+import type { MDXComponents } from "mdx/types";
+
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...components,
+  };
+}
+```
+</div>
+
+d. Fetching Metadata <br />
+File path: _src\lib\posts.ts_
+
+<div className="mdx-code-box">
+```
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+
+// Blog post data type
+export type PostMeta = {
+title: string;
+description: string;
+date: string;
+thumbnail: string;
+category: string;
+slug: string;
+locale: string;
+};
+
+// File path to fetch metadata from
+const contentDir = path.join(process.cwd(), "src/contents");
+
+// Function to fetch metadata
+export function getMetaData(locale: string): PostMeta[] {
+// To support Korean and English, the posts folder is divided into `en` and `ko`.
+// The language is passed as an argument to `getMetaData` to fetch posts accordingly.
+const localeDir = path.join(contentDir, locale);
+
+if (!fs.existsSync(localeDir)) return [];
+
+// Since categories play an important role in the blog, I separated them before passing data to the client.
+const categories = fs.readdirSync(localeDir);
+
+return categories.flatMap((category) => {
+const categoryDir = path.join(localeDir, category);
+const files = fs
+.readdirSync(categoryDir)
+.filter((file) => file.endsWith(".mdx"));
+
+return files.map((file) => {
+const slug = file.replace(/\.mdx$/, "");
+const filePath = path.join(categoryDir, file);
+const source = fs.readFileSync(filePath, "utf8");
+const { data } = matter(source);
+
+      return {
+        ...(data as Omit<PostMeta, "category" | "slug" | "locale">),
+        locale,
+        category,
+        slug,
+      };
+    });
+
+});
+}
+
+```
+</div>
+
+e. Displaying Metadata <br />
+File path: src\app\[locale]\blog\page.tsx
+
+<div className="mdx-code-box">
+```
+
+import { getMetaData } from "@/lib/posts";
+import ClientBlogPage from "./ClientBlogPage"; // Client-side page component to render posts
+
+export default async function BlogPage({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const { locale } = await params;
+  const postsMetaData = getMetaData(locale);
+
+// Grouping posts by category
+const categorized = postsMetaData.reduce((acc, post) => {
+if (!acc[post.category]) acc[post.category] = [];
+acc[post.category].push(post);
+return acc;
+}, {} as Record<string, typeof postsMetaData>);
+
+const categories = Object.keys(categorized);
+const selectedCategory = categories[0] || "";
+
+return (
+
+<ClientBlogPage
+  categories={categories}
+  categorizedPosts={categorized}
+  initialCategory={selectedCategory}
+/>
+); }
+
+```
+</div>
+
+f. Connecting types on the client page
+
+<div className="mdx-code-box">
+```
+
+export interface Post {
+  title: string;
+  description: string;
+  category: string;
+  slug: string;
+  date: string;
+  thumbnail: string;
+  locale: string;
+}
+
+export interface PostProps {
+  categories: string[];
+  categorizedPosts: Record<string, Post[]>;
+  initialCategory: string;
+}
+
+const ClientBlogPage = ({
+categories,
+categorizedPosts,
+initialCategory,
+}: PostProps) => {
+...
+}
+
+```
+</div>
+
+g. blah-blah.mdx?
+
+<div className="mdx-code-box">
+```
+
+---
+
+title: Building a Static Blog with Next.js
+description: A project to build a blog that reflects my own style and vibe
+thumbnail: /thumbnails/nextjs-logo.png
+date: "2025-06-15"
+
+---
+
+...blah blah...
+
+```
+</div>
+
+MDX integration complete!
+
+<br />
+<br />
+
+At first, I thought this would be a quick task, but it took longer than expected.
+But I DID IT! ☺️😁😄
+
+<br />
+Supporting both Korean and English will continue next time!
+```

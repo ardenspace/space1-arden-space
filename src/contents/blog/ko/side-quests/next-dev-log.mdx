@@ -2,7 +2,7 @@
 title: Next.js 정적 블로그 개발기
 description: 취향이 듬뿍 담긴 나만의 블로그 만들기 프로젝트
 thumbnail: /thumbnails/nextjs-logo.png
-date: "2025-05-20"
+date: "2025-06-15"
 ---
 
 ## 프로젝트 목적
@@ -62,9 +62,9 @@ date: "2025-05-20"
 프로젝트가 생성되기 전에 여러가지 질문을 하는데
 
 <br />
-<div>1. typescript 사용할 거냐? yes</div>
-<div>2. tailwind 사용할 거냐? yes</div>
-<div>3. src 폴더 안에 넣을 거냐? yes</div>
+<div>1. typescript 사용할 거냐? Yes</div>
+<div>2. tailwind 사용할 거냐? Yes</div>
+<div>3. src 폴더 안에 넣을 거냐? Yes</div>
 <br />
 그러면 일단 next.js + typescript 까지는 성공이다.
 
@@ -82,7 +82,7 @@ a. 패키지 다운로드
   next-mdx-remote
 </div>
 
-b. next.config.ts 수정 (없으면 src 폴더에 생성)
+b. _next.config.ts_ 수정 (없으면 src 폴더에 생성)
 
 <div className="mdx-code-box">
 ```
@@ -101,7 +101,7 @@ export default withMDX(nextConfig);
 ```
 </div>
 
-c. mdx-components.tsx 수정 (없으면 src 폴더에 생성)
+c. _mdx-components.tsx_ 수정 (없으면 src 폴더에 생성)
 
 <div className="mdx-code-box">
 ```
@@ -116,7 +116,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 </div>
 
 d. 메타데이터 가져오기 <br />
-폴더 구조: src\lib\posts.ts
+파일 경로: src\lib\posts.ts
 
 <div className="mdx-code-box">
 ```
@@ -176,7 +176,7 @@ const { data } = matter(source);
 </div>
 
 e. 메타데이터 띄우기 <br />
-폴더 구조: src\app\[locale]\blog\page.tsx
+파일 경로: src\app\[locale]\blog\page.tsx
 
 <div className="mdx-code-box">
 ```
