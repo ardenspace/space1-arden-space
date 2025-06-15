@@ -45,17 +45,23 @@ export function getMetaData(locale: string): PostMeta[] {
 }
 
 // 본문 내용까지 가져오는 함수
-// export function getPostBySlug(category: string, slug: string) {
-//   const filePath = path.join(contentDir, category, `${slug}.mdx`);
-//   const source = fs.readFileSync(filePath, "utf8");
-//   const { data, content } = matter(source);
+export function getHyeonoPostBySlug(locale: string, slug: string) {
+  const filePath = path.join(
+    process.cwd(),
+    "src/contents/hyeono",
+    locale,
+    `${slug}.mdx`
+  );
+  const source = fs.readFileSync(filePath, "utf8");
+  const { data, content } = matter(source);
 
-//   return {
-//     meta: {
-//       ...(data as Omit<PostMeta, "category" | "slug">),
-//       category,
-//       slug,
-//     },
-//     content,
-//   };
-// }
+  return {
+    meta: {
+      ...(data as Omit<PostMeta, "category" | "slug">),
+      category: "",
+      slug,
+      locale,
+    },
+    content,
+  };
+}
