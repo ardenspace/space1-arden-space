@@ -9,8 +9,8 @@ import { homeIcons } from "../../lib/home-icons";
 import HomeIcon from "./HomeIcon";
 import { useWindowSize } from "@/hooks/use-size";
 import ProgressBar from "./ProgressBar";
-import WhoIsHyeono from "./WhoIsHyeono";
-import HyeonosBlog from "./HyeonosBlog";
+import WhoIsArden from "./WhoIsArden";
+import ArdensBlog from "./ArdensBlog";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,10 +38,10 @@ function HomeContent() {
         />
       ))}
 
-      {/* contents - who's hyeono / hyeono's blog */}
+      {/* contents - who's arden / arden's blog */}
       <div className="flex flex-col h-full justify-center items-center relative">
-        <WhoIsHyeono locale={myLocale} />
-        <HyeonosBlog />
+        <WhoIsArden locale={myLocale} />
+        <ArdensBlog />
       </div>
     </section>
   );

@@ -11,7 +11,7 @@ import { useWindowSize } from "@/hooks/use-size";
 const stylesMap: Record<string, { bg: string; text: string }> = {
   "/": { bg: "bg-[var(--portTt)]", text: "text-[var(--homeTt)]" },
   "/blog": { bg: "bg-[var(--blogBg)]", text: "text-[var(--blogTt)]" },
-  "/hyeono": { bg: "bg-[var(--portBg)]", text: "text-[var(--portTt)]" },
+  "/arden": { bg: "bg-[var(--portBg)]", text: "text-[var(--portTt)]" },
 };
 
 function NavLink({ title, href }: { title: string; href: string }) {
@@ -46,7 +46,7 @@ export default function Header() {
   const navItems = [
     // { title: "Home", href: `/${locale}` },
     { title: "Blog", href: `/${locale}/blog` },
-    { title: "HYEONO", href: `/${locale}/hyeono` },
+    { title: "ARDEN", href: `/${locale}/arden` },
   ];
 
   // pathname 바뀔 때마다 scrollToTop
@@ -101,7 +101,7 @@ export default function Header() {
               size.width > 400 ? "text-md" : "text-sm"
             } font-bold`}
           >
-            Hello, hyeono'space!
+            Hello, arden'space!
           </span>
           <div className="flex">
             {/* <div className={`icon-div ${currentStyle.text}`}>

@@ -39,7 +39,7 @@ export default function Footer() {
 
     if (segments.length > 2) {
       const targetPath =
-        type === "blog" ? `/${locale}/blog` : `/${locale}/hyeono`;
+        type === "blog" ? `/${locale}/blog` : `/${locale}/arden`;
       router.push(targetPath);
     }
   };
@@ -75,7 +75,7 @@ export default function Footer() {
               } min-w-[90px] px-2`}
               onClick={() => onClickSendUrl("blog")}
             >
-              hyeono's
+              ARDEN's
             </span>
 
             <span
@@ -86,7 +86,7 @@ export default function Footer() {
               } min-w-[80px]`}
               onClick={() => onClickSendUrl("port")}
             >
-              who is?
+              WHO IS
             </span>
           </div>
 
@@ -101,7 +101,7 @@ export default function Footer() {
                     ? `Copyright © ${new Date().getFullYear()}`
                     : `Copyright ©`}
                 </span>
-                <span className="text-xs">Hyeono Lee</span>
+                <span className="text-xs">Arden Lee</span>
               </div>
             ) : (
               <></>

@@ -1,4 +1,4 @@
-import { getHyeonoPostBySlug } from "@/lib/posts";
+import { getArdenPostBySlug } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import PageLayout from "../page-layout";
 
@@ -8,7 +8,7 @@ export default async function AboutPage({
   params: { locale: string };
 }) {
   const { locale } = params;
-  const { meta, content } = getHyeonoPostBySlug(locale, "about");
+  const { meta, content } = getArdenPostBySlug(locale, "about");
 
   return (
     <PageLayout>

@@ -45,10 +45,10 @@ export function getMetaData(locale: string): PostMeta[] {
 }
 
 // 본문 내용까지 가져오는 함수
-export function getHyeonoPostBySlug(locale: string, slug: string) {
+export function getArdenPostBySlug(locale: string, slug: string) {
   const filePath = path.join(
     process.cwd(),
-    "src/contents/hyeono",
+    "src/contents/arden",
     locale,
     `${slug}.mdx`
   );

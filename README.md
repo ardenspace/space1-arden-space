@@ -1,10 +1,13 @@
-<!-- GitHub Profile README: hyeono'space -->
+<!-- GitHub Profile README: arden'space -->
 
 <br />
-<h2 align="center">👾 This is HYEONO'SPACE 👾</h2>
+<h2 align="center">👾 This is ARDEN'SPACE 👾</h2>
 
 <p align="center">
-  <strong>Hi There, I'm Hyeono Lee. 👋</strong>
+  <strong>Hi There, I'm DASOM LEE!👋</strong>
+</p>
+<p align="center">
+  But feel free to call me ARDEN🌵
 </p>
 <p align="center">
   <strong>Welcome in this space where I think, break and build — at my own ⚡pace⚡.</strong>
@@ -14,7 +17,7 @@
 
 #### 👀 About Me
 
-Hi, I'm **HYEONO** — a curious maker who sees code as part craft, part playground.
+Hi, I'm **ARDEN** — a curious maker who sees code as part craft, part playground.
 I love poking at bugs, spinning up small ideas, and reflecting in little notes along the way.
 
 <br />

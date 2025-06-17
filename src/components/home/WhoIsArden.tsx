@@ -1,7 +1,7 @@
 import { useZIndex } from "@/contexts/ZIndexContext";
 import Link from "next/link";
 
-export default function WhoIsHyeono({ locale }: { locale: string }) {
+export default function WhoIsArden({ locale }: { locale: string }) {
   const { currentPosition, setCurrentPosition } = useZIndex();
 
   return (
@@ -15,11 +15,11 @@ export default function WhoIsHyeono({ locale }: { locale: string }) {
       }}
     >
       <div className="h-[10%] bg-[var(--ttBlack)] text-[var(--mainTt1)] flex items-center px-2 border-b-2 border-[#fff] font-bold text-xs">
-        WHO IS HYEONO?
+        WHO IS ARDEN?
       </div>
       <div className="checkerboard">
         <div className="w-[85%] h-[85%] bg-white relative overflow-hidden rotate-[8deg] cursor-pointer">
-          <Link href={`http://localhost:3000/${locale}/hyeono`}>
+          <Link href={`http://localhost:3000/${locale}/arden`}>
             <img
               // src="/home/profile2.jpeg"
               src="/home/wemadeit.jpg"

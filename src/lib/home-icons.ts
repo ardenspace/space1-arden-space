@@ -18,7 +18,7 @@ export const homeIcons = [
   //   ICON: Satellite,
   //   design: "top-[20px] left-[90px]",
   //   filename: "ARDEN?",
-  //   tolink: `/hyeono`,
+  //   tolink: `/about`,
   // },
   {
     ICON: Twitter,

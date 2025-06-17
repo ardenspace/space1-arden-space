@@ -3,15 +3,15 @@ import { ZIndexProvider } from "@/contexts/ZIndexContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "hyeono'space",
+  title: "arden'space",
   description:
     "Loves to build things in my space🛸 Currently building things with Next.js, TypeScript, and Tailwind CSS",
   openGraph: {
-    title: "hyeono'space | Frontend Engineer",
+    title: "arden'space | Frontend Engineer",
     description:
       "Loves to build things in my space🛸 Currently building things with Next.js, TypeScript, and Tailwind CSS",
-    url: "https://hyeono.space",
-    siteName: "hyeono'space",
+    url: "https://arden.space",
+    siteName: "arden'space",
     // locale: 'en_GB',
   },
 };
