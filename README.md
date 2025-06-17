@@ -9,6 +9,8 @@
 <p align="center">
   But feel free to call me ARDEN🌵
 </p>
+
+<br />
 <p align="center">
   <strong>Welcome in this space✨ where I think, break and build — at my own pace⚡</strong>
 </p>

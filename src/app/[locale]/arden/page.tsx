@@ -12,9 +12,11 @@ export default async function AboutPage({
 
   return (
     <PageLayout>
-      <section>
-        <MDXRemote source={content} />
-      </section>
+      <div className="detail-page-layout">
+        <div className="content">
+          <MDXRemote source={content} />
+        </div>
+      </div>
     </PageLayout>
   );
 }
