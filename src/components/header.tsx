@@ -116,7 +116,7 @@ export default function Header() {
             <div
               className={`icon-div ${currentStyle.text} cursor-pointer`}
               onClick={() => {
-                router.push("/");
+                router.push(`/${locale}`);
               }}
             >
               <X size={20} className={`${currentStyle.text}`} />
