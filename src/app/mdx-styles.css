@@ -45,6 +45,12 @@ pre code {
     margin: 3rem 0rem 0.8rem 0rem;
     padding: 0rem 0.3rem;
   }
+  h4 {
+    color: var(--ttBlack);
+    font-size: 1.15rem;
+    font-weight: bold;
+    padding: 0rem 0.3rem;
+  }
 
   ol {
     padding-left: 1rem;
@@ -90,4 +96,51 @@ pre code {
 .bar {
   border-bottom: dashed 1px var(--blogTt);
   padding: 1.5rem 0;
+}
+
+/* 회사 경력 */
+.company {
+  margin: 2rem 0 1rem 0;
+
+  .title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--ttBlack);
+  }
+  .desc {
+    font-size: 1rem;
+    color: var(--mainTt2);
+  }
+  .project {
+    margin: 1rem 0;
+    padding: 0 1rem;
+  }
+  .project-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--ttBlack);
+    margin-top: 1.5rem;
+  }
+
+  .dot-list {
+    list-style: none; /* 기본 스타일 제거 */
+    margin-top: 1rem;
+  }
+  .dot-list li {
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.95rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+    color: var(--ttBlack);
+    position: relative;
+  }
+
+  .dot-list li::before {
+    content: "·";
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--ttBlack);
+    flex-shrink: 0;
+  }
 }
