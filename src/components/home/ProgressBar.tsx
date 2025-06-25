@@ -3,8 +3,6 @@ import { useWindowSize } from "@/hooks/use-size";
 
 const ProgressBar = () => {
   const size = useWindowSize();
-  if (!size) return null;
-
   const totalBars = 8;
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -28,6 +26,9 @@ const ProgressBar = () => {
       clearTimeout(timeout);
     };
   }, [activeIndex]);
+
+  // 렌더링만 조건적으로!
+  if (!size) return null;
 
   return (
     <div

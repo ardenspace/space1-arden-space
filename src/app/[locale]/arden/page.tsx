@@ -15,7 +15,7 @@ export default async function AboutPage({
   params: { locale: string };
 }) {
   const { locale } = await params;
-  const { meta, content } = getArdenPostBySlug(locale, "about");
+  const { content } = getArdenPostBySlug(locale, "about");
 
   return (
     <PageLayout>

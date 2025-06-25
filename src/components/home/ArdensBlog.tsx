@@ -24,14 +24,14 @@ export default function ArdensBlog({ locale }: { locale: string }) {
     >
       <div className="stripe-background h-[5%] w-full flex justify-center items-center mb-[2px]">
         <span className="bg-[var(--footerBg)] px-2 text-[var(--ttBlack)] font-bold text-xs">
-          WELCOME TO ARDEN'SPACE!
+          WELCOME TO ARDEN&apos;SPACE!
         </span>
       </div>
       <div className="h-[91.5%] w-full">
         <div className="flex flex-wrap w-full h-full pt-[5px] pb-[5px] [container-type:size]">
           <div className="min-w-[250px] flex-1 px-2">
             <span className="text-[var(--ttBlack)] font-bold text-base">
-              What I've done?
+              What I&apos;ve done?
             </span>
             <div className="custom-box flex mt-[5px] h-[90%] [@container(min-width:500px)]:flex-col border-2 border-dotted border-[var(--ttBlack)]">
               <div className="flex-[1] relative">

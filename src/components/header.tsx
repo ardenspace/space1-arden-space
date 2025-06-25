@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLocale } from "@/hooks/use-locale";
 import Link from "next/link";
-import { Cat, Languages, X } from "lucide-react";
+import { Languages, X } from "lucide-react";
 import { silkscreen } from "@/lib/fonts";
 import { useWindowSize } from "@/hooks/use-size";
 
