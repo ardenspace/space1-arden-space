@@ -19,7 +19,7 @@ export default function WhoIsArden({ locale }: { locale: string }) {
       </div>
       <div className="checkerboard">
         <div className="w-[85%] h-[85%] bg-white relative overflow-hidden rotate-[8deg] cursor-pointer">
-          <Link href={`http://localhost:3000/${locale}/arden`}>
+          <Link href={`/${locale}/arden`}>
             <img
               // src="/home/profile2.jpeg"
               src="/home/wemadeit.jpg"

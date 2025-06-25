@@ -14,8 +14,8 @@ export default function EducationCard({ entries }: EducationCardProps) {
     <div className="company">
       {entries.map((entry, index) => (
         <div key={index}>
-          <div className="title">{entry.title}</div>
-          <div className="desc">| {entry.period}</div>
+          <div className="title">| {entry.title}</div>
+          <div className="desc">{entry.period}</div>
         </div>
       ))}
     </div>

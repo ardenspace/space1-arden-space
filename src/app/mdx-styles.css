@@ -39,6 +39,8 @@ pre code {
     padding: 0rem 0.3rem;
   }
   h3 {
+    display: inline-block;
+    border-bottom: solid 1px var(--homeTt);
     color: var(--ttBlack);
     font-size: 1.2rem;
     font-weight: bold;

@@ -1,14 +1,20 @@
 import { useZIndex } from "@/contexts/ZIndexContext";
 import ProgressBar from "./ProgressBar";
+import { useRouter } from "next/navigation";
 
-export default function ArdensBlog() {
+export default function ArdensBlog({ locale }: { locale: string }) {
+  const router = useRouter();
   const { currentPosition, setCurrentPosition } = useZIndex();
+  // 가장 최근에 완성한 프로젝트
+  const currentProjectUrl = `${locale}/blog/side-quests/next-dev-log?fc=side-quests`;
+  // 가장 최근에 작성한 포스팅
+  const currentPostUrl = `${locale}/blog/side-quests/next-dev-log?fc=side-quests`;
 
   const onClickTakeAPeek = () => {
-    console.log("가장 최근에 완성된 프로젝트로 ㄱㄱㄱ");
+    router.push(currentProjectUrl);
   };
   const onClickVaultButton = () => {
-    console.log("가장 최근에 작성한 포스팅으로 ㄱㄱ");
+    router.push(currentPostUrl);
   };
 
   return (
@@ -35,7 +41,6 @@ export default function ArdensBlog() {
                   className="saturate-50 absolute inset-0 w-full h-full object-cover"
                 />
               </div>
-              {/* #BFBFBF */}
               <div
                 className="
             flex-[0.3] flex items-center justify-center text-base font-bold text-[var(--mainTt2)] p-2 bg-[var(--footerBg)] cursor-pointer 
@@ -70,7 +75,6 @@ export default function ArdensBlog() {
                 className="mt-[10px] h-full flex items-center justify-center border-b border-r border-2 border-[var(--bgWhite)] shadow-[2px_2px_1px_var(--mainTt2)] cursor-pointer"
                 onClick={onClickVaultButton}
               >
-                {/* bounce-right */}
                 <span className="text-[var(--mainTt3)] text-[1.2rem] [@container(max-width:500px)]:text-[1rem]">
                   ▶▶
                 </span>
