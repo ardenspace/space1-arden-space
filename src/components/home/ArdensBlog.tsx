@@ -1,6 +1,7 @@
 import { useZIndex } from "@/contexts/ZIndexContext";
 import ProgressBar from "./ProgressBar";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function ArdensBlog({ locale }: { locale: string }) {
   const router = useRouter();
@@ -35,10 +36,11 @@ export default function ArdensBlog({ locale }: { locale: string }) {
             </span>
             <div className="custom-box flex mt-[5px] h-[90%] [@container(min-width:500px)]:flex-col border-2 border-dotted border-[var(--ttBlack)]">
               <div className="flex-[1] relative">
-                <img
+                <Image
                   src="/thumbnails/nextjs-logo.png"
-                  alt="attie-on-the-home"
-                  className="saturate-50 absolute inset-0 w-full h-full object-cover"
+                  alt="current-project-thumbnail"
+                  fill
+                  className="saturate-50 object-cover"
                 />
               </div>
               <div
@@ -59,10 +61,11 @@ export default function ArdensBlog({ locale }: { locale: string }) {
 
           <div className="min-w-[250px] flex-1 px-2 relative border-[var(--ttBlack)] [@container(min-width:500px)]:border-l [@container(max-width:500px)]:border-t">
             <div className="absolute bottom-0 right-0 w-[30%] h-[auto] min-h-[100px]">
-              <img
+              <Image
                 src="/home/attie.png"
                 alt="attie-on-the-home"
-                className="absolute inset-0 w-full h-full object-contain"
+                fill
+                className="object-contain"
               />
             </div>
 

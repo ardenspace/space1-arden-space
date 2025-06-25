@@ -75,7 +75,7 @@ export default function Footer() {
               } min-w-[90px] px-2`}
               onClick={() => onClickSendUrl("blog")}
             >
-              ARDEN's
+              ARDEN&apos;s
             </span>
 
             <span

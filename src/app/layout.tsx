@@ -3,11 +3,11 @@ import { ZIndexProvider } from "@/contexts/ZIndexContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "arden'space",
+  title: `arden'space`,
   description:
     "Loves to build things in my space🛸 Currently building things with Next.js, TypeScript, and Tailwind CSS",
   openGraph: {
-    title: "arden'space | Frontend Engineer",
+    title: `arden'space | Frontend Engineer`,
     description:
       "Loves to build things in my space🛸 Currently building things with Next.js, TypeScript, and Tailwind CSS",
     url: "https://arden.space",

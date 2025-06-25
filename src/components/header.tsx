@@ -101,7 +101,7 @@ export default function Header() {
               size.width > 400 ? "text-md" : "text-sm"
             } font-bold`}
           >
-            Hello, arden'space!
+            Hello, arden&apos;space!
           </span>
           <div className="flex">
             {/* <div className={`icon-div ${currentStyle.text}`}>

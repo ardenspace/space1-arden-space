@@ -1,5 +1,6 @@
 import { useZIndex } from "@/contexts/ZIndexContext";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function WhoIsArden({ locale }: { locale: string }) {
   const { currentPosition, setCurrentPosition } = useZIndex();
@@ -20,11 +21,12 @@ export default function WhoIsArden({ locale }: { locale: string }) {
       <div className="checkerboard">
         <div className="w-[85%] h-[85%] bg-white relative overflow-hidden rotate-[8deg] cursor-pointer">
           <Link href={`/${locale}/arden`}>
-            <img
-              // src="/home/profile2.jpeg"
+            <Image
               src="/home/wemadeit.jpg"
               alt="for-home-portfolio"
-              className="absolute inset-0 w-full h-full object-cover"
+              fill
+              className="object-cover"
+              priority
             />
           </Link>
         </div>
