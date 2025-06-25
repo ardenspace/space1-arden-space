@@ -13,7 +13,7 @@ const components = {
   EducationCard,
 };
 
-export default function AboutPage({ params }: Props) {
+export default async function AboutPage({ params }: Props) {
   const { locale } = params;
   const { content } = getArdenPostBySlug(locale, "about");
 
