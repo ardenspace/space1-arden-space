@@ -4,16 +4,16 @@ import PageLayout from "../page-layout";
 import CareerCompanyCard from "@/components/arden/CareerCompanyCard";
 import EducationCard from "@/components/arden/EducationCard";
 
+type Props = {
+  params: { locale: string };
+};
+
 const components = {
   CareerCompanyCard,
   EducationCard,
 };
 
-export default async function AboutPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
   const { content } = getArdenPostBySlug(locale, "about");
 
