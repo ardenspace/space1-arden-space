@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!-- GitHub Profile README: arden'space -->
 
-## Getting Started
+<br />
+<h2 align="center">👾 This is ARDEN'SPACE 👾</h2>
 
-First, run the development server:
+<p align="center">
+  <strong>Hi There, I'm DASOM LEE!👋</strong>
+</p>
+<p align="center">
+  But feel free to call me ARDEN🌵
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<br />
+<p align="center">
+  <strong>Welcome in this space✨ where I think, break and build — at my own pace⚡</strong>
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### 👀 About This space
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This is a digital shed for half-built ideas and dev puzzles —  
+a quiet corner where I collect thoughts, fixes, and fragments.
 
-## Learn More
+Sometimes it’s a bug log, sometimes a notebook, sometimes a sketch of who I am.
 
-To learn more about Next.js, take a look at the following resources:
+I made this space to slow down, reflect, and document the messy, curious parts of being a developer.  
+If you enjoy small details and half-finished thoughts, you might feel right at home.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### 🧩 In This Corner
 
-## Deploy on Vercel
+- **Side quests**: mini projects, experiments, and creative ideas
+- **Break & Fix**: logs from strange bugs and how I fixed them
+- **Thoughts**: dev musings, perspectives, and philosophy
+- **Bite-size**: bite-sized lessons I jot down as I go
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<br />
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<!-- ## 📌 Featured Posts
+
+- [Side quest: My 3am design-to-code sprint](https://ardenspace.dev/side-quests/3am-design-to-code)
+- [Why breaking things is part of the plan](https://ardenspace.dev/break-and-fix/breaking-is-learning)
+- [My dev life, at my pace](https://ardenspace.dev/thoughts/my-pace) -->
+
+#### 🧱 Tech Stack
+
+<img src="https://skillicons.dev/icons?i=react,nextjs,ts,pnpm,tailwind,github&theme=light" alt="Tech stack icons" />
+<br />
+
+#### 📬 Let's Connect
+
+Feel free to reach out to me:
+
+- Email: [ardensdevspace@gmail.com](mailto:ardensdevspace@gmail.com)
+- Twitter: [@ardenspace](https://twitter.com/ardenspace)
+- LinkedIn: [ardenspace](https://www.linkedin.com/in/ardenspace)
+
+<br />
+
+<!-- <p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&duration=2500&pause=500&center=true&width=435&lines=thinking+creatively...;breaking+the+code...;building+at+my+own+pace...&text_color=D6AEDD" alt="Typing SVG" />
+</p> -->

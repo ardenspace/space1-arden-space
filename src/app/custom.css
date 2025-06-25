@@ -1,0 +1,61 @@
+/*
+br/bg 추천 
+#8A8A8A
+#aaaaaa
+-
+#01027a - 첫번째 네이비
+#9EBBFD - 연파랑
+#b6cbfc - 연파랑2
+#0063F6 - 연분홍이랑 어울리는 파랑 - 진파랑
+#fdcef7 - 연분홍
+#E52F7A - 진분홍
+#FC3027 - 쨍분홍
+#23C4AF - 옛그린
+#7448ff - 밝보라 
+#bcfe4a - 쨍연두
+#d7e73c - 노랑연두
+#e0f23f - 위 노랑연두보다 조금 밝은
+#FE4C40 - 선셋 오렌지
+#f8c0dd - 밝은 빈티지 분홍
+#faeea6 - 빈티지 노랑
+#f8dada - 회색끼 도는 빈티지 분홍
+ */
+
+:root {
+  --bgMain: #eeeeee;
+  --bgSecond: #aaaaaa;
+  --bgWhite: #fefefe;
+  --ttBlack: #1c1c1c;
+  --overallBg: #d3ccfa;
+  --homeTt: #aa9ced;
+  --blogBg: #fdcef7;
+  --blogTt: #23c4af;
+  --portBg: #7448ff;
+  --portTt: #bffeb8;
+  --postHd: #01027a;
+  --footerBg: #e2e2e0;
+  --footerBr: #c9c9c7;
+  --mainTt1: #abff5f;
+  --mainTt2: #5f7988;
+  --mainTt3: #fc3027;
+  --mdxMain: #c7fff8;
+}
+
+.bg-bgMain {
+  background-color: var(--bgMain);
+}
+.bg-bgSecond {
+  background-color: var(--bgSecond);
+}
+.bg-bgHello {
+  background-color: var(--bgHello);
+}
+.bg-bgWhite {
+  background-color: var(--bgWhite);
+}
+.border-bgSecond {
+  border: 3px solid var(--bgSecond);
+}
+.border-bgWhite {
+  border: 3px solid var(--bgWhite);
+}
