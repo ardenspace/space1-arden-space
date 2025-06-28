@@ -1,21 +1,27 @@
-export const dynamic = "force-static";
-
 import { getArdenPostBySlug } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import PageLayout from "../page-layout";
 import CareerCompanyCard from "@/components/arden/CareerCompanyCard";
 import EducationCard from "@/components/arden/EducationCard";
 
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "ko" }];
+}
+
+interface ArdenPageProps {
+  params: {
+    locale: string;
+  };
+}
+
 const components = {
   CareerCompanyCard,
   EducationCard,
 };
 
-export default async function AboutPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export default async function AboutPage({ params }: ArdenPageProps) {
   const { locale } = params;
   const { content } = await getArdenPostBySlug(locale, "about");
 

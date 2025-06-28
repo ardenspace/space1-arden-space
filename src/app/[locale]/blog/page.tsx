@@ -6,7 +6,7 @@ export default async function BlogPage({
 }: {
   params: { locale: string };
 }) {
-  const { locale } = await params;
+  const { locale } = params;
   const postsMetaData = getMetaData(locale);
 
   const categorized = postsMetaData.reduce((acc, post) => {

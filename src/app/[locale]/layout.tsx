@@ -13,7 +13,3 @@ export default async function LocaleLayout({
     </main>
   );
 }
-
-export async function generateStaticParams() {
-  return [{ locale: "ko" }, { locale: "en" }];
-}

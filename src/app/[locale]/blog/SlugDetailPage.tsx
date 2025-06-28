@@ -29,8 +29,6 @@ export default function SlugDetailPage({ children, frontmatter }: Props) {
     }
   };
 
-  console.log("frontmatter", frontmatter);
-
   return (
     <PageLayout>
       <div className="sticky-div">
