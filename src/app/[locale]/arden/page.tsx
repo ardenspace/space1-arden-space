@@ -10,18 +10,16 @@ export async function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ko" }];
 }
 
-interface ArdenPageProps {
-  params: {
-    locale: string;
-  };
-}
-
 const components = {
   CareerCompanyCard,
   EducationCard,
 };
 
-export default async function AboutPage({ params }: ArdenPageProps) {
+export default async function AboutPage({
+  params,
+}: {
+  params: { locale: string };
+}) {
   const { locale } = params;
   const { content } = await getArdenPostBySlug(locale, "about");
 
