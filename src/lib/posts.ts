@@ -45,7 +45,7 @@ export function getMetaData(locale: string): PostMeta[] {
 }
 
 // 본문 내용까지 가져오는 함수
-export function getArdenPostBySlug(locale: string, slug: string) {
+export async function getArdenPostBySlug(locale: string, slug: string) {
   const filePath = path.join(
     process.cwd(),
     "src/contents/arden",

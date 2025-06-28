@@ -1,7 +1,7 @@
 import { play, montserrate } from "@/lib/fonts";
 import Footer from "@/components/footer";
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -12,4 +12,8 @@ export default async function RootLayout({
       <Footer />
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  return [{ locale: "ko" }, { locale: "en" }];
 }
