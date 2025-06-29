@@ -5,9 +5,14 @@ import path from "path";
 import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import SlugDetailPage from "@/app/[locale]/blog/SlugDetailPage";
+import { Suspense } from "react";
 
 type Props = {
-  params: { locale: string; category: string; slug: string };
+  params: Promise<{
+    locale: string;
+    category: string;
+    slug: string;
+  }>;
 };
 interface Frontmatter {
   title: string;
@@ -33,9 +38,11 @@ export default async function PostPage({ params }: Props) {
     const frontmatter = data as Frontmatter;
 
     return (
-      <SlugDetailPage frontmatter={frontmatter}>
-        <MDXRemote source={content} />
-      </SlugDetailPage>
+      <Suspense>
+        <SlugDetailPage frontmatter={frontmatter}>
+          <MDXRemote source={content} />
+        </SlugDetailPage>
+      </Suspense>
     );
   } catch (err) {
     console.error("MDX 처리 중 오류:", err);

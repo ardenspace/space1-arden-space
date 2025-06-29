@@ -4,10 +4,8 @@ import PageLayout from "../page-layout";
 import CareerCompanyCard from "@/components/arden/CareerCompanyCard";
 import EducationCard from "@/components/arden/EducationCard";
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ko" }];
+  return [{ locale: "ko" }, { locale: "en" }];
 }
 
 const components = {
@@ -18,9 +16,9 @@ const components = {
 export default async function AboutPage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
   const { content } = await getArdenPostBySlug(locale, "about");
 
   return (

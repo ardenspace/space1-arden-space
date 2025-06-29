@@ -1,12 +1,13 @@
 import { getMetaData } from "@/lib/posts";
 import ClientBlogPage from "./ClientBlogPage";
+import { Suspense } from "react";
 
 export default async function BlogPage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
   const postsMetaData = getMetaData(locale);
 
   const categorized = postsMetaData.reduce((acc, post) => {
@@ -19,10 +20,12 @@ export default async function BlogPage({
   const selectedCategory = categories[0] || "";
 
   return (
-    <ClientBlogPage
-      categories={categories}
-      categorizedPosts={categorized}
-      initialCategory={selectedCategory}
-    />
+    <Suspense>
+      <ClientBlogPage
+        categories={categories}
+        categorizedPosts={categorized}
+        initialCategory={selectedCategory}
+      />
+    </Suspense>
   );
 }
