@@ -8,8 +8,8 @@ export default function ArdensBlog({ locale }: { locale: string }) {
   const { currentPosition, setCurrentPosition } = useZIndex();
   // 가장 최근에 완성한 프로젝트
   const currentProjectUrl = `${locale}/blog/side-quests/next-dev-log?fc=side-quests`;
-  // 가장 최근에 작성한 포스팅
-  const currentPostUrl = `${locale}/blog/side-quests/next-dev-log?fc=side-quests`;
+  // 블로그로 보내기
+  const currentPostUrl = `${locale}/blog`;
 
   const onClickTakeAPeek = () => {
     router.push(currentProjectUrl);
@@ -78,8 +78,8 @@ export default function ArdensBlog({ locale }: { locale: string }) {
                 className="mt-[10px] h-full flex items-center justify-center border-b border-r border-2 border-[var(--bgWhite)] shadow-[2px_2px_1px_var(--mainTt2)] cursor-pointer"
                 onClick={onClickVaultButton}
               >
-                <span className="text-[var(--mainTt3)] text-[1.2rem] [@container(max-width:500px)]:text-[1rem]">
-                  ▶▶
+                <span className="text-[var(--mainTt3)] text-[1.5rem] [@container(max-width:500px)]:text-[1.2rem]">
+                  ⯈⯈
                 </span>
               </button>
             </div>

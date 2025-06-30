@@ -13,13 +13,13 @@ body {
 
 .layout-main {
   /* @apply flex flex-col w-full h-full min-h-[calc(100vh)]; */
-  @apply flex flex-col w-full h-screen;
+  @apply flex flex-col w-full min-h-[100dvh];
   /* background: linear-gradient(to right, #b6cbfc, #fecef8); */
   background: linear-gradient(to right, var(--overallBg), #cdfae3);
 }
 
 .page-layout {
-  @apply pt-35 pb-15 max-w-screen-md w-full min-h-[calc(100vh)];
+  @apply pt-35 pb-15 max-w-screen-md w-full min-h-[100dvh];
   border: solid 3px var(--bgWhite);
   background-color: var(--bgMain);
 }
@@ -35,7 +35,7 @@ body {
 
 /* 홈화면 css */
 .home-section {
-  @apply w-full min-h-[calc(100vh-40px)] h-[calc(100vh-40px)];
+  @apply w-full min-h-[calc(100dvh-40px)] h-[calc(100dvh-40px)];
   border: solid 3px var(--bgWhite);
 }
 

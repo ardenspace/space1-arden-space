@@ -46,7 +46,7 @@ export default function Header() {
   const navItems = [
     // { title: "Home", href: `/${locale}` },
     { title: "Blog", href: `/${locale}/blog` },
-    { title: "ARDEN", href: `/${locale}/arden` },
+    { title: "Arden", href: `/${locale}/arden` },
   ];
 
   // pathname 바뀔 때마다 scrollToTop
