@@ -78,14 +78,14 @@ export default function ArdensBlog({ locale }: { locale: string }) {
                 className="mt-[10px] h-full flex items-center justify-center border-b border-r border-2 border-[var(--bgWhite)] shadow-[2px_2px_1px_var(--mainTt2)] cursor-pointer"
                 onClick={onClickVaultButton}
               >
-                <span className="text-[var(--mainTt3)] inline-flex items-center text-[1.7rem] [@container(max-width:500px)]:text-[1.2rem] leading-none">
+                <span className="text-[var(--mainTt3)] inline-flex items-center text-[1.7rem] [@container(max-width:500px)]:text-[1.3rem] leading-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     width="1em"
                     height="1em"
                     fill="currentColor"
-                    className="-mr-[0.15em]"
+                    className="-mr-[0.25em] bounce-right"
                   >
                     <path d="M8 5v14l11-7z" />
                   </svg>
@@ -95,6 +95,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
                     width="1em"
                     height="1em"
                     fill="currentColor"
+                    className="bounce-right"
                   >
                     <path d="M8 5v14l11-7z" />
                   </svg>
