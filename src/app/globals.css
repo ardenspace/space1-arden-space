@@ -73,7 +73,7 @@ body {
 .left-text {
   @apply text-xl;
 }
-@media (max-width: 785px) {
+@media (max-width: 784px) {
   .custom-box {
     height: 80%;
   }
@@ -96,7 +96,7 @@ body {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(2px);
+    transform: translateY(3px);
   }
 }
 .bounce-up {
@@ -144,5 +144,5 @@ body {
 }
 
 .icon-div {
-  @apply flex items-center justify-center h-6 w-6 ml-1 rounded-[2px] border-2;
+  @apply flex items-center justify-center h-7 w-7 ml-1 rounded-[2px] border-2;
 }

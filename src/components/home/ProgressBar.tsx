@@ -32,7 +32,7 @@ const ProgressBar = () => {
 
   return (
     <div
-      className={`w-full flex flex-col ${size.width > 849 ? "items-end" : ""}`}
+      className={`w-full flex flex-col ${size.width > 784 ? "items-end" : ""}`}
     >
       <div
         className="w-full

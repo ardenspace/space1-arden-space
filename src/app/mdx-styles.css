@@ -7,7 +7,7 @@ pre code {
 }
 
 .detail-page-layout {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 
   .title-box {
     padding: 2rem 1.2rem 1.2rem 1.2rem;
@@ -40,7 +40,7 @@ pre code {
   }
   h3 {
     display: inline-block;
-    border-bottom: solid 1px var(--homeTt);
+    border-bottom: solid 1px var(--postHd);
     color: var(--ttBlack);
     font-size: 1.2rem;
     font-weight: bold;
@@ -96,7 +96,7 @@ pre code {
 
 /* 바 css */
 .bar {
-  border-bottom: dashed 1px var(--blogTt);
+  border-bottom: dashed 1px var(--bgSecond);
   padding: 1.5rem 0;
 }
 

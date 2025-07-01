@@ -10,8 +10,8 @@ import { useWindowSize } from "@/hooks/use-size";
 
 const stylesMap: Record<string, { bg: string; text: string }> = {
   "/": { bg: "bg-[var(--portTt)]", text: "text-[var(--homeTt)]" },
-  "/blog": { bg: "bg-[var(--blogBg)]", text: "text-[var(--blogTt)]" },
-  "/arden": { bg: "bg-[var(--portBg)]", text: "text-[var(--portTt)]" },
+  "/blog": { bg: "bg-[var(--postHd)]", text: "text-[var(--mdxMain)]" },
+  "/arden": { bg: "bg-[var(--footerBr)]", text: "text-[var(--portTt)]" },
 };
 
 function NavLink({ title, href }: { title: string; href: string }) {

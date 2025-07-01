@@ -35,7 +35,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
               What I&apos;ve done?
             </span>
             <div className="custom-box flex mt-[5px] h-[90%] [@container(min-width:500px)]:flex-col border-2 border-dotted border-[var(--ttBlack)]">
-              <div className="flex-[1] relative">
+              <div className="flex-[1] [@container(max-width:500px)]:flex-[0.7] relative">
                 <Image
                   src="/thumbnails/nextjs-logo.png"
                   alt="current-project-thumbnail"
