@@ -15,14 +15,14 @@ export default function WhoIsArden({ locale }: { locale: string }) {
         boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.5)",
       }}
     >
-      <div className="h-[10%] bg-[var(--ttBlack)] text-[var(--mainTt1)] flex items-center px-2 border-b-2 border-[#fff] font-bold text-xs">
+      <div className="h-[10%] bg-[var(--ttBlack)] text-[var(--portTt)] flex items-center px-2 border-b-2 border-[#fff] font-bold text-xs">
         WHO IS ARDEN?
       </div>
       <div className="checkerboard">
         <div className="w-[85%] h-[85%] bg-white relative overflow-hidden rotate-[8deg] cursor-pointer">
           <Link href={`/${locale}/arden`}>
             <Image
-              src="/home/wemadeit.jpg"
+              src="/home/profile2.jpeg"
               alt="for-home-portfolio"
               fill
               className="object-cover"

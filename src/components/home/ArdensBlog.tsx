@@ -45,14 +45,14 @@ export default function ArdensBlog({ locale }: { locale: string }) {
               </div>
               <div
                 className="
-            flex-[0.3] flex items-center justify-center text-base font-extrabold text-[var(--mainTt2)] p-2 bg-[var(--footerBg)] cursor-pointer 
+            flex-[0.3] flex items-center justify-center text-base text-[var(--mainTt2)] p-2 bg-[var(--footerBg)] cursor-pointer 
             border-dotted border-[var(--ttBlack)]
             [@container(min-width:500px)]:border-t-2 
             [@container(max-width:500px)]:border-l-2
           "
                 onClick={onClickTakeAPeek}
               >
-                <span className="left-text bounce-up">
+                <span className="left-text bounce-up font-extrabold">
                   {"> > "} Enter the vault
                 </span>
               </div>
