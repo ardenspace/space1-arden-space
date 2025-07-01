@@ -18,7 +18,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
         {posts.map((post, idx) => (
           <div
             key={idx}
-            className="shadow-[3px_3px_3px_rgba(0,0,0,0.2)] p-[2px] hover:scale-102 rounded-sm hover:cursor-pointer"
+            className="shadow-[2px_2px_2px_rgba(0,0,0,0.2)] p-[2px] hover:scale-102 rounded-sm hover:cursor-pointer"
           >
             <Link
               href={`/${locale}/blog/${post.category}/${post.slug}?fc=${post.category}`}
@@ -31,7 +31,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
                   <Dog size={18} />
                 </div>
               </div>
-              <div className="flex flex-col bg-[#fff2fb] pt-4 px-3 pb-4">
+              <div className="flex flex-col bg-[#fff5fc] pt-4 px-3 pb-4">
                 <div className="flex justify-center h-[150px] border-t border-l border-3 border-[var(--bgWhite)] shadow-[-2px_-2px_1px_rgba(35,196,175,0.7)]">
                   <Image
                     unoptimized

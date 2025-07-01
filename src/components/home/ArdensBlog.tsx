@@ -34,7 +34,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
             <span className="text-[var(--ttBlack)] font-bold text-base">
               What I&apos;ve done?
             </span>
-            <div className="custom-box flex mt-[5px] h-[90%] [@container(min-width:500px)]:flex-col border-2 border-dotted border-[var(--ttBlack)]">
+            <div className="custom-box flex mt-[3px] h-[90%] [@container(min-width:500px)]:flex-col border-2 border-dotted border-[var(--ttBlack)]">
               <div className="flex-[1] [@container(max-width:500px)]:flex-[0.7] relative">
                 <Image
                   src="/thumbnails/nextjs-logo.png"
@@ -59,7 +59,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
             </div>
           </div>
 
-          <div className="min-w-[250px] flex-1 px-2 relative border-[var(--ttBlack)] [@container(min-width:500px)]:border-l [@container(max-width:500px)]:border-t">
+          <div className="min-w-[250px] flex-1 px-2 relative border-[var(--ttBlack)] [@container(min-width:500px)]:border-l">
             <div className="absolute bottom-0 right-0 w-[30%] h-[auto] min-h-[100px]">
               <Image
                 src="/home/attie.png"
@@ -72,7 +72,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
             <span className="text-[var(--ttBlack)] font-bold text-base">
               What I’m up to?
             </span>
-            <div className="h-[65%] flex flex-col mt-[5px]">
+            <div className="h-[65%] flex flex-col mt-[3px]">
               <ProgressBar />
               <button
                 className="mt-[10px] h-full flex items-center justify-center border-b border-r border-2 border-[var(--bgWhite)] shadow-[2px_2px_1px_var(--mainTt2)] cursor-pointer"
