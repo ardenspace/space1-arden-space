@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: `arden'space | Frontend Engineer`,
     description:
       "Loves to build things in my space🛸 Currently building things with Next.js, TypeScript, and Tailwind CSS",
-    url: "https://arden.space",
+    url: "https://ardenspace.vercel.app",
     siteName: "arden'space",
     // locale: 'en_GB',
   },

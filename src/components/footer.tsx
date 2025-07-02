@@ -46,7 +46,7 @@ export default function Footer() {
 
   return (
     <footer
-      className={`fixed bottom-0 flex max-w-screen-lg w-full flex justify-center ${
+      className={`z-10 fixed bottom-0 flex max-w-screen-lg w-full flex justify-center ${
         isHome ? "" : "bg-[var(--bgMain)]"
       }`}
     >
