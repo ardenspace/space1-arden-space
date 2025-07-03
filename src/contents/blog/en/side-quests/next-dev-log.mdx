@@ -1,7 +1,7 @@
 ---
 title: Building a Static Blog with Next.js
 description: A project to build a blog that reflects my own style and vibe
-thumbnail: /thumbnails/nextjs-logo.png
+thumbnail: /thumbnails/start.jpg
 date: "2025-06-30"
 ---
 
@@ -122,6 +122,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 ```
 </div>
 
+Let’s start by connecting the metadata, since the goal for now is to link MDX files. <br />
 d. Fetching Metadata <br />
 File path: _src\lib\posts.ts_
 
@@ -138,7 +139,7 @@ description: string;
 date: string;
 thumbnail: string;
 category: string;
-slug: string;
+slug: string; // slug? just means the filename.
 locale: string;
 };
 
@@ -190,12 +191,13 @@ File path: src\app\[locale]\blog\page.tsx
 ```
 
 import { getMetaData } from "@/lib/posts";
-import ClientBlogPage from "./ClientBlogPage"; // Client-side page component to render posts
+import ClientBlogPage from "./ClientBlogPage"; // This is the client-side component that renders the blog post list.
+Think of it as a page where you can get a quick overview of all the posts.
 
 export default async function BlogPage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   const postsMetaData = getMetaData(locale);
@@ -282,5 +284,7 @@ At first, I thought this would be a quick task, but it took longer than expected
 But I DID IT! ☺️😄
 
 <br />
-Supporting both Korean and English will continue next time!
+I’ll cover how to support both Korean and English, and how to link to individual post pages next time!
+<br />
+<br />
 ```
