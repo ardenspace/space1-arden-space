@@ -6,6 +6,8 @@ import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import SlugDetailPage from "@/app/[locale]/blog/SlugDetailPage";
 import { Suspense } from "react";
+import MDXImage from "@/components/blog/mdx-components/MDXImage";
+import CodeBlock from "@/components/blog/mdx-components/CodeBlock";
 
 type Props = {
   params: Promise<{
@@ -19,6 +21,12 @@ interface Frontmatter {
   description: string;
   date: string;
 }
+
+// 블로그 mdx에 들어갈 컴포넌트
+const components = {
+  MDXImage,
+  CodeBlock,
+};
 
 export default async function PostPage({ params }: Props) {
   const awaitedParams = await params;
@@ -40,7 +48,7 @@ export default async function PostPage({ params }: Props) {
     return (
       <Suspense>
         <SlugDetailPage frontmatter={frontmatter}>
-          <MDXRemote source={content} />
+          <MDXRemote source={content} components={components} />
         </SlugDetailPage>
       </Suspense>
     );
@@ -50,14 +58,7 @@ export default async function PostPage({ params }: Props) {
   }
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const awaitedParams = await params;
-
-  return {
-    title: awaitedParams.slug,
-  };
-}
-
+// 정적 생성할 때 경로 알려주는 함수
 export async function generateStaticParams() {
   const contentRoot = path.join(process.cwd(), `src/contents/blog`);
   const locales = fs.readdirSync(contentRoot);
@@ -81,4 +82,34 @@ export async function generateStaticParams() {
   });
 
   return params;
+}
+
+// 각각의 페이지 제목을 게시글 제목으로 바꿔주는 함수
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const awaitedParams = await params;
+  const { locale, category, slug } = awaitedParams;
+
+  try {
+    const filePath = path.join(
+      process.cwd(),
+      "src/contents/blog",
+      locale,
+      category,
+      `${slug}.mdx`
+    );
+
+    const raw = fs.readFileSync(filePath, "utf8");
+    const { data } = matter(raw);
+    const frontmatter = data as Frontmatter;
+
+    return {
+      title: frontmatter.title,
+      description: frontmatter.description,
+    };
+  } catch (err) {
+    console.error("generateMetadata 오류:", err);
+    return {
+      title: slug,
+    };
+  }
 }
