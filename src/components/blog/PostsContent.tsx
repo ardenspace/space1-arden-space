@@ -37,7 +37,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
                     height={150}
                     src={post.thumbnail}
                     alt={post.title}
-                    className="object-cover w-full h-full bg-[var(--bgWhite)]"
+                    className="object-cotain w-full h-full bg-[var(--bgWhite)]"
                   />
                 </div>
                 <div className="px-1">
