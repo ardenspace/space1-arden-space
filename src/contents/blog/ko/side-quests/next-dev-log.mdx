@@ -7,7 +7,7 @@ date: "2025-06-30"
 
 ## 프로젝트 목적
 
-개발자 된 지 2년이 넘어가자 조금씩 이해의 밀도가 높아졌다. 여기서 표현까지 할 수 있다면 더 깊이 이해할 수 있지 않을까? 성장하기 위해 개인 블로그를 개발해보기로 했다.
+개발자 된 지 2년이 넘어가자 조금씩 이해의 밀도가 높아졌다. 여기서 표현까지 할 수 있다면 더 깊이 이해할 수 있지 않을까? 더 많이 공부하고 성장하기 위해 개인 블로그를 개발해보기로 했다.
 
 <div className="bar" />
 
@@ -56,15 +56,17 @@ date: "2025-06-30"
 
 - 프로젝트 생성
 
-<div></div>
-<div className="mdx-code-box">npx create-next-app --typescript 프로젝트명</div>
+<div />
+<CodeBlock>npx create-next-app --typescript 프로젝트명</CodeBlock>
 
 프로젝트가 생성되기 전에 여러가지 질문을 하는데
 
 <br />
-<div>1. typescript 사용할 거냐? Yes</div>
-<div>2. tailwind 사용할 거냐? Yes</div>
-<div>3. src 폴더 안에 넣을 거냐? Yes</div>
+<ol>
+  <li>1. typescript 사용할 거냐? Yes</li>
+  <li>2. tailwind 사용할 거냐? Yes</li>
+  <li>3. src 폴더 안에 넣을 거냐? Yes</li>
+</ol>
 <br />
 그러면 일단 next.js + typescript 까지는 성공이다.
 
@@ -77,14 +79,14 @@ date: "2025-06-30"
 <br />
 a. 패키지 다운로드
 
-<div className="mdx-code-box">
+<CodeBlock>
   pnpm install @next/mdx @mdx-js/loader @mdx-js/mdx @mdx-js/react @types/mdx
   next-mdx-remote
-</div>
+</CodeBlock>
 
 b. _next.config.ts_ 수정 (없으면 src 폴더에 생성)
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 import createMDX from "@next/mdx";
 
@@ -99,11 +101,11 @@ const withMDX = createMDX({
 
 export default withMDX(nextConfig);
 ```
-</div>
+</CodeBlock>
 
 c. _mdx-components.tsx_ 수정 (없으면 src 폴더에 생성)
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 import type { MDXComponents } from "mdx/types";
 
@@ -113,13 +115,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   };
 }
 ```
-</div>
+</CodeBlock>
 
 일단 mdx 연결이 목적이므로 메타데이터부터 연결하자. <br />
 d. 메타데이터 가져오기 <br />
 파일 경로: src\lib\posts.ts
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 import fs from "fs";
 import path from "path";
@@ -175,12 +177,12 @@ const { data } = matter(source);
 }
 
 ```
-</div>
+</CodeBlock>
 
 e. 메타데이터 띄우기 <br />
 파일 경로: src\app\[locale]\blog\page.tsx
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 
 import { getMetaData } from "@/lib/posts";
@@ -214,11 +216,11 @@ return (
 ); }
 
 ```
-</div>
+</CodeBlock>
 
 f. 클라이언트 페이지 타입 연결
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 
 export interface Post {
@@ -246,11 +248,11 @@ initialCategory,
 }
 
 ```
-</div>
+</CodeBlock>
 
 g. blah-blah.mdx 파일은?
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 
 ---
@@ -265,7 +267,7 @@ date: "2025-06-30"
 ...blah blah...
 
 ```
-</div>
+</CodeBlock>
 
 mdx 연결 끝!
 

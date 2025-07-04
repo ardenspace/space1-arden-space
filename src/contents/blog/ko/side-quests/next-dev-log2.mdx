@@ -1,0 +1,336 @@
+---
+title: Next.js 정적 블로그 개발기-2
+description: 취향이 듬뿍 담긴 나만의 블로그 만들기 프로젝트
+thumbnail: /thumbnails/words.jpg
+date: "2025-07-04"
+---
+
+### 한영 전환
+
+한영 전환 기능은 꼭 넣고 싶었다. 공식 문서 뿐 아니라 스택 오버 플로우, 래딧, 깃헙, 그밖의 수많은 개발자 커뮤니티 모두 영어로 소통한다. 구글링도 영어로 찾아보는 게 훨씬 다양한 해결 방식에 접근할 수 있다. 게다가 유튜브에도 손쉽게 코딩을 알려주는 외국인 개발자들이 얼마나 많은가!
+
+<br />
+자연스레 이곳을 영어 친화적 공간으로 만들어야겠다고 생각했다.
+
+<div className="bar" />
+<br />
+<br />
+#### 폴더 구조
+<br />
+
+<div>
+  실무에서 다국어 적용을 많이 하는데 다 서버에서 데이터를 가져온다. 이곳은 서버 연결이 없는 정적 블로그이므로 언어별로 루트를 다르게 해 데이터를 가져와야 한다. 그렇다면 폴더 구조를 어떻게 짜야 할까?
+  
+  찾아 보니 정적 블로그에서 언어 전환은 대부분 이런 식으로 짜고 있었다.
+  <br />
+  <div>1. 콘텐츠 부분에서는 루트별로 폴더를 나누고 그 안에서 언어별 폴더를 만든다.</div>
+  <div>2. 페이지 부분에서는 [locale]이라는 폴더를 만들고 그 안에 페이지를 그려주어 사용자가 선택한 언어대로 콘텐츠를 가져올 수 있도록 한다.</div>
+
+</div>
+<br />
+내 폴더 구조는 이렇다.
+
+<CodeBlock>
+  // 콘텐츠(mdx) 부분 <br />
+  src/contents/blog/en/... src/contents/blog/ko/...
+  <br />
+  // 페이지 부분 <br />
+  src/app/[locale]/blog/...
+</CodeBlock>
+
+전 편에서 포스팅했듯 메타데이터를 가져올 때 함수 인자로 locale 값을 넣어주어 locale에 맞는 콘텐츠를 가져온다.
+
+<CodeBlock>
+```
+// src\lib\posts.ts
+
+const contentDir = path.join(process.cwd(), "src/contents/blog");
+
+// 메타데이터 가져오는 함수
+export function getMetaData(locale: string): PostMeta[] {
+const localeDir = path.join(contentDir, locale);
+
+if (!fs.existsSync(localeDir)) return [];
+
+const categories = fs.readdirSync(localeDir);
+
+return categories.flatMap((category) => {
+const categoryDir = path.join(localeDir, category);
+const files = fs
+.readdirSync(categoryDir)
+.filter((file) => file.endsWith(".mdx"));
+
+    return files.map((file) => {
+      const slug = file.replace(/\.mdx$/, "");
+      const filePath = path.join(categoryDir, file);
+      const source = fs.readFileSync(filePath, "utf8");
+      const { data } = matter(source);
+
+      return {
+        ...(data as Omit<PostMeta, "category" | "slug" | "locale">),
+        locale,
+        category,
+        slug,
+      };
+    });
+
+});
+}
+
+```
+</CodeBlock>
+
+그러면 메타데이터를 가져오는 함수는 어떻게 사용하면 될까?
+
+
+<CodeBlock>
+```
+
+// src/app/[locale]/blog/page.tsx
+
+...
+import { getMetaData } from "@/lib/posts";
+
+export default async function BlogPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const postsMetaData = getMetaData(locale); ⬅️⬅️
+  ...
+}
+```
+</CodeBlock>
+
+여기서 주의할 점이 있다. 초기에는 params 타입이 다음과 같았다.
+
+<CodeBlock>
+```
+params: { locale: string };
+```
+</CodeBlock>
+
+그러자 빌드할 때마다 이런 에러가 났다.
+
+<CodeBlock>
+```
+Type error: Type 'Props' does not satisfy the constraint 'PageProps'.
+Types of property 'params' are incompatible.
+Type '{ locale: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
+```
+</CodeBlock>
+
+처음에는 chatGPT에 물어봤는데 제대로 된 답변을 못 내놓기에 최근에 일어난 문제인가 싶어 구글링을 해보았다. 서치 결과 next.js의 업데이트 때문에 발생하는 오류였다! next.js 버전이 15로 올라가면서 params는 모두 비동기적으로 접근하게끔 바뀌었다.
+
+<CodeBlock>```const {locale} = await params; ```</CodeBlock>
+
+에러에 나와 있듯 타입도 형태를 바꾸어야 한다.
+
+<CodeBlock>
+```
+{
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}
+```
+</CodeBlock>
+
+이렇게 Promise로 감싸 줘야 빌드할 때 에러가 없다.
+
+<br />
+<div className="bar" />
+
+### 상세 페이지 연결
+
+*postsMetaData*는 메타데이터가 담겨 있는 리스트 형태의 데이터다.
+
+<CodeBlock>
+```
+[
+  {
+    category: "side-quests"
+    date: "2025-06-30"
+    description: "취향이 듬뿍 담긴 나만의 블로그 만들기 프로젝트"
+    locale: "ko"
+    slug: "next-dev-log"
+    thumbnail: "/thumbnails/start.jpg"
+    title: "Next.js 정적 블로그 개발기"
+  }
+,...]
+```
+</CodeBlock>
+
+즉 이렇게 mdx 안에 든 머리 부분만 가져오는 거지 안에 든 콘텐츠를 가져오진 못 한다. 상세 페이지 연결은 어떻게 하면 될까?
+
+<br />
+#### 폴더 구조
+<br />
+
+내 블로그는 카테고리가 있고 카테고리별로 콘텐츠를 보여주므로 이렇게 정했다.
+
+<CodeBlock>
+  ``` // src/app/[locale]/blog/(posts)/[category]/[slug] ```
+</CodeBlock>
+
+(posts) 같이 소괄호로 묶는 방식은 next.js에서 쓰이는 route group라는 개념이다. url에 포함되지 않으며 레이아웃을 독립적으로 구분하고 싶을 때 사용한다. 앞에 있는 *blog*의 전체 레이아웃에 영향을 받지 않고 *slug*만의 레이아웃을 유지할 수 있다.
+
+<CodeBlock>
+```
+// src\app\[locale]\blog\(posts)\[category]\[slug]\page.tsx
+
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { MDXRemote } from "next-mdx-remote/rsc";
+
+type Props = {
+params: Promise<{ ⚠️ Promise를 잊지 말자 ㅎ ㅎ
+locale: string;
+category: string;
+slug: string;
+}>;
+};
+interface Frontmatter {
+title: string;
+description: string;
+date: string;
+}
+
+export default async function PostPage({ params }: Props) {
+  const awaitedParams = await params;
+  const { locale, category, slug } = awaitedParams;
+
+try {
+const filePath = path.join(
+process.cwd(),
+"src/contents/blog",
+locale,
+category,
+`${slug}.mdx`
+);
+
+    const raw = fs.readFileSync(filePath, "utf8");
+    const { content, data } = matter(raw);
+    // frontmatter를 가져온 이유는 상세 페이지에도 제목과 날짜, 간단한 설명을 붙여주기 위함이다.
+    const frontmatter = data as Frontmatter;
+
+    return (
+      <Suspense>
+        <SlugDetailPage frontmatter={frontmatter}>
+          <MDXRemote source={content} /> // 이 부분이 mdx의 본문 부분
+        </SlugDetailPage>
+      </Suspense>
+    );
+
+} catch (err) {
+console.error("MDX 처리 중 오류:", err);
+return notFound();
+}
+}
+
+```
+</CodeBlock>
+
+여기서 중요한 점 ... next.js는 빌드 시 정적 생성을 하는데 이때 어떤 slug를 html로 바꿔야 하는지 모른다. 우리가 경로를 일러줘야 한다.
+
+<CodeBlock>
+```
+
+// src\app\[locale]\blog\(posts)\[category]\[slug]\page.tsx
+
+export async function generateStaticParams() {
+  const contentRoot = path.join(process.cwd(), `src/contents/blog`);
+  const locales = fs.readdirSync(contentRoot);
+
+const params = locales.flatMap((locale) => {
+const localePath = path.join(contentRoot, locale);
+const categories = fs.readdirSync(localePath);
+
+    return categories.flatMap((category) => {
+      const categoryPath = path.join(localePath, category);
+      const files = fs
+        .readdirSync(categoryPath)
+        .filter((file) => file.endsWith(".mdx"));
+
+      // 이 경로에 있는 파일을 html로 바꿔 오거라 . . .
+      return files.map((file) => ({
+        locale,
+        category,
+        slug: file.replace(/\.mdx$/, ""),
+      }));
+    });
+
+});
+
+return params;
+}
+
+```
+</CodeBlock>
+
+상세 페이지까지 연결이 되었다. <br />
+그런데 잠깐 . . ! <br />
+상세 페이지에 들어왔을 때 게시글 제목이 웹페이지 타이틀이면 좋겠다 ! !
+
+
+<CodeBlock>
+```
+
+// src\app\[locale]\blog\(posts)\[category]\[slug]\page.tsx
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const awaitedParams = await params;
+  const { locale, category, slug } = awaitedParams;
+
+try {
+const filePath = path.join(
+process.cwd(),
+"src/contents/blog",
+locale,
+category,
+`${slug}.mdx`
+);
+
+    const raw = fs.readFileSync(filePath, "utf8");
+    const { data } = matter(raw);
+    const frontmatter = data as Frontmatter;
+
+    return {
+      title: frontmatter.title,
+      description: frontmatter.description,
+    };
+
+} catch (err) {
+console.error("generateMetadata 오류:", err);
+return {
+title: slug,
+};
+}
+}
+
+```
+</CodeBlock>
+
+이 함수를 추가하면 ~ ?
+
+<MDXImage
+  src="/posts/next-dev-log/title.png"
+  alt="the way to connect the page title"
+  style={{ width: "80%" }}
+/>
+
+상세 페이지 연결 완료! 🎉🎉 <br />
+이렇게 완성된 나만의 블로그를 vercel을 통해 배포했다.
+<br />
+<br />
+**[Next.js 정적 블로그 개발기] 끝** <br />
+읽어 주셔서 감사합니다 (- - )( _ _)
+<br />
+<br />
+
+```

@@ -1,0 +1,340 @@
+---
+title: Building a Static Blog with Next.js-2
+description: A project to build a blog that reflects my own style and vibe
+thumbnail: /thumbnails/words.jpg
+date: "2025-07-04"
+---
+
+### Language Switching
+
+I definitely wanted to include a language-switching feature.
+Most developer communities — not just the official docs, but also Stack Overflow, Reddit, GitHub, and countless others — communicate primarily in English.
+Even when Googling, searching in English gives you access to a much wider range of solutions.
+And let’s be honest — there are tons of amazing foreign developers on YouTube who explain coding concepts in simple and clear ways.
+
+<br />I naturally started thinking:
+<br /> **"Maybe this space should feel more English-friendly too."**
+
+<div className="bar" />
+<br />
+<br />
+#### Folder Structure
+<br />
+
+<div>
+  In real-world projects, multilingual support is often handled by fetching translations from the server. But since this blog is completely static with no backend connection, I decided to separate the content by language directly in the folder structure.So how should the folders be organized?
+  
+  After a bit of research, I found that most static blogs handle multilingual routing like this:
+  <br />
+  <div>1. For content, create a root folder (e.g. /blog) and place language-specific folders inside it (e.g. /en, /ko).</div>
+  <div>2. For pages, use a [locale] folder in the route structure, and render pages based on the user's selected language.</div>
+
+</div>
+<br />
+Here’s how I structured my folders:
+
+<CodeBlock>
+  // Content (MDX) <br />
+  src/contents/blog/en/... src/contents/blog/ko/...
+  <br />
+  // Pages <br />
+  src/app/[locale]/blog/...
+</CodeBlock>
+
+As I mentioned in the previous post, when fetching metadata, I pass the locale value as a function argument to load the appropriate content for that locale.
+
+<CodeBlock>
+```
+// src\lib\posts.ts
+
+const contentDir = path.join(process.cwd(), "src/contents/blog");
+
+// Function to fetch metadata
+export function getMetaData(locale: string): PostMeta[] {
+const localeDir = path.join(contentDir, locale);
+
+if (!fs.existsSync(localeDir)) return [];
+
+const categories = fs.readdirSync(localeDir);
+
+return categories.flatMap((category) => {
+const categoryDir = path.join(localeDir, category);
+const files = fs
+.readdirSync(categoryDir)
+.filter((file) => file.endsWith(".mdx"));
+
+    return files.map((file) => {
+      const slug = file.replace(/\.mdx$/, "");
+      const filePath = path.join(categoryDir, file);
+      const source = fs.readFileSync(filePath, "utf8");
+      const { data } = matter(source);
+
+      return {
+        ...(data as Omit<PostMeta, "category" | "slug" | "locale">),
+        locale,
+        category,
+        slug,
+      };
+    });
+
+});
+}
+
+```
+</CodeBlock>
+
+So how should we use the function that fetches the metadata?
+
+<CodeBlock>
+```
+
+// src/app/[locale]/blog/page.tsx
+
+...
+import { getMetaData } from "@/lib/posts";
+
+export default async function BlogPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const postsMetaData = getMetaData(locale); ⬅️⬅️
+  ...
+}
+```
+</CodeBlock>
+
+One thing to watch out for here: initially, the params type looked like this.
+
+<CodeBlock>
+```
+params: { locale: string };
+```
+</CodeBlock>
+
+Then, this error started popping up every time I built the project.
+
+<CodeBlock>
+```
+Type error: Type 'Props' does not satisfy the constraint 'PageProps'.
+Types of property 'params' are incompatible.
+Type '{ locale: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
+```
+</CodeBlock>
+
+At first, I asked ChatGPT about it, but the answer wasn’t quite right.
+So I figured it might be a recent issue and decided to Google it.
+Turns out, the error was caused by an update in Next.js!
+Starting from version 15, all params now have to be accessed asynchronously.
+
+<CodeBlock>```const {locale} = await params; ```</CodeBlock>
+
+As the error message indicated, the type also needs to be updated accordingly.
+
+<CodeBlock>
+```
+{
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}
+```
+</CodeBlock>
+
+Wrapping the type with Promise like this prevents build-time errors.
+
+<br />
+<div className="bar" />
+
+### Linking to Detail Pages
+
+_postsMetaData_ is a list containing metadata for each post.
+
+<CodeBlock>
+```
+[
+  {
+    category: "side-quests"
+    date: "2025-06-30"
+    description: "A project to build a blog that reflects my own style and vibe"
+    locale: "ko"
+    slug: "next-dev-log"
+    thumbnail: "/thumbnails/start.jpg"
+    title: "Building a Static Blog with Next.js"
+  }
+,...]
+```
+</CodeBlock>
+
+In other words, this only fetches the frontmatter inside the MDX file, not the content itself. So how can we link to the detail page?
+
+<br />
+#### Folder Structure
+<br />
+
+My blog has categories and displays content by category, so I decided on this structure:
+
+<CodeBlock>
+  ``` // src/app/[locale]/blog/(posts)/[category]/[slug] ```
+</CodeBlock>
+
+The parentheses around (posts) indicate a route group, a concept used in Next.js. It doesn’t appear in the URL, but allows you to organize layouts independently. This way, the _slug_ pages can maintain their own layout without being affected by the overall _blog_ layout.
+
+<CodeBlock>
+```
+// src\app\[locale]\blog\(posts)\[category]\[slug]\page.tsx
+
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { MDXRemote } from "next-mdx-remote/rsc";
+
+type Props = {
+params: Promise<{ ⚠️ Don’t forget to use Promise😏
+locale: string;
+category: string;
+slug: string;
+}>;
+};
+interface Frontmatter {
+title: string;
+description: string;
+date: string;
+}
+
+export default async function PostPage({ params }: Props) {
+  const awaitedParams = await params;
+  const { locale, category, slug } = awaitedParams;
+
+try {
+const filePath = path.join(
+process.cwd(),
+"src/contents/blog",
+locale,
+category,
+`${slug}.mdx`
+);
+
+    const raw = fs.readFileSync(filePath, "utf8");
+    const { content, data } = matter(raw);
+    // The reason for fetching the frontmatter is to display the title, date, and a brief description on the detail page.
+    const frontmatter = data as Frontmatter;
+
+    return (
+      <Suspense>
+        <SlugDetailPage frontmatter={frontmatter}>
+          <MDXRemote source={content} /> // the main body of the MDX content
+        </SlugDetailPage>
+      </Suspense>
+    );
+
+} catch (err) {
+console.error("MDX 처리 중 오류:", err);
+return notFound();
+}
+}
+
+```
+</CodeBlock>
+
+Here’s an important point: Next.js performs static generation during build time, but it doesn’t know which slugs to convert into HTML pages.
+We need to tell it the paths explicitly.
+
+<CodeBlock>
+```
+
+// src\app\[locale]\blog\(posts)\[category]\[slug]\page.tsx
+
+export async function generateStaticParams() {
+  const contentRoot = path.join(process.cwd(), `src/contents/blog`);
+  const locales = fs.readdirSync(contentRoot);
+
+const params = locales.flatMap((locale) => {
+const localePath = path.join(contentRoot, locale);
+const categories = fs.readdirSync(localePath);
+
+    return categories.flatMap((category) => {
+      const categoryPath = path.join(localePath, category);
+      const files = fs
+        .readdirSync(categoryPath)
+        .filter((file) => file.endsWith(".mdx"));
+
+      // It means Next.js converts the files at this path into HTML pages . . .
+      return files.map((file) => ({
+        locale,
+        category,
+        slug: file.replace(/\.mdx$/, ""),
+      }));
+    });
+
+});
+
+return params;
+}
+
+```
+</CodeBlock>
+
+The detail page is now linked. <br />
+But wait... wouldn’t it be great if the post title showed up as the webpage’s title when you visit the detail page ? ! ?
+
+<CodeBlock>
+```
+
+// src\app\[locale]\blog\(posts)\[category]\[slug]\page.tsx
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const awaitedParams = await params;
+  const { locale, category, slug } = awaitedParams;
+
+try {
+const filePath = path.join(
+process.cwd(),
+"src/contents/blog",
+locale,
+category,
+`${slug}.mdx`
+);
+
+    const raw = fs.readFileSync(filePath, "utf8");
+    const { data } = matter(raw);
+    const frontmatter = data as Frontmatter;
+
+    return {
+      title: frontmatter.title,
+      description: frontmatter.description,
+    };
+
+} catch (err) {
+console.error("generateMetadata 오류:", err);
+return {
+title: slug,
+};
+}
+}
+
+```
+</CodeBlock>
+
+What if we add this function?
+
+<MDXImage
+  src="/posts/next-dev-log/title-en.png"
+  alt="the way to connect the page title"
+  style={{ width: "80%" }}
+/>
+
+Detail page connection complete! 🎉🎉 <br />
+I deployed my very own blog, all finished, through Vercel.
+
+<br />
+<br />
+**[Building a Static Blog with Next.js] The End** <br />
+Thanks so much for reading! (- - )( _ _)
+<br />
+<br />
+```

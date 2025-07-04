@@ -61,16 +61,16 @@ After two years as a developer, I’ve started to understand things more deeply.
 - Start a project
 
 <div></div>
-<div className="mdx-code-box">
-  npx create-next-app --typescript Your Project Name
-</div>
+<CodeBlock>npx create-next-app --typescript Your Project Name</CodeBlock>
 
 Before the project is created, it asks a few questions:
 
 <br />
-<div>1. Would you like to use TypeScript? Yes</div>
-<div>2. Would you like to use Tailwind CSS? Yes</div>
-<div>3. Would you like your code inside a `src/` directory? Yes</div>
+<ol>
+  <li>1. Would you like to use TypeScript? Yes</li>
+  <li>2. Would you like to use Tailwind CSS? Yes</li>
+  <li>3. Would you like your code inside a `src/` directory? Yes</li>
+</ol>
 <br />
 With that, getting Next.js + TypeScript set up is already a success.
 
@@ -84,14 +84,14 @@ Let’s go for it!
 <br />
 a. Download the package
 
-<div className="mdx-code-box">
+<CodeBlock>
   pnpm install @next/mdx @mdx-js/loader @mdx-js/mdx @mdx-js/react @types/mdx
   next-mdx-remote
-</div>
+</CodeBlock>
 
 b. Modify _next.config.ts_ (create it in the src folder if it doesn’t exist)
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 import createMDX from "@next/mdx";
 
@@ -106,11 +106,11 @@ const withMDX = createMDX({
 
 export default withMDX(nextConfig);
 ```
-</div>
+</CodeBlock>
 
 c. Modify _mdx-components.tsx_ (create it in the src folder if it doesn’t exist)
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 import type { MDXComponents } from "mdx/types";
 
@@ -120,13 +120,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   };
 }
 ```
-</div>
+</CodeBlock>
 
 Let’s start by connecting the metadata, since the goal for now is to link MDX files. <br />
 d. Fetching Metadata <br />
 File path: _src\lib\posts.ts_
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 import fs from "fs";
 import path from "path";
@@ -182,12 +182,12 @@ const { data } = matter(source);
 }
 
 ```
-</div>
+</CodeBlock>
 
 e. Displaying Metadata <br />
 File path: src\app\[locale]\blog\page.tsx
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 
 import { getMetaData } from "@/lib/posts";
@@ -222,11 +222,11 @@ return (
 ); }
 
 ```
-</div>
+</CodeBlock>
 
 f. Connecting types on the client page
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 
 export interface Post {
@@ -254,11 +254,11 @@ initialCategory,
 }
 
 ```
-</div>
+</CodeBlock>
 
 g. blah-blah.mdx?
 
-<div className="mdx-code-box">
+<CodeBlock>
 ```
 
 ---
@@ -273,7 +273,7 @@ date: "2025-06-30"
 ...blah blah...
 
 ```
-</div>
+</CodeBlock>
 
 MDX integration complete!
 
