@@ -31,29 +31,31 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
                   <Dog size={18} />
                 </div>
               </div>
-              <div className="flex flex-col bg-[#ffedf9] pt-4 px-3 pb-4">
-                <div className="flex justify-center h-[150px] border-t border-l border-3 border-[var(--bgWhite)] shadow-[-2px_-2px_1px_rgba(35,196,175,0.7)]">
+              <div className="flex flex-col bg-[#ffedf9] pt-2 px-1 pb-4">
+                <div className="flex justify-center h-[170px] border-t border-l border-3 border-[var(--bgWhite)] shadow-[-2px_-2px_1px_rgba(35,196,175,0.7)]">
                   <Image
                     unoptimized
                     width={270}
                     height={150}
                     src={post.thumbnail}
                     alt={post.title}
-                    className="object-contain w-full h-full bg-[var(--bgWhite)]"
+                    className="object-cover w-full h-full bg-[var(--bgWhite)]"
                   />
                 </div>
-                <div className="pt-5 font-bold text-lg leading-6 line-clamp-1 break-keep">
-                  {post.title}
-                </div>
-                <div
-                  className="pt-1 text-sm tracking-tight line-clamp-1"
-                  // style={{ minHeight: "3.3em" }}
-                  style={{ minHeight: "2em" }}
-                >
-                  {post.description}
-                </div>
-                <div className="w-full flex items-center justify-center border-b border-r border-3 border-[var(--bgWhite)] h-8 shadow-[2px_2px_1px_rgba(35,196,175,0.7)] mt-3 rounded-xs tracking-[0.5em]">
-                  play now!
+                <div className="px-3">
+                  <div className="pt-5 font-bold text-lg leading-6 line-clamp-1 break-keep">
+                    {post.title}
+                  </div>
+                  <div
+                    className="pt-1 text-sm tracking-tight line-clamp-1"
+                    // style={{ minHeight: "3.3em" }}
+                    style={{ minHeight: "2em" }}
+                  >
+                    {post.description}
+                  </div>
+                  <div className="w-full flex items-center justify-center border-b border-r border-3 border-[var(--bgWhite)] h-8 shadow-[2px_2px_1px_rgba(35,196,175,0.7)] mt-3 rounded-xs tracking-[0.5em]">
+                    play now!
+                  </div>
                 </div>
               </div>
             </Link>

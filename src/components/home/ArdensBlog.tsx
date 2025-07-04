@@ -37,7 +37,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
             <div className="custom-box flex mt-[3px] h-[90%] [@container(min-width:500px)]:flex-col border-2 border-dotted border-[var(--ttBlack)]">
               <div className="flex-[1] [@container(max-width:500px)]:flex-[0.7] relative">
                 <Image
-                  src="/thumbnails/nextjs-logo.png"
+                  src="/thumbnails/start.jpg"
                   alt="current-project-thumbnail"
                   fill
                   className="saturate-50 object-cover"

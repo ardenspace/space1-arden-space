@@ -23,7 +23,7 @@ export default function HomeIcon({
         <ICON className={size} />
         <div
           className="text-sm text-bold text-[var(--ttBlack)]"
-          style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.5)" }}
+          style={{ textShadow: "1px 1px 1px rgba(0,0,0,0.5)" }}
         >
           {filename}
         </div>
