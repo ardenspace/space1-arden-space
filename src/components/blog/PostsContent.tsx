@@ -14,7 +14,7 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
 
   return (
     <section className="flex flex-col pt-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-2 gap-8 px-1 sm:px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-2 px-1 sm:px-4 gap-8">
         {posts.map((post, idx) => (
           <div
             key={idx}

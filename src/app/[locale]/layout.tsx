@@ -9,7 +9,7 @@ export default async function LocaleLayout({
 }>) {
   return (
     <main className={`${play.className} ${montserrate.variable} layout-main`}>
-      <div className="flex-1 overflow-auto scrollbar-hide">{children}</div>
+      {children}
       <Suspense>
         <Footer />
       </Suspense>

@@ -175,9 +175,7 @@ In other words, this only fetches the frontmatter inside the MDX file, not the c
 
 My blog has categories and displays content by category, so I decided on this structure:
 
-<CodeBlock>
-  ``` // src/app/[locale]/blog/(posts)/[category]/[slug] ```
-</CodeBlock>
+<CodeBlock>``` src\app\[locale]\blog\(posts)\[category]\[slug] ```</CodeBlock>
 
 The parentheses around (posts) indicate a route group, a concept used in Next.js. It doesn’t appear in the URL, but allows you to organize layouts independently. This way, the _slug_ pages can maintain their own layout without being affected by the overall _blog_ layout.
 

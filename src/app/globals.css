@@ -12,7 +12,6 @@ body {
 }
 
 .layout-main {
-  /* @apply flex flex-col w-full h-full min-h-[calc(100vh)]; */
   @apply flex flex-col w-full min-h-[100dvh];
   /* background: linear-gradient(to right, #b6cbfc, #fecef8); */
   background: linear-gradient(to right, var(--overallBg), #cdfae3);
@@ -140,7 +139,11 @@ body {
 }
 
 .sticky-div {
-  @apply sticky top-31 z-10 bg-[var(--bgMain)];
+  background-color: var(--bgMain);
+  z-index: 10;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 125;
 }
 
 .icon-div {

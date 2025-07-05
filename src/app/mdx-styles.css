@@ -10,16 +10,17 @@ pre code {
   font-size: 1.05rem;
 
   .title-box {
-    padding: 2rem 1.2rem 1.2rem 1.2rem;
+    padding: 2rem 1.5rem 1.2rem 1.5rem;
   }
   .title {
     color: var(--ttBlack);
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     font-weight: bold;
   }
   .description {
     color: var(--ttBlack);
     font-size: 1rem;
+    margin-top: 0.2rem;
   }
   .date {
     display: flex;
@@ -28,12 +29,12 @@ pre code {
     color: var(--bgSecond);
   }
   .content {
-    padding: 0rem 0.7rem 1.8rem 0.7rem;
+    padding: 0rem 1.2rem 2rem 1.2rem;
   }
 
   h2 {
     color: var(--ttBlack);
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-weight: bold;
     margin: 3rem 0rem 0.8rem 0rem;
     padding: 0rem 0.3rem;
@@ -85,13 +86,12 @@ pre code {
 
 /* 코드 블럭 */
 .mdx-code-box {
-  font-size: 1rem;
+  font-size: 0.9rem;
   background-color: var(--ttBlack);
-  font-family: var(--font-montserrate);
   color: var(--mdxMain);
   border-radius: 0.5rem;
-  padding: 1.5rem;
-  margin: 2rem 0.3rem;
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
 }
 
 /* 바 css */

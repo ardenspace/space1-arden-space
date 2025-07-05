@@ -16,13 +16,15 @@ export default function CategoryMenu({
   return (
     <div className="sticky-div">
       <div className="w-full grid grid-cols-4 justify-center max-w-screen-md border-t-3 border-b-3 border-[var(--bgSecond)]">
-        {categories.map((category) => (
+        {categories.map((category, index) => (
           <div
             key={category}
-            className="flex items-center justify-center max-w-[200px] border-r-3 border-[var(--bgSecond)] cursor-pointer hover:bg-gray-200"
+            className={`flex items-center justify-center max-w-[200px] cursor-pointer hover:bg-[var(--footerBg)] ${
+              index !== 0 && categories.length - 1 === index ? "" : "border-r-3"
+            } border-[var(--bgSecond)]`}
           >
             <div
-              className="w-[90%] flex items-center justify-center py-1 text-sm text-[var(--ttBlack)] truncate overflow-hidden"
+              className="w-[100%] flex items-center justify-center py-1 text-sm text-[var(--ttBlack)] truncate overflow-hidden"
               onClick={() => onSelectCategory(category)}
             >
               <span className="mr-1 shrink-0">

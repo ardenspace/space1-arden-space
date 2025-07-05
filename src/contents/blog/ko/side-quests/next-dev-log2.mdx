@@ -170,9 +170,7 @@ Type '{ locale: string; }' is missing the following properties from type 'Promis
 
 내 블로그는 카테고리가 있고 카테고리별로 콘텐츠를 보여주므로 이렇게 정했다.
 
-<CodeBlock>
-  ``` // src/app/[locale]/blog/(posts)/[category]/[slug] ```
-</CodeBlock>
+<CodeBlock>``` src\app\[locale]\blog\(posts)\[category]\[slug] ```</CodeBlock>
 
 (posts) 같이 소괄호로 묶는 방식은 next.js에서 쓰이는 route group라는 개념이다. url에 포함되지 않으며 레이아웃을 독립적으로 구분하고 싶을 때 사용한다. 앞에 있는 *blog*의 전체 레이아웃에 영향을 받지 않고 *slug*만의 레이아웃을 유지할 수 있다.
 
