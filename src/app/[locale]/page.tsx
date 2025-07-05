@@ -6,9 +6,11 @@ import HomeContent from "@/components/home/home-content";
 export default function Home() {
   return (
     <MDXProvider>
-      <section className="home-section">
-        <HomeContent />
-      </section>
+      <div className="flex-1 overflow-auto scrollbar-hide">
+        <section className="home-section">
+          <HomeContent />
+        </section>
+      </div>
     </MDXProvider>
   );
 }
