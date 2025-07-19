@@ -22,26 +22,31 @@ export function getMetaData(locale: string): PostMeta[] {
 
   const categories = fs.readdirSync(localeDir);
 
-  return categories.flatMap((category) => {
-    const categoryDir = path.join(localeDir, category);
-    const files = fs
-      .readdirSync(categoryDir)
-      .filter((file) => file.endsWith(".mdx"));
+  return (
+    categories
+      .flatMap((category) => {
+        const categoryDir = path.join(localeDir, category);
+        const files = fs
+          .readdirSync(categoryDir)
+          .filter((file) => file.endsWith(".mdx"));
 
-    return files.map((file) => {
-      const slug = file.replace(/\.mdx$/, "");
-      const filePath = path.join(categoryDir, file);
-      const source = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(source);
+        return files.map((file) => {
+          const slug = file.replace(/\.mdx$/, "");
+          const filePath = path.join(categoryDir, file);
+          const source = fs.readFileSync(filePath, "utf8");
+          const { data } = matter(source);
 
-      return {
-        ...(data as Omit<PostMeta, "category" | "slug" | "locale">),
-        locale,
-        category,
-        slug,
-      };
-    });
-  });
+          return {
+            ...(data as Omit<PostMeta, "category" | "slug" | "locale">),
+            locale,
+            category,
+            slug,
+          };
+        });
+      })
+      // 최신순으로 정렬
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  );
 }
 
 // 본문 내용까지 가져오는 함수
