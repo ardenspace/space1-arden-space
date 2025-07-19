@@ -50,7 +50,7 @@ const ProgressBar = () => {
           />
         ))}
       </div>
-      <span className="text-xs font-bold">Peeking into progress...</span>
+      <span className="text-xs font-bold">Currently unfolding...</span>
     </div>
   );
 };

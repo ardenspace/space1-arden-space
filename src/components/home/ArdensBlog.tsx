@@ -53,7 +53,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
                 onClick={onClickTakeAPeek}
               >
                 <span className="left-text bounce-up font-extrabold">
-                  {"> > "} Enter the vault
+                  {"> > "} Explore this project
                 </span>
               </div>
             </div>
