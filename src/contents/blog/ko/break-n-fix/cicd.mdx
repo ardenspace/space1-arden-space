@@ -1,0 +1,36 @@
+---
+title: Gitea Actions + Nginx + Docker = CI/CD
+description: 사내 환경(Gitea Actions, Nginx) + Docker로 CICD 환경 구축하기
+thumbnail: /thumbnails/together.png
+date: "Sep 18, 2025"
+---
+
+## CICD 구축하기
+
+꼭 해보고 싶은 작업이었다. 올해 늦봄 즈음에 CICD 작업을 해보고 싶다고 팀에 말했는데, 반응이 "ㅇㅋ 다만 일 없을 때 시도해보자." 였다. 그런데 도저히 시간이 나지 않는 거다... 회사에는 언제나 일이 존재하고 퇴근하면 사이드 프로젝트 하느라 바쁘고.
+
+시도도 못하다가 이번에 새로운 프론트엔드 팀장님을 모시게(ㅋㅋㅋ) 되면서 드디어 CICD 작업을 하게 되었다.
+
+<div className="bar" />
+
+- 기존 방식❓
+
+기존 방식은 로컬에서 작업하고 실장님이 확인한 뒤 빌드하여 빌드 파일을 서버에 직접 넣는 방식으로 진행했다. 이 방식을 무척이나 바꾸고 싶었지만 서버를 건드려야 한단 생각에 차일피일 미룬 것도 사실이다. 그러다가 우선 차선으로 서버에 git을 연결하여 서버 내에서 빌드하는 방식으로 변경했다.
+
+서버에 git을 연결한 며칠 뒤, 팀장님이 배포 환경을 만들었다며 현재 내가 관리하고 있는 사이트에 CICD를 연동하자고 하셨다.
+
+<div className="bar" />
+
+- 새로운 배포 방식❓
+
+<ol>
+  <li>1. Gitea</li>
+  <li>2. Docker</li>
+  <li>3. Nginx</li>
+</ol>
+
+회사 내 git 플랫폼으로 gitea를 사용한다. Gitea에도 CICD를 돕는 Gitea Actions 라는 기능이 있어 이걸 이용하기로 했다. Gitea에서 빌드한 페이지가 어느 환경에서나 똑같이 실행될 수 있도록 Docker를 사용하기로 했다. 이 도커 컨테이너는 회사 내 웹 서버인 Nginx와 연결되어 외부 사용자가 접근할 수 있게 된다.
+
+<div className="bar" />
+
+## Gitea Actions
