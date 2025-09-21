@@ -37,7 +37,7 @@ const PostsContent: React.FC<PostContentProps> = memo(({ posts = [] }) => {
                     height={150}
                     src={post.thumbnail}
                     alt={post.title}
-                    className="object-cover w-full h-full bg-[var(--bgWhite)]"
+                    className="object-fill w-full h-full bg-[var(--bgWhite)]"
                     priority={idx < 6} // 첫 6개 이미지만 우선 로딩
                   />
                 </div>
