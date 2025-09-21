@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { useWindowSize } from "@/hooks/use-size";
+import { useEffect, useState } from "react";
 
 const ProgressBar = () => {
   const size = useWindowSize();

@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
 import { useLocale } from "@/hooks/use-locale";
+import { useWindowSize } from "@/hooks/use-size";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { homeIcons } from "../../lib/home-icons";
-import HomeIcon from "./HomeIcon";
-import { useWindowSize } from "@/hooks/use-size";
-import WhoIsArden from "./WhoIsArden";
 import ArdensBlog from "./ArdensBlog";
+import HomeIcon from "./HomeIcon";
+import WhoIsArden from "./WhoIsArden";
 
 gsap.registerPlugin(ScrollTrigger);
 

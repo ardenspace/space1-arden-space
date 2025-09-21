@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { Github } from "lucide-react";
+import { useZIndex } from "@/contexts/ZIndexContext";
 import useIsHome from "@/hooks/use-is-home";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useLocale } from "@/hooks/use-locale";
 import { useWindowSize } from "@/hooks/use-size";
-import { useZIndex } from "@/contexts/ZIndexContext";
+import { Github } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Footer() {
   const { currentPosition, setCurrentPosition } = useZIndex();
