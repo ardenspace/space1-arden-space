@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 // 전역 브레이크포인트 상수
-export const BREAKPOINT_MOBILE = 768;
+export const BREAKPOINT_MOBILE = 500;
 
 export function useBreakpoint() {
   const [isDesktop, setIsDesktop] = useState(false);

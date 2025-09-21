@@ -1,13 +1,13 @@
 "use client";
 
-import { useWindowSize } from "@/hooks/use-size";
+import { useIsMobile } from "@/hooks/use-breakpoint";
 import Image, { ImageProps } from "next/image";
 
 export default function MDXImage(props: ImageProps) {
-  const { width } = useWindowSize();
+  const isMobile = useIsMobile();
 
-  // 480px 이하면 이미지 width 100%, 이상이면 style로 넘어온 값 사용
-  const isSmall = width > 0 && width < 480;
+  // 모바일이면 이미지 width 100%, 데스크톱이면 style로 넘어온 값 사용
+  const isSmall = isMobile;
 
   return (
     <div className="flex justify-center my-3">
