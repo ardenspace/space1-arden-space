@@ -1,9 +1,12 @@
 import { useZIndex } from "@/contexts/ZIndexContext";
-import ProgressBar from "./ProgressBar";
-import { useRouter } from "next/navigation";
+import { useIsDesktop } from "@/hooks/use-breakpoint";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import DraggableWindow from "./DraggableWindow";
+import ProgressBar from "./ProgressBar";
 
 export default function ArdensBlog({ locale }: { locale: string }) {
+  const isDesktop = useIsDesktop();
   const router = useRouter();
   const { currentPosition, setCurrentPosition } = useZIndex();
   // 가장 최근에 완성한 프로젝트
@@ -11,18 +14,15 @@ export default function ArdensBlog({ locale }: { locale: string }) {
   // 블로그로 보내기
   const currentPostUrl = `${locale}/blog`;
 
-  const onClickTakeAPeek = () => {
+  const onClickCurrentProjectButton = () => {
     router.push(currentProjectUrl);
   };
-  const onClickVaultButton = () => {
+  const onClickCurrentPostButton = () => {
     router.push(currentPostUrl);
   };
 
-  return (
-    <div
-      className={`mini-main ${currentPosition === "blog" ? "z-9" : ""}`}
-      onClick={() => setCurrentPosition("blog")}
-    >
+  const MiniMainContent = () => (
+    <>
       <div className="stripe-background h-[5%] w-full flex justify-center items-center mb-[2px]">
         <span className="bg-[var(--footerBg)] px-2 text-[var(--ttBlack)] font-bold text-xs">
           WELCOME TO ARDEN&apos;SPACE!
@@ -50,7 +50,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
             [@container(min-width:500px)]:border-t-2 
             [@container(max-width:500px)]:border-l-2
           "
-                onClick={onClickTakeAPeek}
+                onClick={onClickCurrentProjectButton}
               >
                 <span className="left-text bounce-up font-extrabold">
                   {"> > "} Explore this project
@@ -76,7 +76,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
               <ProgressBar />
               <button
                 className="mt-[10px] h-full flex items-center justify-center border-b border-r border-2 border-[var(--bgWhite)] shadow-[2px_2px_1px_var(--mainTt2)] cursor-pointer"
-                onClick={onClickVaultButton}
+                onClick={onClickCurrentPostButton}
               >
                 <span className="text-[var(--mainTt3)] inline-flex items-center text-[1.7rem] [@container(max-width:500px)]:text-[1.3rem] leading-none">
                   <svg
@@ -106,6 +106,32 @@ export default function ArdensBlog({ locale }: { locale: string }) {
         </div>
       </div>
       <div className="stripe-background h-[3.5%] w-full"></div>
-    </div>
+    </>
+  );
+
+  return (
+    <>
+      {isDesktop ? (
+        <div onClick={() => setCurrentPosition("blog")}>
+          <DraggableWindow
+            initialPosition={{ x: 180, y: 190 }}
+            headerHeight="h-[5%]"
+            className={`mini-main ${currentPosition === "blog" ? "z-10" : ""}`}
+            onDragStart={() => setCurrentPosition("blog")}
+          >
+            <MiniMainContent />
+          </DraggableWindow>
+        </div>
+      ) : (
+        <div
+          onClick={() => setCurrentPosition("blog")}
+          className={`mini-main relative ${
+            currentPosition === "blog" ? "z-10" : ""
+          }`}
+        >
+          <MiniMainContent />
+        </div>
+      )}
+    </>
   );
 }
