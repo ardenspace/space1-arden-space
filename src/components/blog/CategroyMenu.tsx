@@ -20,7 +20,11 @@ export default function CategoryMenu({
           <div
             key={category}
             className={`flex items-center justify-center max-w-[200px] cursor-pointer hover:bg-[var(--footerBg)] ${
-              index !== 0 && categories.length - 1 === index ? "" : "border-r-3"
+              index !== 0 &&
+              categories.length === 4 &&
+              categories.length - 1 === index
+                ? ""
+                : "border-r-3"
             } border-[var(--bgSecond)]`}
           >
             <div
