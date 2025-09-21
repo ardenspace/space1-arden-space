@@ -1,15 +1,16 @@
 "use client";
 
 import type { Post } from "@/app/[locale]/blog/ClientBlogPage";
-import Link from "next/link";
 import { useLocale } from "@/hooks/use-locale";
-import Image from "next/image";
 import { Cat } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { memo } from "react";
 
 interface PostContentProps {
   posts?: Post[];
 }
-const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
+const PostsContent: React.FC<PostContentProps> = memo(({ posts = [] }) => {
   const locale = useLocale();
 
   return (
@@ -32,12 +33,12 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
               <div className="flex flex-col pt-2 pb-4 px-1 bg-[#e8e8e8] border-1 border-[var(--bgSecond)] rounded-xs">
                 <div className="flex justify-center h-[200px] border-t border-l border-3 border-[var(--bgWhite)] shadow-[-2px_-2px_1px_var(--bgSecond)]">
                   <Image
-                    unoptimized
                     width={270}
                     height={150}
                     src={post.thumbnail}
                     alt={post.title}
-                    className="object-cotain w-full h-full bg-[var(--bgWhite)]"
+                    className="object-cover w-full h-full bg-[var(--bgWhite)]"
+                    priority={idx < 6} // 첫 6개 이미지만 우선 로딩
                   />
                 </div>
                 <div className="px-1">
@@ -61,6 +62,8 @@ const PostsContent: React.FC<PostContentProps> = ({ posts = [] }) => {
       </div>
     </section>
   );
-};
+});
+
+PostsContent.displayName = "PostsContent";
 
 export default PostsContent;
