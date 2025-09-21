@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLocale } from "@/hooks/use-locale";
-import Link from "next/link";
-import { Languages, X } from "lucide-react";
-import { silkscreen } from "@/lib/fonts";
 import { useWindowSize } from "@/hooks/use-size";
+import { silkscreen } from "@/lib/fonts";
+import { Languages, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const stylesMap: Record<string, { bg: string; text: string }> = {
   "/": { bg: "bg-[var(--portTt)]", text: "text-[var(--homeTt)]" },

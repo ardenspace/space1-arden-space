@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Reply } from "lucide-react";
-import { useLocale } from "@/hooks/use-locale";
 import PageLayout from "@/app/[locale]/page-layout";
+import { useLocale } from "@/hooks/use-locale";
+import { Reply } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -34,7 +34,7 @@ export default function SlugDetailPage({ children, frontmatter }: Props) {
       <div className="sticky-div">
         <div className="flex items-center border-t-3 border-b-3 border-[var(--bgSecond)] h-10">
           <div
-            className="flex items-center cursor-pointer px-5"
+            className="flex items-center cursor-pointer px-3"
             onClick={onHandleBack}
           >
             <Reply size={24} color="var(--ttBlack)" />
