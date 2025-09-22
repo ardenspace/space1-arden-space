@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const ProgressBar = () => {
   const size = useWindowSize();
-  const totalBars = 8;
+  const totalBars = 9;
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {

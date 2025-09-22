@@ -1,18 +1,18 @@
 <!-- GitHub Profile README: arden'space -->
 
 <br />
-<h2 align="center">👾 This is ARDEN'SPACE 👾</h2>
+<h2 align="center">👾 This is ARDEN'SPACE 🛸</h2>
 
 <p align="center">
-  <strong>Hi There, I'm DASOM LEE!👋</strong>
+  <strong>Hi There, I'm DASOM LEE.</strong>
 </p>
 <p align="center">
-  But feel free to call me ARDEN🌵
+  But feel free to call me Arden.
 </p>
 
 <br />
 <p align="center">
-  <strong>Welcome in this space✨ where I think, break and build — at my own pace⚡</strong>
+  <strong>Welcome to arden'space 🛸 — where I think, break, and build at my own pace 👾</strong>
 </p>
 
 <br />
