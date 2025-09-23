@@ -44,7 +44,6 @@ export default function Header() {
   const router = useRouter();
   const locale = useLocale();
   const navItems = [
-    // { title: "Home", href: `/${locale}` },
     { title: "Blog", href: `/${locale}/blog` },
     { title: "Arden", href: `/${locale}/arden` },
   ];
@@ -104,9 +103,6 @@ export default function Header() {
             Hello, arden&apos;space!
           </span>
           <div className="flex">
-            {/* <div className={`icon-div ${currentStyle.text}`}>
-              <Cat size={19} className={`${currentStyle.text}`} />
-            </div> */}
             <div
               className={`icon-div ${currentStyle.text} cursor-pointer`}
               onClick={onSwitchLanguages}
