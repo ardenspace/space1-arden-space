@@ -6,18 +6,18 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 
 export default function Popover() {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={containerRef}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
     >
       <button
         className="absolute bottom-0 right-0 w-[30%] h-[auto] min-h-[100px]"
-        onClick={() => setOpen(!open)}
+        onClick={() => setIsOpen((prev) => !prev)}
       >
         <Image
           src="/home/attie.png"
@@ -27,12 +27,12 @@ export default function Popover() {
         />
       </button>
 
-      {open && (
+      {isOpen && (
         <div className="absolute top-full right-0 mt-2 z-50">
           {/* 투명 브리지 */}
           <div className="absolute -top-2 left-0 right-0 h-2"></div>
 
-          <div className="relative w-45 rounded-lg bg-[var(--ttBlack)] shadow-lg px-3 py-1">
+          <div className="relative w-45 rounded-lg bg-[var(--ttBlack)] px-3 py-1">
             <p
               className={`text-center text-lg text-[#d7cdf5] leading-tight ${attieFont.className}`}
             >
