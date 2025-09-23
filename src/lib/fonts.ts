@@ -1,4 +1,4 @@
-import { Play, Silkscreen, Montserrat } from "next/font/google";
+import { Montserrat, Play, Silkscreen, VT323 } from "next/font/google";
 
 // header - title
 export const silkscreen = Silkscreen({
@@ -18,4 +18,10 @@ export const montserrate = Montserrat({
   weight: ["400", "700"],
   style: ["normal", "italic"],
   variable: "--font-montserrate",
+});
+
+// main - for attie
+export const attieFont = VT323({
+  subsets: ["latin"],
+  weight: ["400"],
 });

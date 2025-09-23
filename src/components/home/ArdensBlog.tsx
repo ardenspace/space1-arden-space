@@ -3,6 +3,7 @@ import { useIsDesktop } from "@/hooks/use-breakpoint";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import DraggableWindow from "./DraggableWindow";
+import Popover from "./Popover";
 import ProgressBar from "./ProgressBar";
 
 export default function ArdensBlog({ locale }: { locale: string }) {
@@ -60,14 +61,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
           </div>
 
           <div className="min-w-[250px] flex-1 px-2 relative border-[var(--ttBlack)] [@container(min-width:500px)]:border-l">
-            <div className="absolute bottom-0 right-0 w-[30%] h-[auto] min-h-[100px]">
-              <Image
-                src="/home/attie.png"
-                alt="attie-on-the-home"
-                fill
-                className="object-contain"
-              />
-            </div>
+            <Popover />
 
             <span className="text-[var(--ttBlack)] font-bold text-base">
               What I’m up to?
