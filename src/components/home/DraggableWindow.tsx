@@ -65,6 +65,11 @@ export default function DraggableWindow({
     }
   };
 
+  // initialPosition이 변경될 때 position 업데이트
+  useEffect(() => {
+    setPosition(initialPosition);
+  }, [initialPosition]);
+
   useEffect(() => {
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
@@ -82,8 +87,8 @@ export default function DraggableWindow({
       ref={windowRef}
       className={`absolute ${className}`}
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}vh`,
+        left: position.x,
+        top: position.y,
         ...style,
       }}
     >

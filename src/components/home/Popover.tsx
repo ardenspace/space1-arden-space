@@ -32,9 +32,9 @@ export default function Popover() {
           {/* 투명 브리지 */}
           <div className="absolute -top-2 left-0 right-0 h-2"></div>
 
-          <div className="relative w-45 rounded-lg bg-[var(--ttBlack)] px-3 py-1">
+          <div className="relative w-36.5 rounded-lg bg-[var(--ttBlack)] px-3 py-1">
             <p
-              className={`text-center text-lg text-[#d7cdf5] leading-tight ${attieFont.className}`}
+              className={`text-sm text-[#d7cdf5] leading-tight ${attieFont.className}`}
             >
               I Came From Her{" "}
               <Link

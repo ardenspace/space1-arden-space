@@ -108,7 +108,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
       {isDesktop ? (
         <div onClick={() => setCurrentPosition("blog")}>
           <DraggableWindow
-            initialPosition={{ x: 180, y: 20 }}
+            initialPosition={{ x: 190, y: 200 }}
             headerHeight="h-[5%]"
             className={`mini-main ${currentPosition === "blog" ? "z-10" : ""}`}
             onDragStart={() => setCurrentPosition("blog")}

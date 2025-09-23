@@ -1,15 +1,17 @@
 import { useZIndex } from "@/contexts/ZIndexContext";
+import { useIsMobile } from "@/hooks/use-breakpoint";
 import Image from "next/image";
 import Link from "next/link";
 import DraggableWindow from "./DraggableWindow";
 
 export default function WhoIsArden({ locale }: { locale: string }) {
   const { currentPosition, setCurrentPosition } = useZIndex();
+  const isMobile = useIsMobile();
 
   return (
     <div onClick={() => setCurrentPosition("port")}>
       <DraggableWindow
-        initialPosition={{ x: 100, y: 13 }}
+        initialPosition={{ x: 100, y: isMobile ? 90 : 130 }}
         headerHeight="h-[10%]"
         className={`${
           currentPosition === "blog" ? "" : "z-10"
