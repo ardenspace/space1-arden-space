@@ -9,7 +9,7 @@ export default function WhoIsArden({ locale }: { locale: string }) {
   return (
     <div onClick={() => setCurrentPosition("port")}>
       <DraggableWindow
-        initialPosition={{ x: 100, y: 130 }}
+        initialPosition={{ x: 100, y: 13 }}
         headerHeight="h-[10%]"
         className={`${
           currentPosition === "blog" ? "" : "z-10"

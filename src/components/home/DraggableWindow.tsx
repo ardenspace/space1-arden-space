@@ -82,8 +82,8 @@ export default function DraggableWindow({
       ref={windowRef}
       className={`absolute ${className}`}
       style={{
-        left: position.x,
-        top: position.y,
+        left: `${position.x}px`,
+        top: `${position.y}vh`,
         ...style,
       }}
     >
