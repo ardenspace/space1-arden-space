@@ -13,6 +13,7 @@ export default function MDXImage(props: ImageProps) {
     <div className="flex justify-center my-3">
       <Image
         {...props}
+        alt="for-descriptions-in-blog-posts"
         width={props.width ?? 800}
         height={props.height ?? 600}
         style={{
