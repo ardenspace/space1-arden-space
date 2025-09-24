@@ -1,10 +1,10 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/use-breakpoint";
+import { useBreakpoint } from "@/hooks/use-breakpoint";
 import Image, { ImageProps } from "next/image";
 
 export default function MDXImage(props: ImageProps) {
-  const isMobile = useIsMobile();
+  const isMobile = useBreakpoint().isMobile;
 
   // 모바일이면 이미지 width 100%, 데스크톱이면 style로 넘어온 값 사용
   const isSmall = isMobile;
