@@ -109,6 +109,8 @@ const MiniMainContent = memo(({ locale }: { locale: string }) => {
   );
 });
 
+MiniMainContent.displayName = "MiniMainContent";
+
 function ArdensBlog({ locale }: { locale: string }) {
   const { isDesktop } = useBreakpoint();
   const { currentPosition, setCurrentPosition } = useZIndex();
@@ -122,6 +124,12 @@ function ArdensBlog({ locale }: { locale: string }) {
     () => `mini-main ${currentPosition === "blog" ? "z-10" : ""}`,
     [currentPosition]
   );
+
+  const mobileClassName = useMemo(
+    () => `mini-main relative ${currentPosition === "blog" ? "z-10" : ""}`,
+    [currentPosition]
+  );
+
   const initialPosition = useMemo(() => ({ x: 190, y: 200 }), []);
 
   return (
@@ -138,10 +146,7 @@ function ArdensBlog({ locale }: { locale: string }) {
           </DraggableWindow>
         </div>
       ) : (
-        <div
-          onClick={handleBlogClick}
-          className={`${desktopClassName} relative`}
-        >
+        <div onClick={handleBlogClick} className={mobileClassName}>
           <MiniMainContent locale={locale} />
         </div>
       )}
@@ -149,5 +154,5 @@ function ArdensBlog({ locale }: { locale: string }) {
   );
 }
 
-ArdensBlog.displayName = "ArdensBlog";
-export default ArdensBlog;
+// 메인 컴포넌트를 memo로 래핑
+export default memo(ArdensBlog);
