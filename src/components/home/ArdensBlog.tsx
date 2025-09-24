@@ -69,7 +69,7 @@ const MiniMainContent = memo(({ locale }: { locale: string }) => {
             <Popover />
 
             <span className="text-[var(--ttBlack)] font-bold text-base">
-              What I'm up to?
+              What I&apos;m up to?
             </span>
             <div className="h-[65%] flex flex-col mt-[3px]">
               <ProgressBar />
@@ -149,5 +149,5 @@ function ArdensBlog({ locale }: { locale: string }) {
   );
 }
 
-// 메인 컴포넌트를 메모이제이션
-export default memo(ArdensBlog);
+ArdensBlog.displayName = "ArdensBlog";
+export default ArdensBlog;

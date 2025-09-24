@@ -1,14 +1,14 @@
 "use client";
 
+import { useLocale } from "@/hooks/use-locale";
+import { usePathname } from "next/navigation";
 import {
   createContext,
-  useEffect,
-  useContext,
-  useState,
   ReactNode,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
-import { usePathname } from "next/navigation";
-import { useLocale } from "@/hooks/use-locale";
 
 type ZIndexContextType = {
   currentPosition: string;
@@ -29,7 +29,7 @@ export const ZIndexProvider = ({ children }: { children: ReactNode }) => {
     } else {
       setCurrentPosition("port");
     }
-  }, [pathname]);
+  }, [pathname, locale]);
 
   return (
     <ZIndexContext.Provider
