@@ -1,28 +1,33 @@
 import { useZIndex } from "@/contexts/ZIndexContext";
-import { useIsDesktop } from "@/hooks/use-breakpoint";
+import { useBreakpoint } from "@/hooks/use-breakpoint";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { memo, useCallback, useMemo } from "react";
 import DraggableWindow from "./DraggableWindow";
 import Popover from "./Popover";
 import ProgressBar from "./ProgressBar";
 
-export default function ArdensBlog({ locale }: { locale: string }) {
-  const isDesktop = useIsDesktop();
+// MiniMainContent를 메모이제이션된 컴포넌트로 분리
+const MiniMainContent = memo(({ locale }: { locale: string }) => {
   const router = useRouter();
-  const { currentPosition, setCurrentPosition } = useZIndex();
-  // 가장 최근에 완성한 프로젝트
-  const currentProjectUrl = `${locale}/blog/side-quests/next-dev-log?fc=side-quests`;
-  // 블로그로 보내기
-  const currentPostUrl = `${locale}/blog`;
 
-  const onClickCurrentProjectButton = () => {
+  // URL들을 메모이제이션
+  const currentProjectUrl = useMemo(
+    () => `${locale}/blog/side-quests/next-dev-log?fc=side-quests`,
+    [locale]
+  );
+  const currentPostUrl = useMemo(() => `${locale}/blog`, [locale]);
+
+  // 이벤트 핸들러들을 메모이제이션
+  const onClickCurrentProjectButton = useCallback(() => {
     router.push(currentProjectUrl);
-  };
-  const onClickCurrentPostButton = () => {
-    router.push(currentPostUrl);
-  };
+  }, [router, currentProjectUrl]);
 
-  const MiniMainContent = () => (
+  const onClickCurrentPostButton = useCallback(() => {
+    router.push(currentPostUrl);
+  }, [router, currentPostUrl]);
+
+  return (
     <>
       <div className="stripe-background h-[5%] w-full flex justify-center items-center mb-[2px]">
         <span className="bg-[var(--footerBg)] px-2 text-[var(--ttBlack)] font-bold text-xs">
@@ -64,7 +69,7 @@ export default function ArdensBlog({ locale }: { locale: string }) {
             <Popover />
 
             <span className="text-[var(--ttBlack)] font-bold text-base">
-              What I’m up to?
+              What I'm up to?
             </span>
             <div className="h-[65%] flex flex-col mt-[3px]">
               <ProgressBar />
@@ -102,30 +107,47 @@ export default function ArdensBlog({ locale }: { locale: string }) {
       <div className="stripe-background h-[3.5%] w-full"></div>
     </>
   );
+});
+
+function ArdensBlog({ locale }: { locale: string }) {
+  const { isDesktop } = useBreakpoint();
+  const { currentPosition, setCurrentPosition } = useZIndex();
+
+  const handleBlogClick = useCallback(() => {
+    setCurrentPosition("blog");
+  }, [setCurrentPosition]);
+
+  // 클래스명과 위치값들을 메모이제이션
+  const desktopClassName = useMemo(
+    () => `mini-main ${currentPosition === "blog" ? "z-10" : ""}`,
+    [currentPosition]
+  );
+  const initialPosition = useMemo(() => ({ x: 190, y: 200 }), []);
 
   return (
     <>
       {isDesktop ? (
-        <div onClick={() => setCurrentPosition("blog")}>
+        <div onClick={handleBlogClick}>
           <DraggableWindow
-            initialPosition={{ x: 190, y: 200 }}
+            initialPosition={initialPosition}
             headerHeight="h-[5%]"
-            className={`mini-main ${currentPosition === "blog" ? "z-10" : ""}`}
-            onDragStart={() => setCurrentPosition("blog")}
+            className={desktopClassName}
+            onDragStart={handleBlogClick}
           >
-            <MiniMainContent />
+            <MiniMainContent locale={locale} />
           </DraggableWindow>
         </div>
       ) : (
         <div
-          onClick={() => setCurrentPosition("blog")}
-          className={`mini-main relative ${
-            currentPosition === "blog" ? "z-10" : ""
-          }`}
+          onClick={handleBlogClick}
+          className={`${desktopClassName} relative`}
         >
-          <MiniMainContent />
+          <MiniMainContent locale={locale} />
         </div>
       )}
     </>
   );
 }
+
+// 메인 컴포넌트를 메모이제이션
+export default memo(ArdensBlog);

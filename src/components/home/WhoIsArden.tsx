@@ -1,25 +1,51 @@
 import { useZIndex } from "@/contexts/ZIndexContext";
-import { useIsMobile } from "@/hooks/use-breakpoint";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import DraggableWindow from "./DraggableWindow";
+import { memo, useCallback, useMemo } from "react";
 
-export default function WhoIsArden({ locale }: { locale: string }) {
+const DraggableWindow = dynamic(() => import("./DraggableWindow"), {
+  ssr: false,
+});
+
+// 스타일 객체를 컴포넌트 외부로 이동하여 매번 재생성 방지
+const windowStyle = {
+  boxShadow: "0.125rem 0.125rem 0.125rem rgba(0, 0, 0, 0.5)",
+};
+
+function WhoIsArden({ locale }: { locale: string }) {
   const { currentPosition, setCurrentPosition } = useZIndex();
-  const isMobile = useIsMobile();
+
+  // initialY 계산을 메모이제이션
+  const initialY = useMemo(() => {
+    return typeof window !== "undefined" ? window.innerHeight * 0.14 : 120;
+  }, []);
+
+  // 클릭 핸들러 메모이제이션
+  const handleClick = useCallback(() => {
+    setCurrentPosition("port");
+  }, [setCurrentPosition]);
+
+  const handleDragStart = useCallback(() => {
+    setCurrentPosition("port");
+  }, [setCurrentPosition]);
+
+  // 클래스명을 메모이제이션
+  const windowClassName = useMemo(() => {
+    const baseClasses =
+      "h-[20vh] min-h-[12.5rem] max-h-[14rem] w-[40vw] min-w-[18.75rem] max-w-[19rem] border-2 border-[#fff] transition-transform duration-200 hover:scale-103";
+    const zIndexClass = currentPosition === "blog" ? "" : "z-10";
+    return `${baseClasses} ${zIndexClass}`;
+  }, [currentPosition]);
 
   return (
-    <div onClick={() => setCurrentPosition("port")}>
+    <div onClick={handleClick}>
       <DraggableWindow
-        initialPosition={{ x: 100, y: isMobile ? 90 : 130 }}
+        initialPosition={{ x: 100, y: initialY }}
         headerHeight="h-[10%]"
-        className={`${
-          currentPosition === "blog" ? "" : "z-10"
-        } h-[20vh] min-h-[200px] max-h-[220px] w-[40vw] min-w-[300px] max-w-[320px] border-2 border-[#fff] transition-transform duration-200 hover:scale-103`}
-        style={{
-          boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.5)",
-        }}
-        onDragStart={() => setCurrentPosition("port")}
+        className={windowClassName}
+        style={windowStyle}
+        onDragStart={handleDragStart}
       >
         <div className="h-[10%] bg-[var(--ttBlack)] text-[var(--portTt)] flex items-center px-2 border-b-2 border-[#fff] font-bold text-xs">
           WHO IS ARDEN?
@@ -42,3 +68,6 @@ export default function WhoIsArden({ locale }: { locale: string }) {
     </div>
   );
 }
+
+// React.memo로 불필요한 리렌더링 방지
+export default memo(WhoIsArden);
