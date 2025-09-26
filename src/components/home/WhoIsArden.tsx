@@ -29,6 +29,8 @@ const WhoIsContent = memo(({ locale }: { locale: string }) => {
   );
 });
 
+WhoIsContent.displayName = "WhoIsContent";
+
 const DraggableWindow = dynamic(() => import("./DraggableWindow"), {
   ssr: false,
 });
