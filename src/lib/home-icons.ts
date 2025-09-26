@@ -1,5 +1,5 @@
 // icons.ts
-import { Twitter, Github, LinkedinIcon } from "lucide-react";
+import { Github, LinkedinIcon, Twitter } from "lucide-react";
 
 export const homeIcons = [
   {
@@ -14,7 +14,7 @@ export const homeIcons = [
     design: "bottom-[1vh] right-[0px]",
     filename: "GitHub",
     size: "w-6 h-7",
-    tolink: "https://github.com/ardensgarden",
+    tolink: "https://github.com/ardenspace",
   },
   {
     ICON: LinkedinIcon,
