@@ -1,0 +1,74 @@
+---
+title: Gitea Actions + Nginx + Docker = CI/CD
+description: 사내 환경(Gitea Actions, Nginx) + Docker로 CICD 환경 구축하기
+thumbnail: /thumbnails/together.png
+date: "Sep 27, 2025"
+---
+
+## CI/CD with Gitea Actions: Automated Web Deployment Using Nginx and Docker
+
+If you Google CI/CD, it says it stands for Continuous Integration and Continuous Delivery/Deployment. Put simply, it means automatically integrating and deploying code that gets updated on a regular basis.
+
+<br />
+As the number of websites we manage at work kept growing, I really started to feel
+the need for deployment automation. Back in late spring this year, I told the team
+I wanted to give CI/CD a try. Their response was basically, “Sure, but only when
+things aren’t too busy.”
+
+The problem is… things are never not busy. There’s always something going on at the company, and after work I’m tied up with side projects. So I never even got the chance to try.
+
+But recently, with a new frontend team lead joining us, I finally got the opportunity to dive into CI/CD.
+
+<div className="bar" />
+
+- The old way ❓
+
+Previously, I’d work locally, then our lead would review the changes, build them, and manually drop the static files onto the server. Honestly, I really wanted to get away from this setup, but since it meant touching the server, I kept putting it off.
+
+As a stopgap, I switched things over to a setup where the server was connected to Git, and we’d just build directly on the server.
+
+A few days after hooking up Git, though, my team lead came by and said he’d set up a deployment environment — and suggested we integrate CI/CD into one of the sites I’m currently managing.
+
+<div className="bar" />
+
+- The new deployment flow ❓
+
+<ol>
+  <li>1. Gitea</li>
+  <li>2. Docker</li>
+  <li>3. Nginx</li>
+</ol>
+<br />
+Inside the company, we use **Gitea**. And since Gitea also comes with a CI/CD
+feature called **Gitea Actions**, we decided to take advantage of it.
+
+To make sure the pages built in Gitea run the same way in any environment, we went with Docker. Finally, the Docker container gets hooked up to our in-house web server, Nginx, so that external users can access it.
+
+<div className="bar" />
+
+## Understanding the Role of Gitea Actions
+
+First, let’s take a look at what exactly Gitea Actions does.
+
+<MDXImage
+  src="/posts/cicd/chart.png"
+  alt="what gitea actions do"
+  style={{ width: "50%" }}
+/>
+(The diagram was made using the Mermaid Live Editor.)
+
+In short, Gitea Actions goes through the steps of:
+[docker install > npm package install > build a new docker compose > deploy to the server].
+
+Since this process basically makes up the entire CI/CD flow, having a clear picture beforehand helps a lot when writing code — you’re less likely to get lost. I didn’t know that at first and just dove in headfirst… which meant I ended up fumbling around quite a bit. 😅
+
+<br />
+
+## Running Docker Locally
+
+For some reason, I was in such a rush that I didn’t even bother testing things locally — I just went straight to pushing Docker files into Gitea. All because I was eager to mess around with the Nginx config... lol. Obviously, that only led to me stumbling around.
+
+Seeing this, my team lead told me to try it locally first, and once it works, then push it up. So that’s what I did. Slow and steady. Slow and steady!
+
+<br />
+<br />
