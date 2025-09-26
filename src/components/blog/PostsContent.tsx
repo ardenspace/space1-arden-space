@@ -31,7 +31,9 @@ const PostsContent: React.FC<PostContentProps> = memo(({ posts = [] }) => {
                 </div>
               </div>
               <div className="flex flex-col pt-2 pb-4 px-1 bg-[#e8e8e8] border-1 border-[var(--bgSecond)] rounded-xs">
-                <div className="flex justify-center h-[200px] border-t border-l border-3 border-[var(--bgWhite)] shadow-[-2px_-2px_1px_var(--bgSecond)]">
+                <div
+                  className={`flex justify-center h-[230px] sm:h-[200px] border-t border-l border-3 border-[var(--bgWhite)] shadow-[-2px_-2px_1px_var(--bgSecond)]`}
+                >
                   <Image
                     width={270}
                     height={150}
