@@ -1,8 +1,33 @@
 import { useZIndex } from "@/contexts/ZIndexContext";
+import { useBreakpoint } from "@/hooks/use-breakpoint";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { memo, useCallback, useMemo } from "react";
+
+const WhoIsContent = memo(({ locale }: { locale: string }) => {
+  return (
+    <>
+      <div className="h-[10%] bg-[var(--ttBlack)] text-[var(--portTt)] flex items-center px-2 border-b-2 border-[#fff] font-bold text-xs">
+        WHO IS ARDEN?
+      </div>
+
+      <div className="checkerboard">
+        <div className="w-[90%] h-[90%] bg-white relative overflow-hidden rotate-[4deg] cursor-pointer">
+          <Link href={`/${locale}/arden`}>
+            <Image
+              src="/home/profile2.jpeg"
+              alt="for-home-portfolio"
+              fill
+              className="object-cover"
+              priority
+            />
+          </Link>
+        </div>
+      </div>
+    </>
+  );
+});
 
 const DraggableWindow = dynamic(() => import("./DraggableWindow"), {
   ssr: false,
@@ -14,6 +39,7 @@ const windowStyle = {
 };
 
 function WhoIsArden({ locale }: { locale: string }) {
+  const { isDesktop } = useBreakpoint();
   const { currentPosition, setCurrentPosition } = useZIndex();
 
   // initialY 계산을 메모이제이션
@@ -40,31 +66,28 @@ function WhoIsArden({ locale }: { locale: string }) {
 
   return (
     <div onClick={handleClick}>
-      <DraggableWindow
-        initialPosition={{ x: 100, y: initialY }}
-        headerHeight="h-[10%]"
-        className={windowClassName}
-        style={windowStyle}
-        onDragStart={handleDragStart}
-      >
-        <div className="h-[10%] bg-[var(--ttBlack)] text-[var(--portTt)] flex items-center px-2 border-b-2 border-[#fff] font-bold text-xs">
-          WHO IS ARDEN?
+      {isDesktop ? (
+        <DraggableWindow
+          initialPosition={{ x: 100, y: initialY }}
+          headerHeight="h-[10%]"
+          className={windowClassName}
+          style={windowStyle}
+          onDragStart={handleDragStart}
+        >
+          <WhoIsContent locale={locale} />
+        </DraggableWindow>
+      ) : (
+        <div
+          className={`absolute ${windowClassName}`}
+          style={{
+            left: 100,
+            top: initialY,
+            ...windowStyle,
+          }}
+        >
+          <WhoIsContent locale={locale} />
         </div>
-
-        <div className="checkerboard">
-          <div className="w-[90%] h-[90%] bg-white relative overflow-hidden rotate-[4deg] cursor-pointer">
-            <Link href={`/${locale}/arden`}>
-              <Image
-                src="/home/profile2.jpeg"
-                alt="for-home-portfolio"
-                fill
-                className="object-cover"
-                priority
-              />
-            </Link>
-          </div>
-        </div>
-      </DraggableWindow>
+      )}
     </div>
   );
 }
