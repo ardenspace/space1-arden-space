@@ -313,7 +313,7 @@ context: .
 dockerfile: Dockerfile.dev
 container_name: 'myprojectname'-dev
 ports: - "3001:80"
-// 👆👆 Server Nginx sends requests to port 3001 > forwarded to port 80 in the Docker container > handled by Nginx inside the container
+// 👆👆 External requests → Server Nginx (port 80) → Docker container (port 3001) → Container's Nginx (port 80)
 environment: - NODE_ENV=development
 restart: unless-stopped
 networks: - 'myprojectname'-dev-network # Reflect source code changes in real time using volume mounts
