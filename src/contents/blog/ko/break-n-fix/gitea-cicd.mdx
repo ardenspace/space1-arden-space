@@ -443,7 +443,7 @@ Docker 컨테이너 내부의 nginx (Dockerfile.dev) - 포트 80에서 수신
 
 server {
 listen 80;
-server_name '배포할 사이트 URL'
+server_name '배포할 사이트 URL';
 
     # Let's Encrypt verification path
     location ^~ /.well-known/acme-challenge/ {

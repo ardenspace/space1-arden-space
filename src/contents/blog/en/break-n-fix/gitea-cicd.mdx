@@ -1,6 +1,6 @@
 ---
 title: Gitea Actions + Nginx + Docker = CI/CD
-description: 사내 환경(Gitea Actions, Nginx) + Docker로 CICD 환경 구축하기
+description: Building a CI/CD Pipeline with Gitea Actions, Nginx, and Docker
 thumbnail: /thumbnails/together.png
 date: "Sep 27, 2025"
 ---
@@ -14,8 +14,10 @@ As the number of websites we manage at work kept growing, I really started to fe
 the need for deployment automation. Back in late spring this year, I told the team
 I wanted to give CI/CD a try. Their response was basically, “Sure, but only when
 things aren’t too busy.”
-
-The problem is… things are never not busy. There’s always something going on at the company, and after work I’m tied up with side projects. So I never even got the chance to try.
+<br />
+The problem is… things are never not busy. There’s always something going on at the
+company, and after work I’m tied up with side projects. So I never even got the chance
+to try.
 
 But recently, with a new frontend team lead joining us, I finally got the opportunity to dive into CI/CD.
 
@@ -25,9 +27,12 @@ But recently, with a new frontend team lead joining us, I finally got the opport
 
 Previously, I’d work locally, then our lead would review the changes, build them, and manually drop the static files onto the server. Honestly, I really wanted to get away from this setup, but since it meant touching the server, I kept putting it off.
 
-As a stopgap, I switched things over to a setup where the server was connected to Git, and we’d just build directly on the server.
-
-A few days after hooking up Git, though, my team lead came by and said he’d set up a deployment environment — and suggested we integrate CI/CD into one of the sites I’m currently managing.
+<br />
+As a stopgap, I switched things over to a setup where the server was connected to
+Git, and we’d just build directly on the server.
+<br />A few days after hooking up Git, though, my team lead came by and said
+he’d set up a deployment environment — and suggested we integrate CI/CD into one
+of the sites I’m currently managing.
 
 <div className="bar" />
 
@@ -41,8 +46,10 @@ A few days after hooking up Git, though, my team lead came by and said he’d se
 <br />
 Inside the company, we use **Gitea**. And since Gitea also comes with a CI/CD
 feature called **Gitea Actions**, we decided to take advantage of it.
-
-To make sure the pages built in Gitea run the same way in any environment, we went with Docker. Finally, the Docker container gets hooked up to our in-house web server, Nginx, so that external users can access it.
+<br />
+To make sure the pages built in Gitea run the same way in any environment, we
+went with Docker. Finally, the Docker container gets hooked up to our in-house
+web server, Nginx, so that external users can access it.
 
 <div className="bar" />
 
@@ -60,7 +67,11 @@ First, let’s take a look at what exactly Gitea Actions does.
 In short, Gitea Actions goes through the steps of:
 [docker install > npm package install > build a new docker compose > deploy to the server].
 
-Since this process basically makes up the entire CI/CD flow, having a clear picture beforehand helps a lot when writing code — you’re less likely to get lost. I didn’t know that at first and just dove in headfirst… which meant I ended up fumbling around quite a bit. 😅
+<br />
+Since this process basically makes up the entire CI/CD flow, having a clear picture
+beforehand helps a lot when writing code — you’re less likely to get lost. I didn’t
+know that at first and just dove in headfirst… which meant I ended up fumbling around
+quite a bit. 😅
 
 <br />
 
@@ -68,7 +79,451 @@ Since this process basically makes up the entire CI/CD flow, having a clear pict
 
 For some reason, I was in such a rush that I didn’t even bother testing things locally — I just went straight to pushing Docker files into Gitea. All because I was eager to mess around with the Nginx config... lol. Obviously, that only led to me stumbling around.
 
-Seeing this, my team lead told me to try it locally first, and once it works, then push it up. So that’s what I did. Slow and steady. Slow and steady!
+<br />
+Seeing this, my team lead told me to try it locally first, and once it works, then
+push it up. So that’s what I did. Slow and steady. Slow and steady!
 
 <br />
 <br />
+a. Create the Docker-related files.
+
+<CodeBlock>
+```
+
+// Dockerfile.dev
+
+// Dockerfile for development - npm dev server
+FROM node:18-alpine
+
+// Set working directory
+WORKDIR /app
+
+// Copy package.json and package-lock.json
+COPY package\*.json ./
+
+// Install dependencies (resolve React version conflicts)
+RUN npm ci --legacy-peer-deps
+
+// Copy source code
+COPY . .
+
+// Expose development server port (default for Next.js)
+EXPOSE 3000
+
+// Run the dev server
+CMD ["npm", "run", "dev"]
+
+```
+</CodeBlock>
+
+<CodeBlock>
+```
+
+// docker-compose.local.yml
+
+services:
+'myprojectname'-local:
+build:
+context: .
+dockerfile: Dockerfile.dev
+container_name: 'myprojectname'-local
+ports: - "3002:3001"
+environment: - NODE_ENV=development
+restart: unless-stopped
+networks: - 'myprojectname'-dev-network // Reflect source code changes in real time using volume mounts
+
+volumes: - .:/app - /app/node_modules
+extra_hosts: - "host.docker.internal:host-gateway"
+
+networks:
+'myprojectname'-dev-network:
+driver: bridge
+
+```
+</CodeBlock>
+
+<br />
+b. Create the **Gitea workflow** file.
+<CodeBlock>
+```
+
+// .gitea/workflows/dev-build-deploy.yml
+
+name: Dev Build & Deploy (Development Server)
+on:
+push:
+branches: [dev]
+pull_request:
+branches: [dev]
+types: [closed]
+
+concurrency:
+group: dev-deploy
+cancel-in-progress: true
+
+env:
+DEV_URL: 'URL of the site to be deployed'
+
+jobs:
+deploy:
+name: Deploy to Development Server
+runs-on: act-runner-1 // 👈👈 Default runner added by Gitea Actions / more on this later
+
+    # Provide Node.js environment
+    container:
+      image: node:20-bookworm
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Docker
+        run: |
+          echo "Setting up Docker..."
+          # Install Docker CLI
+          apt-get update --allow-insecure-repositories || true
+          apt-get install -y debian-archive-keyring
+          apt-get update
+          apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+          curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+          apt-get update
+          apt-get install -y docker-ce-cli docker-compose-plugin
+
+          # Verify Docker daemon connection
+          docker --version
+          docker compose version
+
+      - name: Build and Deploy
+        run: |
+          echo "--- Starting Development Server Deployment ---"
+
+          # 1. Check current directory
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+
+          # 2. Check Node.js and npm versions
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+
+          # 3. Install dependencies
+          echo "Installing dependencies..."
+          npm install --legacy-peer-deps
+
+          # 4. Build the project
+          echo "Building project..."
+          npm run build
+
+          # 5. Clean up existing containers
+          echo "Cleaning up existing containers..."
+          docker compose -f docker-compose.local.yml down --remove-orphans || true
+          docker rm -f 'myprojectname'-dev || true
+
+          # 6. Build and deploy with Docker Compose
+          echo "Building and deploying with Docker Compose..."
+          docker compose -f docker-compose.local.yml build --no-cache
+          docker compose -f docker-compose.local.yml up -d
+
+          # 7. Check container status
+          echo "Container status:"
+          docker compose -f docker-compose.local.yml ps
+
+          # 8. Confirm deployment
+          echo "Deployment completed successfully!"
+          echo "Application should be available at: $DEV_URL"
+
+          echo "--- Development Server Deployment Finished ---"
+
+```
+</CodeBlock>
+
+<br />
+c. Run the Docker container.
+
+<CodeBlock>docker compose -f docker-compose.local.yml up --build -d</CodeBlock>
+
+<br />
+d. Check that the page loads properly on the port you set, then build it.
+<CodeBlock>
+```
+
+http://localhost:3002/
+👇
+npm run build
+cd out
+python -m http.server 8080 // spin up a quick server with Pytho
+http://localhost:8080/ // check the static files
+
+```
+</CodeBlock>
+<br />
+If everything looks good? Head over to **Gitea Actions** and set it up.
+<br />
+
+## Setting up Gitea Actions
+
+a. Go to Settings > Repository > Enable repository actions
+
+<MDXImage
+  src="/posts/cicd/giteasettings.png"
+  alt="how to active gitea actions"
+  style={{ width: "60%" }}
+/>
+(Once enabled, an Actions tab will appear, along with default Runners Management.)
+<MDXImage
+  src="/posts/cicd/giteaaccess.png"
+  alt="runner generated upon enabling Gitea Actions"
+  style={{ width: "100%" }}
+/>
+<br />
+## Creating a Dockerfile for Nginx
+
+<CodeBlock>
+```
+
+// Dockerfile.dev
+
+// Dockerfile for development
+FROM nginx:alpine
+
+// Copy static files into Nginx’s default directory
+COPY out/ /usr/share/nginx/html/
+
+// Expose port 80
+EXPOSE 80
+
+// Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
+
+```
+</CodeBlock>
+
+<CodeBlock>
+```
+
+// docker-compose.dev.yml
+
+version: "3.8"
+
+services:
+'myprojectname'-dev:
+build:
+context: .
+dockerfile: Dockerfile.dev
+container_name: 'myprojectname'-dev
+ports: - "3001:80"
+// 👆👆 Server Nginx sends requests to port 3001 > forwarded to port 80 in the Docker container > handled by Nginx inside the container
+environment: - NODE_ENV=development
+restart: unless-stopped
+networks: - 'myprojectname'-dev-network # Reflect source code changes in real time using volume mounts
+volumes: - .:/app - /app/node_modules
+extra_hosts: - "host.docker.internal:host-gateway"
+
+networks:
+'myprojectname'-dev-network:
+driver: bridge
+
+```
+</CodeBlock>
+
+<CodeBlock>
+```
+
+// .gitea/workflows/dev-build-deploy.yml
+
+name: Dev Build & Deploy (Development Server)
+on:
+push:
+branches: [dev]
+pull_request:
+branches: [dev]
+types: [closed]
+
+concurrency:
+group: dev-deploy
+cancel-in-progress: true
+
+env:
+DEV_URL: 'URL of the site to be deployed'
+
+jobs:
+deploy:
+name: Deploy to Development Server
+runs-on: act-runner-1
+
+    # Provide Node.js environment
+    container:
+      image: node:20-bookworm
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Docker
+        run: |
+          echo "Setting up Docker..."
+          # Install Docker CLI
+          apt-get update --allow-insecure-repositories || true
+          apt-get install -y debian-archive-keyring
+          apt-get update
+          apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+          curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+          apt-get update
+          apt-get install -y docker-ce-cli docker-compose-plugin
+
+          # Verify Docker daemon connection
+          docker --version
+          docker compose version
+
+      - name: Build and Deploy
+        run: |
+          echo "--- Starting Development Server Deployment ---"
+
+          # 1. Check current directory
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+
+          # 2. Check Node.js and npm versions
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+
+          # 3. Install dependencies
+          echo "Installing dependencies..."
+          npm install --legacy-peer-deps
+
+          # 4. Build the project
+          echo "Building project..."
+          npm run build
+
+          # 5. Clean up existing containers
+          echo "Cleaning up existing containers..."
+          docker compose -f docker-compose.dev.yml down --remove-orphans || true
+          # 👈👈 Same process as local, just switch to the dev yml file
+          docker rm -f 'myprojectname'-dev || true
+
+          # 6. Build and deploy with Docker Compose
+          echo "Building and deploying with Docker Compose..."
+          docker compose -f docker-compose.dev.yml build --no-cache  # 👈👈
+          docker compose -f docker-compose.dev.yml up -d  # 👈👈
+
+          # 7. Check container status
+          echo "Container status:"
+          docker compose -f docker-compose.dev.yml ps  # 👈👈
+
+          # 8. Confirm deployment
+          echo "Deployment completed successfully!"
+          echo "Application should be available at: $DEV_URL"
+
+          echo "--- Development Server Deployment Finished ---"
+
+```
+</CodeBlock>
+
+<br />
+## Push or PR to the Configured Branch
+
+If it succeeds . . . 😭😭😭😭😭!!!
+
+<MDXImage
+  src="/posts/cicd/success.png"
+  alt="what gitea actions do"
+  style={{ width: "50%" }}
+/>
+
+Until I finally witnessed this glorious sea of green lights, I had to endure countless red ones . . . 😭😭😭😭😭
+
+<br />
+## Editing the nginx conf File
+
+In nginx, a .conf file defines how nginx operates. In other words, it tells nginx how to handle incoming requests. Before diving into the details, let’s first outline the flow between nginx and Docker:
+
+<CodeBlock>
+```
+
+External Request (deployment-site.com)
+🔽
+Server-side nginx (.conf inside the nginx server) — listens on port 80
+🔽
+proxy_pass http://127.0.0.1:3001 (forwarded to the Docker container)
+🔽
+nginx inside the Docker container (Dockerfile.dev) — listens on port 80
+🔽
+Serves static files (/usr/share/nginx/html/)
+
+```
+</CodeBlock>
+
+Previously, nginx served the static files directly. Now, it acts as a bridge connecting to the Docker container. Since nginx is responsible for forwarding external requests to the container, you need to update the proxy_pass configuration.
+
+<CodeBlock>
+```
+
+// On the server (~.conf)
+
+server {
+listen 80;
+server_name 'your-deployment-site-url';
+
+    # Let's Encrypt verification path
+    location ^~ /.well-known/acme-challenge/ {
+        root /usr/local/nginx/html;
+        try_files $uri $uri/ =404;
+    }
+
+    # Main location block - proxy all requests to Next.js
+    location / {
+        proxy_pass http://127.0.0.1:3001; // 👈👈
+        proxy_http_version 1.1;
+
+        # WebSocket
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_cache_bypass $http_upgrade;
+
+        # Security headers
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    }
+
+}
+
+```
+</CodeBlock>
+
+Testing and restarting nginx:
+<CodeBlock>
+```
+
+sudo nginx -t
+sudo systemctl restart nginx
+
+```
+</CodeBlock>
+
+<br />
+🥳
+Success!
+🥳🥳
+<br />
+
+I went through this whole process over the course of two days. Since I finally got it working, my team lead even suggested I give a small presentation, so I shared my trial-and-error experience in front of the team!
+<br />
+It was really, really fun. Not only was I happy to work on something I’d been eager to try, but I also enjoyed tinkering freely with the server — something I usually don’t get to touch. Sharing the process with my teammates at the end felt really rewarding and joyful.
+<br />
+I ran into many errors along the way, and I’ll cover the solutions in detail later. I also plan to write about integrating CI/CD for our mobile app.
+<br />
+<br />
+To anyone reading this: thank you! I sincerely hope this was helpful. ☺️☺️
+
+```
