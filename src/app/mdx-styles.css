@@ -117,11 +117,17 @@ pre code {
     margin: 1rem 0;
     padding: 0 1rem;
   }
-  .project-title {
+  .project-title-box {
     font-size: 1rem;
-    font-weight: bold;
     color: var(--ttBlack);
     margin-top: 1.5rem;
+
+    .project-title {
+      font-weight: bold;
+    }
+    .project-sub-title {
+      font-weight: 500;
+    }
   }
 
   .dot-list {

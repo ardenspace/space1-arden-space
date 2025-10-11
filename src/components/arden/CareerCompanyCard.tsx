@@ -1,5 +1,3 @@
-import React from "react";
-
 type Project = {
   title: string;
   tech: string;
@@ -28,7 +26,12 @@ export default function CareerCompanyCard({
 
       {projects?.map((project, index) => (
         <div key={index} className="project">
-          <div className="project-title">{project.title}</div>
+          <div className="project-title-box">
+            <span className="project-title">{project.title.split(":")[0]}</span>
+            <span className="project-sub-title">
+              : {project.title.split(":")[1]}
+            </span>
+          </div>
           <div className="desc">{project.tech}</div>
           <ul className="dot-list">
             {project.descriptions.map((desc, i) => (
