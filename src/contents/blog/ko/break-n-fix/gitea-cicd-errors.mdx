@@ -1,0 +1,131 @@
+---
+title: Gitea Actions, Nginx, Docker로 CICD 연동 중 에러 기록
+description: Gitea Actions, Nginx, Docker로 CICD 환경 구축하던 중에 만난 에러들 정리
+thumbnail: /thumbnails/error.gif
+date: "Oct 20, 2025"
+---
+
+전 글 끄트머리에 말했듯 CICD 연동 중 해결한 에러들을 정리해보고자 한다.
+
+<div className="bar" />
+
+## 🧭 "/" 경로 외 모든 경로가 404 error 일 때
+
+하나는 react로, 하나는 next.js로 개발된 페이지 두 개를 작업하였는데 리액트로 개발된 페이지에서 경로 오류가 났다. 경로를 바꾸면 무조건 nginx 404 error가 났다.
+
+해결 방법은 의외로 간단하다.
+
+- 해결 방법
+
+nginx conf 파일의 location 블록에서 fallback 처리를 해주면 된다.
+
+<CodeBlock>
+```
+location / {
+    ...
+    # SPA fallback
+    proxy_intercept_errors on;
+    error_page 404 = /index.html;
+    # 서버가 요청된 경로가 없다고 판단할 때 index.html을 주도록 설정
+}
+```
+</CodeBlock>
+
+next.js로 만든 페이지는 이런 fallback 설정을 해주지 않아도 된다. 왜 이러한 차이가
+날까?
+
+<br />
+
+리액트의 경우 SPA(Single Page Application)이므로 라우팅을 클라이언트가 처리한다. 필요한 정적 리소스 전부를 한번에 처리하므로 다른 페이지 요청이 올 때 갱신에 필요한 데이터만 받아서 전달하는 게 특징이다. 때문에 다른 URL 요청이 들어오면 서버는 그런 경로는 없다고 판단한다. 그래서 nginx 404 에러가 나는 것이다. fallback 처리가 따로 필요하다.
+
+<br />
+그럼 next.js는? 서버가 라우팅을 처리하는 SSR(Server Side Rendering) 기반의 프레임워크이므로
+요청된 경로는 서버가 직접 렌더링한다. 따라서 별도의 fallback 처리가 필요 없다. 만약
+404 error가 발생한다면? 실제로 존재하지 않는 페이지를 요청했을 가능성이 크다.{" "}
+
+<br />
+<div className="bar" />
+
+## 🍚 GPG error: http://deb.debian.org/debian bullseye InRelease: At least one invalid signature was encountered.
+
+이 에러는 gitea actions 에서 docker를 설치하는 과정에서 난 에러다. 분명 방금 전까지 잘 됐는데 갑자기 위와 같은 에러가 나면서 도커 빌드에 실패했다. GPT 말로는 debian 인증 문제라고 하는데 영 쌩뚱맞은 소리 같아 구글링 해보니 역시나 같은 문제를 겪은 사람이 있었다.
+
+<br />
+<MDXImage
+  src="/posts/cicd-error/solved_issue.png"
+  alt="how to solve debian error"
+  style={{ width: "100%" }}
+/>
+(https://github.com/docker/genai-stack/issues/92)
+
+<br />
+도커 시스템의 용량 문제?
+
+- 해결 방법
+
+<CodeBlock>
+```
+
+// 디스크 사용량 확인
+df -h
+
+// /var/lib/docker가 속한 파티션 디스크 사용량 확인
+sudo df -h /var/lib/docker
+
+```
+</CodeBlock>
+
+😅😅 . . . 디스크 용량이 무려 . . . 100% . . . 채워져 있었습니다! 😅😅
+
+<CodeBlock>
+```
+
+// 중지된 컨테이너 제거
+docker container prune -f
+// 사용하지 않는 이미지 제거
+docker image prune -af
+// 사용하지 않는 볼륨 제거
+docker volume prune -f
+// 사용하지 않는 네트워크 제거
+docker network prune -f
+
+```
+</CodeBlock>
+
+해결 완료 😄😄😄
+
+
+<div className="bar" />
+
+## 🔓 node:20-alpine: failed to resolve source metadata for docker.io/library/node:20-alpine:...
+
+<CodeBlock>
+```
+
+// 에러 전문
+failed to solve: node:20-alpine: failed to resolve source metadata for docker.io/library/node:20-alpine: unexpected status from HEAD request to https://registry-1.docker.io/v2/library/node/manifests/20-alpine: 401 Unauthorized
+
+```
+</CodeBlock>
+
+이 에러도 꽤 자주 나는 것 같다. 구글링을 해보니 docker forum에 올라온 에러다.
+(https://forums.docker.com/t/help-on-error-internal-load-metadata-for-docker-io-library-node-18-alpine/144360)
+
+
+- 해결 방법
+
+<CodeBlock>
+```
+
+docker logout
+docker login
+
+```
+</CodeBlock>
+
+<div className="bar" />
+
+<br />
+<br />
+CICD 환경을 한번 구축해두니 여간 편한 게 아니다. 다음에는 모바일 앱에 CICD를 연결해볼 것이다. 또 많은 것을 배우고 그 과정을 여기에 적을 수 있길!
+```
