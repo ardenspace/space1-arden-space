@@ -1,0 +1,130 @@
+---
+title: Error log from integrating CI/CD with Gitea Actions, Nginx, and Docker
+description: A summary of errors encountered while setting up CICD with Gitea Actions, Nginx, and Docker
+thumbnail: /thumbnails/error.gif
+date: "Oct 30, 2025"
+---
+
+As I mentioned at the end of my last post, here’s a quick recap of the errors I ran into while setting up CI/CD.
+
+<div className="bar" />
+
+## 🧭 When every path except "/" returns a 404 error
+
+I worked on two pages—one built with React and the other with Next.js. The React app had a routing issue: changing the path always resulted in an Nginx 404 error.
+
+The fix was simpler than expected.
+
+- Solution
+
+Add a SPA fallback in the `location` block of your Nginx config.
+
+<CodeBlock>
+```
+location / {
+    ...
+    # SPA fallback
+    proxy_intercept_errors on;
+    error_page 404 = /index.html;
+    # Serve index.html when the server thinks the path doesn't exist
+}
+```
+</CodeBlock>
+
+You don’t need this fallback for a Next.js app. Why is that?
+
+<br />
+
+React apps are SPAs (Single Page Applications), so routing is handled on the client. All static assets are served up front, and subsequent page requests only fetch the data needed for updates. Because of this, when a different URL is requested, the server assumes the path doesn’t exist—hence the Nginx 404. You need a fallback.
+
+<br />
+What about Next.js? It’s an SSR (Server Side Rendering) framework, where the server
+handles routing and renders the requested path. So no separate fallback is needed.
+If you do see a 404, you likely requested a page that truly doesn’t exist.
+
+<br />
+<div className="bar" />
+
+## 🍚 GPG error: http://deb.debian.org/debian bullseye InRelease: At least one invalid signature was encountered.
+
+This error occurred while installing Docker in Gitea Actions. Everything worked fine just moments before, then suddenly this error started causing Docker builds to fail. GPT suggested it was a Debian verification issue, which didn’t seem quite right—so I Googled it and found others with the same problem.
+
+<br />
+<MDXImage
+  src="/posts/cicd-error/solved_issue.png"
+  alt="How to solve Debian error"
+  style={{ width: "100%" }}
+/>
+(https://github.com/docker/genai-stack/issues/92)
+
+<br />
+Docker system disk space issue?
+
+- Solution
+
+<CodeBlock>
+```
+
+// Check disk usage
+df -h
+
+// Check disk usage of the partition containing /var/lib/docker
+sudo df -h /var/lib/docker
+
+```
+</CodeBlock>
+
+😅😅 … Disk usage was a whopping … 100% … full! 😅😅
+
+<CodeBlock>
+```
+
+// Remove stopped containers
+docker container prune -f
+// Remove unused images
+docker image prune -af
+// Remove unused volumes
+docker volume prune -f
+// Remove unused networks
+docker network prune -f
+
+```
+</CodeBlock>
+
+Issue resolved 😄😄😄
+
+
+<div className="bar" />
+
+## 🔓 node:20-alpine: failed to resolve source metadata for docker.io/library/node:20-alpine:...
+
+<CodeBlock>
+```
+
+// Full error
+failed to solve: node:20-alpine: failed to resolve source metadata for docker.io/library/node:20-alpine: unexpected status from HEAD request to https://registry-1.docker.io/v2/library/node/manifests/20-alpine: 401 Unauthorized
+
+```
+</CodeBlock>
+
+This one seems to happen fairly often too. A quick search shows it discussed on the Docker forum.
+(https://forums.docker.com/t/help-on-error-internal-load-metadata-for-docker-io-library-node-18-alpine/144360)
+
+
+- Solution
+
+<CodeBlock>
+```
+
+docker logout
+docker login
+
+```
+</CodeBlock>
+
+<div className="bar" />
+
+<br />
+<br />
+Once your CI/CD environment is up and running, life gets so much easier. Next up, I’ll be integrating CI/CD into a mobile app — can’t wait to learn more and share it here!
+```
