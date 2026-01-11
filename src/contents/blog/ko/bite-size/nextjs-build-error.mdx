@@ -1,0 +1,49 @@
+---
+title: Error - Vulnerable version of Next.js detected
+description: next.js 빌드 도중 마주친 에러
+thumbnail: /thumbnails/vulnerable.png
+date: "Jan 11, 2026"
+---
+
+## Error: Vulnerable version of Next.js detected
+
+블로그 글을 작성하고 평화롭게 next.js 빌드를 했는데 빨간 줄이 뜨며 강제 중단되었다. <br />
+<MDXImage
+  src="/posts/nextjs-error/nextjs-error.png"
+  alt="Error: Vulnerable version of Next.js detected"
+  style={{ width: "100%" }}
+/>
+무슨 일이죠? 😦😬
+<br />
+[Vercel KB - React2Shell Bulletin](https://vercel.com/kb/bulletin/react2shell)
+
+
+<MDXImage
+  src="/posts/nextjs-error/nextpage.png"
+  alt="vercel - nextjs beild error notice"
+  style={{ width: "100%" }}
+/>
+
+<br />
+요약하면 React2Shell 이라는 보안 취약점이 발견되어 
+
+- Next.js 15.0.0 ~ 16.0.6 사용 중
+- Next.js 14 canary (14.3.0-canary.76 이후) 사용 중
+- React Server Components를 사용하는 모든 프레임워크 사용 중
+
+<br />
+아래와 같은 사항을 가진 프로젝트는 모두 업그레이드하길 권고하는 내용이었다. <br />서비스 거부 혹은 소스 코드 유출이 될 수 있다고 하여 배포 자체를 막나 보다. 굿 ... 
+
+<br />
+
+### 해결
+<br />
+해결법은 굉장히 간단하다.
+
+<CodeBlock>
+pnpm update next@latest
+</CodeBlock>
+
+회사에서는 취약점 발견되자마자 바로 확인했던 사항이었는데 개인 프로젝트에는 소홀했다... 
+<br />반성합니다.
+<br />
