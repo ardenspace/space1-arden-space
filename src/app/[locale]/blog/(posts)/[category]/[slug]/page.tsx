@@ -8,6 +8,7 @@ import SlugDetailPage from "@/app/[locale]/blog/SlugDetailPage";
 import { Suspense } from "react";
 import MDXImage from "@/components/blog/mdx-components/MDXImage";
 import CodeBlock from "@/components/blog/mdx-components/CodeBlock";
+import StructuredData from "@/components/blog/StructuredData";
 
 type Props = {
   params: Promise<{
@@ -45,8 +46,19 @@ export default async function PostPage({ params }: Props) {
     const { content, data } = matter(raw);
     const frontmatter = data as Frontmatter;
 
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || "https://ardenspace.vercel.app";
+    const url = `${baseUrl}/${locale}/blog/${category}/${slug}`;
+
     return (
       <Suspense>
+        <StructuredData
+          type="article"
+          title={frontmatter.title}
+          description={frontmatter.description}
+          url={url}
+          datePublished={frontmatter.date}
+        />
         <SlugDetailPage frontmatter={frontmatter}>
           <MDXRemote source={content} components={components} />
         </SlugDetailPage>
@@ -102,9 +114,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { data } = matter(raw);
     const frontmatter = data as Frontmatter;
 
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || "https://ardenspace.vercel.app";
+    const url = `${baseUrl}/${locale}/blog/${category}/${slug}`;
+
     return {
       title: frontmatter.title,
       description: frontmatter.description,
+      authors: [{ name: "Arden" }],
+      openGraph: {
+        title: frontmatter.title,
+        description: frontmatter.description,
+        url: url,
+        siteName: "arden'space",
+        type: "article",
+        publishedTime: frontmatter.date,
+        locale: locale === "ko" ? "ko_KR" : "en_US",
+        images: [
+          {
+            url: "/home/attie.png",
+            width: 1200,
+            height: 630,
+            alt: frontmatter.title,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: frontmatter.title,
+        description: frontmatter.description,
+        images: ["/home/attie.png"],
+      },
+      alternates: {
+        canonical: url,
+      },
     };
   } catch (err) {
     console.error("generateMetadata 오류:", err);
