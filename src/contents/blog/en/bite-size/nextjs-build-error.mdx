@@ -1,0 +1,52 @@
+---
+title: Error - Vulnerable version of Next.js detected
+description: A build error I encountered while deploying Next.js
+thumbnail: /thumbnails/vulnerable.png
+date: "Jan 13, 2026"
+---
+
+## Error: Vulnerable version of Next.js detected
+
+I was just minding my own business, trying to build my Next.js project after writing a blog post, when a red error suddenly popped up and killed the build. <br />
+<MDXImage
+  src="/posts/nextjs-error/nextjs-error.png"
+  alt="Error: Vulnerable version of Next.js detected"
+  style={{ width: "100%" }}
+/>
+Wait, what happened? 😦😬
+<br />
+[📎Vercel KB - React2Shell Bulletin](https://vercel.com/kb/bulletin/react2shell)
+
+
+<MDXImage
+  src="/posts/nextjs-error/nextpage.png"
+  alt="vercel - nextjs build error notice"
+  style={{ width: "100%" }}
+/>
+
+<br />
+To sum it up, a security vulnerability called **React2Shell** was discovered.
+
+<CodeBlock>
+```
+- Using Next.js 15.0.0 ~ 16.0.6
+- Using Next.js 14 canary (v14.3.0-canary.76 or later)
+- Using any framework that utilizes React Server Components (RSC)
+```
+</CodeBlock>
+
+The bulletin strongly recommends upgrading if your project falls under any of the above. <br />It looks like Vercel is proactively blocking builds because this vulnerability could lead to Denial of Service (DoS) or even source code leaks. Honestly, a good move on their part.
+
+<br />
+
+### The Fix❓
+<br />
+The solution is actually very simple.
+
+<CodeBlock>
+pnpm update next@latest
+</CodeBlock>
+
+At work, we handled this immediately as soon as the vulnerability was announced, but I guess I was a bit negligent with my personal project...
+<br />Lesson learned.
+<br />
